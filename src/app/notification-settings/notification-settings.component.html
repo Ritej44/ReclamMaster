@@ -1,0 +1,156 @@
+<body>
+  
+    <div class="settings-container">
+      <aside class="sidebar">
+        <div class="logo-container">
+          <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+          <p class="section-title">Général</p>
+          <a routerLink="/dashboard" routerLinkActive="active">
+            <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
+          </a>
+          <a routerLink="/taches" routerLinkActive="active">
+            <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+          </a>
+          <a routerLink="/historique" routerLinkActive="active">
+            <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
+          </a>
+          <p class="section-title">Outils</p>
+          <a routerLink="/chat" routerLinkActive="active">
+            <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+          </a>
+          <a routerLink="/parametre" routerLinkActive="active">
+            <i class="fas fa-cog"></i> Paramètres
+          </a>
+        </nav>
+        <span></span>
+        <span></span>
+        <button class="logout" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Déconnexion
+        </button>
+      </aside>
+    
+      <section class="settings-page">
+        <div class="settings-menu">
+          <h1 class="page-title">Mes Paramètres</h1>
+          <ul>
+            <li>
+              <a routerLink="/profil" routerLinkActive="active">
+                <i class="fa fa-user" aria-hidden="true"></i> Votre Profil
+              </a>
+            </li>
+            <li>
+              <a routerLink="/generalsettings" routerLinkActive="active">
+                <i class="fa fa-cog" aria-hidden="true"></i> Général
+              </a>
+            </li>
+            <li class="active">
+              <a routerLink="/notification-settings" routerLinkActive="active">
+                <i class="fa fa-bell" aria-hidden="true"></i> Notifications
+              </a>
+            </li>
+            <li>
+              <a routerLink="/parametre" routerLinkActive="active">
+                <i class="fa fa-lock" aria-hidden="true"></i> Sécurité
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    
+      <main class="main-content">
+        <section class="notification-settings">
+          <h2>Paramètres de Notification</h2>
+          <p>Nous pourrions toujours vous envoyer des notifications importantes concernant votre compte en dehors de vos paramètres de notification.</p>
+      
+          <div class="notification-group">
+            <h3>Nouvelles Réclamations</h3>
+            <p>Recevez des notifications lorsque vous soumettez une nouvelle réclamation.</p>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.newClaims.push" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Notification Push</span>
+             </div>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.newClaims.email" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Email</span>
+            </div>
+          </div>
+      
+          <div class="notification-group">
+            <h3>Mises à Jour des Réclamations</h3>
+            <p>Recevez des notifications lorsque le statut de votre réclamation est mis à jour.</p>
+          
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.claimUpdates.push" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Notification Push</span>
+            </div>
+          
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.claimUpdates.email" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Email</span>
+            </div>
+          </div>
+          
+      
+          <div class="notification-group">
+            <h3>Réponses des Gestionnaires</h3>
+            <p>Recevez des notifications lorsque vous recevez une réponse d'un gestionnaire via le chat.</p>
+    
+            <div class="notification-option">
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="notificationSettings.managerReplies.push" />
+              <span class="slider round"></span>
+            </label>
+            <span class="label">Notification Push</span>
+            </div>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.managerReplies.email" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Email</span>
+            </div>
+          </div>
+      
+          <div class="notification-group">
+            <h3>Rappels de Réclamation</h3>
+            <p>Recevez des rappels pour les réclamations qui nécessitent votre attention.</p>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.claimReminders.push" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Notification Push</span>
+            </div>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.claimReminders.email" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Email</span>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+    </div>
+    </body>
+    

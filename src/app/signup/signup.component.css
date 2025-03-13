@@ -1,0 +1,116 @@
+:root {
+    --primary-color: #3055a0;
+    --secondary-color: #e2322a;
+    --bg-color: #cc4e8d;
+    --sidebar-bg: #8ab2d0;
+    --text-color: #3055a0;
+    --border-color: #bdc3c7;
+    --input-bg: #ffffff;
+    --warning-color: #e74c3c;
+    --card-bg: #ffffff;
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+.signup-container {
+    display: flex;
+    background-color: #fcfbfb;
+    height: 100vh;
+  }
+  
+  .welcome-section {
+    flex: 1;
+    background-color: #fcfbfb;
+    color:#3055a0;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .welcome-section img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .signup-section {
+    flex: 1;
+    margin-right: 4%;
+    border-radius: 3%;
+    background-color: #8ab2d0;
+    padding: 20px;
+  }
+  
+  .signup-section h2 {
+    margin-bottom: 20px;
+  }
+  
+  .signup-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  .name-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .name-fields {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+  }
+  
+  .name-fields-lastname {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+  }
+  
+  .name-fields label, .name-fields-lastname label {
+    margin-bottom: 5px;
+  }
+  
+  .name-fields input, .name-fields-lastname input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .signup-section label {
+    margin-bottom: 5px;
+  }
+  
+  .signup-section input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .checkbox-container {
+    margin-bottom: 15px;
+  }
+  .btn {
+    align-self: center;
+    width: 65%;
+    margin-left: 18%;
+  }
+  
+  .btn button {
+    padding: 10px;
+    width: 65%;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  .ou{
+    margin-left: 25%;
+  }
+  .signup {
+    background-color: #3055a0; 
+  }
+  
+  .social-login-google {
+    background-color: #cc4e8d; 
+    width: 100%;
+  }
+  

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<body>
+    <header class="header">
+        <h1>Tâches</h1>
+        <div class="actions">
+          <button (click)="exportAsCSV()">Exporter en CSV</button>
+          <button (click)="addTache()">Ajouter une Tâche</button>
+        </div>
+    </header>
+    <div class="settings-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+            </div>
+            <nav>
+                <p class="section-title">Général</p>
+                <a routerLink="/dashboard" routerLinkActive="active">
+                  <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
+                </a>
+                <a routerLink="/taches" routerLinkActive="active">
+                  <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+                </a>
+                <a routerLink="/historique" routerLinkActive="active">
+                  <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
+                </a>
+                <p class="section-title">Outils</p>
+                <a routerLink="/chat" routerLinkActive="active">
+                  <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+                </a>
+                <a routerLink="/parametre" routerLinkActive="active">
+                  <i class="fas fa-cog"></i> Paramètres
+                </a>
+            </nav>
+            <span></span>
+            <span></span>
+            <button class="logout" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </button>
+        </aside>
+
+        <div class="orders">
+            <div class="filters">
+                <input type="text" placeholder="Rechercher..." class="search-input" (input)="searchTaches($event)">
+                <input type="date" #dateFilter class="date-input" (change)="filterByDate(dateFilter.value)">
+                <button class="filter-button" (click)="filterByDate(dateFilter.value)">Filtrer</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Date d'Échéance</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tache of paginatedTaches">
+                        <td>{{ tache.title }}</td>
+                        <td>{{ tache.description }}</td>
+                        <td>{{ tache.dueDate }}</td>
+                        <td>{{ tache.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+                <button (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

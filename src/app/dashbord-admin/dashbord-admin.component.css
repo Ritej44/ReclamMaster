@@ -1,0 +1,247 @@
+:root {
+    --primary-color: #3055a0; 
+    --secondary-color: #e2322a; 
+    --bg-color: #cc4e8d; 
+    --sidebar-bg: #8ab2d0;
+    --text-color: #3055a0; 
+    --border-color: #bdc3c7; 
+    --input-bg: #ffffff; 
+    --warning-color: #e74c3c; 
+    --card-bg: #ffffff; 
+  }
+  body {
+    margin: -1%;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #bdc3c7;
+    color: var(--text-color);
+  }
+  
+  .dashboard {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: #fcfbfb;
+    padding: 2rem;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo {
+    max-width: 150px;
+  }
+  .section-title{ 
+    color: #e2322a;
+  }
+  
+  .profile {
+    text-align: center;
+    color: #464644;
+    
+    display: contents;
+    content: counter(name);
+  }
+  
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 0rem;
+  }
+  
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    color: #3055a0;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  nav a:hover, nav a.active {
+    background: #8ab2d0;
+  }
+  
+  .logout {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: #3055a0;
+    color: #ecf0f1;
+    text-decoration:solid;
+    border: none;
+    cursor: pointer;
+  }
+  .logout:hover{
+    color: #e2322a;
+  }
+  .content {
+    flex: 1;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    width: 300px; 
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  .search-button {
+    border: none;
+    padding: 18px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #ccc;
+  }
+  
+  .search-button:hover {
+    background-color: #25447e;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .theme-toggle, .notifications {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  
+  .theme-toggle i, .notifications i {
+    font-size: 20px;
+    color: #3055a0;
+  }
+  
+  .theme-toggle:hover, .notifications:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles pour le mode sombre */
+  .dark-mode {
+    background-color: #121212 !important;
+    color: #ecf0f1 !important;
+  }
+  
+  .dark-mode .sidebar {
+    background-color: #1e1e1e !important;
+  }
+  
+  .dark-mode .content {
+    background-color: #1f1f1f !important;
+  }
+  
+  .dark-mode .stat-card {
+    background-color: #2c2c2c !important;
+  }
+  
+  .dark-mode .chart {
+    background-color: #2c2c2c !important;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: background 0.4s;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px;
+    padding: left 7px;;
+    padding-right:  7px;
+    font-size: 20px;
+    color: white;
+    margin-top:-45%;
+  }
+  
+  .slider i {
+    transition: opacity 0.3s ease;
+  }
+  
+  input:checked + .slider {
+    background-color: #222;
+  }
+  
+  input:checked + .slider .fa-moon {
+    opacity: 0;
+  }
+  
+  input:not(:checked) + .slider .fa-sun {
+    opacity: 0;
+  }
+  
+  .theme-toggle:hover .fas.fa-sun {
+    color: #ffdd57;
+  }
+  
+  .theme-toggle:hover .fas.fa-moon {
+    color: #464644;
+  }
+  
+  

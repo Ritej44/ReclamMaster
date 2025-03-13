@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="dashboard">
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+    </div>
+
+      <nav>
+        <p class="section-title">General</p>
+        <a routerLink="/dashboard" routerLinkActive="active">
+          <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
+          
+        </a>
+        <a routerLink="/taches" routerLinkActive="active">
+          <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+        </a>
+        <a routerLink="/historique" routerLinkActive="active">
+        <i class="fa fa-history" aria-hidden="true"></i>Mes Reclamations
+      </a>
+      <p class="section-title">Outils</p>
+        <a routerLink="/chat" routerLinkActive="active">
+          <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+        </a>
+        <a routerLink="/parametre" routerLinkActive="active">
+          <i class="fas fa-cog"></i> Paramètres
+        </a>
+      </nav>
+      <span></span>
+      <span></span>
+      <button class="logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </button>
+    </aside>
+
+    <main class="content">
+      <header>
+        <h1>Bienvenue {{ userProfile.firstName }}!</h1>
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search...">
+          <button class="search-button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+      </div>
+      
+      <label class="switch">
+        <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkMode">
+        <span class="slider">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </span>
+      </label>
+
+            <button class="notifications">
+              <i class="fas fa-bell"></i>
+              <span class="badge" *ngIf="notifications.length">{{ notifications.length }}</span>
+            </button>
+
+            <div class="profile">
+              <h3>{{ userProfile.name }}</h3>
+              <img [src]="userProfile.avatar" alt="Profile" class="avatar">
+            </div>
+
+      </header>
+
+     
+
+      
+    </main>
+  </div>
+</body>
+</html>

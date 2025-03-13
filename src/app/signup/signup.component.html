@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <body >
+<div class="signup-container">
+    <div class="welcome-section">
+      <h1>Bienvenue chez TAS</h1>
+      <p>Inscrivez-vous maintenant pour un accès exclusif !</p>
+      <img src="assets/login2-removebg-preview.png" alt="Image de Bienvenue">
+    </div>
+    <div class="signup-section">
+      <h2>Inscription</h2>
+      <form>
+        <div class="name-container">
+            <div class="name-fields">
+              <label for="firstName">Prénom</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Youssef">
+            </div>
+            <div class="name-fields-lastname">
+              <label for="lastName">Nom</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Arafat">
+            </div>
+          </div>          
+  
+        <label for="email">Adresse Email</label>
+        <input type="email" id="email" name="email" placeholder="youssefarafat@gmail.com">
+  
+        <label for="password">Mot de Passe</label>
+        <input type="password" id="password" name="password" placeholder="********">
+  
+        <label for="confirmPassword">Confirmer le Mot de Passe</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="********">
+  
+        
+
+        <div class="btn">
+            <button type="submit" class="signup">S'inscrire</button>
+            <p class="ou">ou </p>
+            <button type="button" class="social-login-google">Continuer avec Google</button>
+          </div>
+          
+        <p>Déjà un compte ?             
+           <a routerLink="/login" routerLinkActive="active">Connectez-vous</a>
+        </p>
+      </form>
+    </div>
+  </div>
+   
+</body>
+</html>
