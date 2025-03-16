@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TacheService } from './tache.service';
+import { ReclamationService } from './Reclamation.service';
 
 describe('tacheService', () => {
-  let service: TacheService;
+  let service: ReclamationService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule], // Importez HttpClientTestingModule ici
-      providers: [TacheService]
+      providers: [ReclamationService]
     });
 
-    service = TestBed.inject(TacheService);
+    service = TestBed.inject(ReclamationService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 

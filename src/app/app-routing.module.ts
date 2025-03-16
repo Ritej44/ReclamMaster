@@ -10,6 +10,8 @@ import { SignupComponent } from './signup/signup.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { ChatComponent } from './chat/chat.component';
 import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.component';
+import { ClientComponent } from './client/client.component';
+import { IntervenantComponent } from './intervenant/intervenant.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path : 'generalsettings', component:GeneralsettingsComponent },
   {path: 'notification-settings',component: NotificationSettingsComponent},
   {path: 'dashbord-admin',component:DashbordAdminComponent},
+  {path:'client',component:ClientComponent},
+  {path:'intervenant',component:IntervenantComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

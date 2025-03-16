@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { TacheService, Tache } from '../tache.service';
 import { CrudApiService } from '../crud-api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReclamationService } from '../Reclamation.service';
 
 @Component({
   selector: 'app-taches',
@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TachesComponent implements OnInit {
 
-  constructor(private tacheService: TacheService, private crudApi :CrudApiService,
+  constructor(private reclamationService: ReclamationService, private crudApi :CrudApiService,
     private fb: FormBuilder, private authService: AuthService, private router: Router ,)
      {this.reclamationForm = this.fb.group({
       description: [''],
@@ -21,7 +21,7 @@ export class TachesComponent implements OnInit {
       file: ['']
     }); }
   reclamationForm: FormGroup;
-  reclamations: any[] = []; // Assurez-vous que cette propriété est initialisée
+  reclamations: any[] = [];
   isEditing = false;
   currentReclamationId: string = "null";
 

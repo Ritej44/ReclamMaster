@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.component';
+import { ClientComponent } from './client/client.component';
+import { IntervenantComponent } from './intervenant/intervenant.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.componen
     SignupComponent,
     HistoriqueComponent,
     ChatComponent,
-    DashbordAdminComponent
+    DashbordAdminComponent,
+    ClientComponent,
+    IntervenantComponent
   ],
   imports: [
     BrowserModule,

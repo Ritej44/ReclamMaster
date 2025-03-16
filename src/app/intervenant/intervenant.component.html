@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>Interface Intervenant</h2>
+  
+    <!-- Liste des réclamations affectées -->
+    <div *ngIf="reclamations.length > 0">
+      <h3>Réclamations affectées</h3>
+      <ul>
+        <li *ngFor="let reclamation of reclamations">
+          <p><strong>Description:</strong> {{ reclamation.description }}</p>
+          <p><strong>État:</strong> {{ reclamation.etat }}</p>
+          <button (click)="updateReclamation(reclamation)">Mettre à jour</button>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Formulaire de mise à jour de réclamation -->
+    <div *ngIf="selectedReclamation">
+      <h3>Mettre à jour la réclamation</h3>
+      <form (ngSubmit)="onSubmit()">
+        <label for="etat">État:</label>
+        <select id="etat" [(ngModel)]="selectedReclamation.etat" name="etat">
+          <option value="en cours">En cours</option>
+          <option value="résolue">Résolue</option>
+        </select>
+  
+        <label for="commentaire">Commentaire:</label>
+        <textarea id="commentaire" [(ngModel)]="selectedReclamation.remarque" name="commentaire"></textarea>
+  
+        <button type="submit">Soumettre</button>
+      </form>
+    </div>
+  </div>

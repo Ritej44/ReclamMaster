@@ -17,14 +17,12 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    
   ) {
     this.dataForm = this.fb.group({
-      nom: ['', [Validators.required, Validators.minLength(5)]],
+      nom: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required, Validators.minLength(3)]],
       pwd: ['', [Validators.required, Validators.minLength(8)]],
-      pwdd: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -34,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   infoForm() {
     this.dataForm = this.fb.group({
+      nom: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required, Validators.minLength(3)]],
       pwd: ['', [Validators.required, Validators.minLength(8)]],
@@ -41,50 +40,74 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    // Vérifier si le formulaire est valide
     if (this.dataForm.invalid) {
-      if (this.dataForm.get('email')?.errors?.['required']) {
-        this.toastr.warning('L\'email est requis.', 'Champ obligatoire');
-      }
-      if (this.dataForm.get('email')?.errors?.['email']) {
-        this.toastr.warning('L\'email est invalide.', 'Erreur de saisie');
-      }
-      if (this.dataForm.get('pwd')?.errors?.['required']) {
-        this.toastr.warning('Le mot de passe est requis.', 'Champ obligatoire');
-      }
-      if (this.dataForm.get('pwd')?.errors?.['minlength']) {
-        this.toastr.warning('Le mot de passe doit contenir au moins 8 caractères.', 'Erreur de saisie');
-      }
-      if (this.dataForm.get('role')?.errors?.['required']) {
-        this.toastr.warning('Le rôle est requis.', 'Champ obligatoire');
-      }
+      console.log('Erreurs de validation :', this.dataForm.errors); // Affichez les erreurs dans la console
+      this.showFormErrors(); // Affichez les erreurs à l'utilisateur
       return;
     }
-  
+
     const email = this.dataForm.value.email;
     const pwd = this.dataForm.value.pwd;
     const role = this.dataForm.value.role;
-  
-    // Vérifier la connexion via AuthService
-    if (this.authService.login(email, pwd, role)) {
-      switch (role.toLowerCase()) {
-        case 'client':
-          this.router.navigate(['/dashboard']);
-          break;
-        case 'admin':
-          this.router.navigate(['/dashbord-admin']);
-          break;
-        case 'intervenant':
-          this.router.navigate(['/intervenant']);
-          break;
-        default:
-          this.toastr.warning('Rôle non reconnu', 'Erreur de rôle');
-          break;
+
+    // Appel de la méthode login du AuthService
+    this.authService.login(email, pwd, role).subscribe(
+      (success: boolean) => {
+        if (success) {
+          this.toastr.success('Connexion réussie', 'Succès');
+          this.redirectBasedOnRole(role);
+        } else {
+          this.toastr.error('Adresse email ou mot de passe incorrect', 'Échec de la connexion');
+        }
+      },
+      (error) => {
+        this.toastr.error('Une erreur est survenue lors de la connexion', 'Erreur');
       }
-    } else {
-      this.toastr.error('Adresse email ou mot de passe incorrect', 'Échec de la connexion');
+    );
+  }
+
+  /**
+   * Affiche les erreurs de validation du formulaire.
+   */
+  showFormErrors(): void {
+    const controls = this.dataForm.controls;
+    for (const controlName in controls) {
+      if (controls[controlName].errors) {
+        const errors = controls[controlName].errors;
+        if (errors?.['required']) {
+          this.toastr.warning(`${controlName} est requis.`, 'Champ obligatoire');
+        }
+        if (errors?.['email']) {
+          this.toastr.warning('L\'email est invalide.', 'Erreur de saisie');
+        }
+        if (errors?.['minlength']) {
+          this.toastr.warning(`${controlName} doit contenir au moins ${errors['minlength'].requiredLength} caractères.`, 'Erreur de saisie');
+        }
+      }
     }
   }
+
+  /**
+   * Redirige l'utilisateur en fonction de son rôle.
+   * @param role Rôle de l'utilisateur (client, admin, intervenant)
+   */
+  redirectBasedOnRole(role: string): void {
+    switch (role.toLowerCase()) {
+      case 'client':
+        this.router.navigate(['/dashboard']);
+        break;
+      case 'admin':
+        this.router.navigate(['/dashbord-admin']);
+        break;
+      case 'intervenant':
+        this.router.navigate(['/intervenant']);
+        break;
+      default:
+        this.toastr.warning('Rôle non reconnu', 'Erreur de rôle');
+        break;
+    }
+  }
+
   loginWithGoogle(): void {
     console.log('Connexion avec Google');
   }
