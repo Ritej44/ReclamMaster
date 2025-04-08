@@ -57,22 +57,20 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  /* Style pour le sélecteur de rôle */
 .login-section select {
-  width: 100%; /* Largeur complète du conteneur */
-  padding: 10px; /* Espacement interne pour le confort de lecture */
-  margin: 10px 0; /* Espacement externe pour séparer des autres éléments */
-  border: 1px solid #ccc; /* Bordure légère */
-  border-radius: 4px; /* Coins arrondis */
-  font-size: 16px; /* Taille de police */
-  background-color: #f9f9f9; /* Couleur de fond légère */
-  color: #333; /* Couleur du texte */
-  appearance: none; /* Supprime l'apparence par défaut du navigateur */
-  -webkit-appearance: none; /* Pour les navigateurs WebKit */
-  -moz-appearance: none; /* Pour Firefox */
+  width: 100%; 
+  padding: 10px; 
+  margin: 10px 0; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 16px; 
+  background-color: #f9f9f9; 
+  color: #333; 
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
 }
 
-/* Style pour le bouton de défilement personnalisé */
 .login-section select::-ms-expand {
   display: none; 
 }

@@ -36,21 +36,13 @@
 
     <main class="content">
       <header>
-        <h1>Bienvenue {{ userProfile.firstName }}!</h1>
+        <h1 [(ngModel)]="name" [ngModelOptions]="{standalone: true}">Bienvenue </h1>
         <div class="search-container">
           <input type="text" class="search-input" placeholder="Search...">
           <button class="search-button">
               <i class="fa fa-search" aria-hidden="true"></i>
           </button>
       </div>
-      
-      <label class="switch">
-        <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkMode">
-        <span class="slider">
-          <i class="fas fa-moon"></i>
-          <i class="fas fa-sun"></i>
-        </span>
-      </label>
 
             <button class="notifications">
               <i class="fas fa-bell"></i>

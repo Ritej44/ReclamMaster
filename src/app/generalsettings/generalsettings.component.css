@@ -244,6 +244,31 @@
     cursor: pointer;
   }
   
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3055a0;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .custom-file-upload input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #cc4e8d;
+  }
+  
   .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

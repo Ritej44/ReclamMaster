@@ -3,36 +3,112 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  dataForm: FormGroup;
+export class LoginComponent {
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder,
-    private toastr: ToastrService,
-  ) {
-    this.dataForm = this.fb.group({
-      nom: [''],
-      email: ['', [Validators.required, Validators.email]],
-      role: ['', [Validators.required, Validators.minLength(3)]],
-      pwd: ['', [Validators.required, Validators.minLength(8)]],
+  ClientsArray : any[] = [];
+
+  name :string="";
+  role:string="";
+  currentClientID = "";
+  email: string ="";
+  password: string ="";
+  constructor(private router: Router,private http: HttpClient,private toastr:ToastrService) {}
+ 
+  Login() {
+    let bodyData = {
+      "name": this.name,
+      "email": this.email,
+      "password": this.password,
+      "role": this.role
+    };
+  
+    let url: string;
+    let successMessage: string;
+  
+    switch (this.role) {
+      case "client":
+        url = "http://localhost:8084/api/v1/Clients/login";
+        successMessage = "Client est connecté avec succès";
+        break;
+      case "admin":
+        url = "http://localhost:8084/api/v1/admins/login";
+        successMessage = "Admin est connecté avec succès";
+        break;
+      case "intervenant":
+        url = "http://localhost:8084/api/v1/intervenant/login";
+        successMessage = "Intervenant est connecté avec succès";
+        break;
+      default:
+        this.toastr.error('Rôle non reconnu');
+        return;
+    }
+  
+    this.http.post(url, bodyData, { responseType: 'text' }).subscribe({
+      next: (resultData: any) => {
+        console.log(resultData);
+        alert(successMessage);
+  
+        // Navigate after successful login
+        switch (this.role) {
+          case "client":
+            this.router.navigateByUrl('/dashboard');
+            break;
+          case "admin":
+            this.router.navigateByUrl('/dashbord-admin');
+            break;
+          case "intervenant":
+            this.router.navigateByUrl('/intervenant');
+            break;
+        }
+      },
+      error: (error) => {
+        console.error('Error ', error);
+        this.toastr.error('Erreur lors de la connexion de l\'utilisateur');
+      }
     });
   }
-
-  ngOnInit() {
-    this.infoForm();
+  
+      /*  this.http.post(url,bodyData ,{responseType:'Text'}).subscribe( {
+           (resultData: any) => {
+        console.log(resultData);
+        alert(successMessage);}
+ 
+        if (resultData.message == "Email not exists")
+        {
+      
+          alert("Email not exits");
+    
+ 
+        }
+        else if(resultData.message == "Login Succes")
+    
+         {
+          this.router.navigateByUrl('/dashboard');
+        }
+        else
+        {
+          alert("Incorrect Email and Password not match");
+        }
+      });
+    }*/
   }
+
+
+
+  
+
+   /*
 
   infoForm() {
     this.dataForm = this.fb.group({
-      nom: [''],
+      name: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required, Validators.minLength(3)]],
       pwd: ['', [Validators.required, Validators.minLength(8)]],
@@ -41,34 +117,29 @@ export class LoginComponent implements OnInit {
 
   onLogin(): void {
     if (this.dataForm.invalid) {
-      console.log('Erreurs de validation :', this.dataForm.errors); // Affichez les erreurs dans la console
-      this.showFormErrors(); // Affichez les erreurs à l'utilisateur
-      return;
+        this.showFormErrors();
+        return;
     }
 
-    const email = this.dataForm.value.email;
-    const pwd = this.dataForm.value.pwd;
-    const role = this.dataForm.value.role;
+    const { email, pwd: password, role } = this.dataForm.value;
 
-    // Appel de la méthode login du AuthService
-    this.authService.login(email, pwd, role).subscribe(
-      (success: boolean) => {
-        if (success) {
-          this.toastr.success('Connexion réussie', 'Succès');
-          this.redirectBasedOnRole(role);
-        } else {
-          this.toastr.error('Adresse email ou mot de passe incorrect', 'Échec de la connexion');
+    this.authService.login(email, password, role).subscribe(
+        (success: boolean) => {
+            if (success) {
+                this.toastr.success('Connexion réussie', 'Succès');
+                this.redirectBasedOnRole(role);
+            } else {
+                this.toastr.error('Adresse email ou mot de passe incorrect', 'Échec');
+            }
+        },
+        (error) => {
+            this.toastr.error('Erreur serveur: ' + error.message, 'Erreur');
         }
-      },
-      (error) => {
-        this.toastr.error('Une erreur est survenue lors de la connexion', 'Erreur');
-      }
     );
-  }
+}
 
-  /**
    * Affiche les erreurs de validation du formulaire.
-   */
+  
   showFormErrors(): void {
     const controls = this.dataForm.controls;
     for (const controlName in controls) {
@@ -87,10 +158,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /**
    * Redirige l'utilisateur en fonction de son rôle.
    * @param role Rôle de l'utilisateur (client, admin, intervenant)
-   */
+   
   redirectBasedOnRole(role: string): void {
     switch (role.toLowerCase()) {
       case 'client':
@@ -111,4 +181,4 @@ export class LoginComponent implements OnInit {
   loginWithGoogle(): void {
     console.log('Connexion avec Google');
   }
-}
+  */

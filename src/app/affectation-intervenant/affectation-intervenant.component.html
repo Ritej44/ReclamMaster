@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="logo-container">
+          <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+      </div>
+  
+        <nav>
+          <p class="section-title">General</p>
+          <a routerLink="/dashbord-admin" routerLinkActive="active">
+            <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
+            
+          </a>
+          <a routerLink="/alltaches" routerLinkActive="active">
+            <i class="fa fa-tasks" aria-hidden="true"></i> Les Reclamations
+          </a>
+          <a routerLink="/client" routerLinkActive="active">
+          <i class="fa fa-users" aria-hidden="true"></i>Clients
+        </a>
+        <a routerLink="/affectation-intervenant" routerLinkActive="active">
+          <i class="fa fa-users-cog" aria-hidden="true"></i>Intervenants
+        </a>
+        <p class="section-title">Outils</p>
+          <a routerLink="/chat" routerLinkActive="active">
+            <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+          </a>
+          <a routerLink="/parametre" routerLinkActive="active">
+            <i class="fas fa-cog"></i> Paramètres
+          </a>
+        </nav>
+        <span></span>
+        <span></span>
+        <button class="logout" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Déconnexion
+        </button>
+      </aside>
+
+      <div class="container">
+        <h2>Affectation des Intervenants</h2>
+        
+        <!-- Section d'affectation -->
+        <div class="affectation-section">
+          <h3>Affecter un intervenant à une réclamation</h3>
+          
+          <div class="form-group">
+            <label for="reclamation">Sélectionner une réclamation:</label>
+            <select id="reclamation" class="form-control" [(ngModel)]="selectedReclamation">
+              <option value="">-- Choisir une réclamation --</option>
+              <option *ngFor="let reclamation of reclamationArray" [value]="reclamation.id">
+                {{ reclamation.nom }} ({{ reclamation.id }})
+              </option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="intervenant">Sélectionner un intervenant:</label>
+            <select id="intervenant" class="form-control" [(ngModel)]="selectedIntervenant">
+              <option value="">-- Choisir un intervenant --</option>
+              <option *ngFor="let intervenant of intervenantArray" [value]="intervenant._id">
+                {{ intervenant.name }} ({{ intervenant.email }})
+              </option>
+            </select>
+          </div>
+          
+          <button class="btn btn-primary" (click)="affecterIntervenant()">Affecter</button>
+        </div>
+      
+        <!-- Liste des intervenants -->
+        <div class="intervenant-list">
+          <h3>Liste des Intervenants</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let intervenant of intervenantArray">
+                <td>{{ intervenant.name }}</td>
+                <td>{{ intervenant.email }}</td>
+                <td>
+                  <button class="btn btn-warning" (click)="setUpdate(intervenant)">Modifier</button>
+                  <button class="btn btn-danger" (click)="setDelete(intervenant)">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+        </div>
+</body>
+</html>
+  

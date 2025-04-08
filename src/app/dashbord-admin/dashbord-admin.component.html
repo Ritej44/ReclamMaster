@@ -16,11 +16,11 @@
         <a routerLink="/Tout les taches" routerLinkActive="active">
           <i class="fa fa-tasks" aria-hidden="true"></i> Les Reclamations
         </a>
-        <a routerLink="/clients" routerLinkActive="active">
-        <i class="fa fa-history" aria-hidden="true"></i>Clients
+        <a routerLink="/client" routerLinkActive="active">
+        <i class="fa fa-users" aria-hidden="true"></i>Clients
       </a>
-      <a routerLink="/Intervenants" routerLinkActive="active">
-        <i class="fa fa-history" aria-hidden="true"></i>Intervenants
+      <a routerLink="/affectation-intervenant" routerLinkActive="active">
+        <i class="fa fa-users-cog" aria-hidden="true"></i>Intervenants
       </a>
       <p class="section-title">Outils</p>
         <a routerLink="/chat" routerLinkActive="active">
@@ -45,15 +45,7 @@
           <button class="search-button">
               <i class="fa fa-search" aria-hidden="true"></i>
           </button>
-      </div>
-      
-      <label class="switch">
-        <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkMode">
-        <span class="slider">
-          <i class="fas fa-moon"></i>
-          <i class="fas fa-sun"></i>
-        </span>
-      </label>
+        </div>
 
             <button class="notifications">
               <i class="fas fa-bell"></i>
@@ -66,8 +58,6 @@
             </div>
 
       </header>
-
-     
 
       
     </main>

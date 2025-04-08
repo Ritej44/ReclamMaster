@@ -16,9 +16,6 @@
         <a routerLink="/dashboard" routerLinkActive="active">
           <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
         </a>
-        <a routerLink="/taches" routerLinkActive="active">
-          <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
-        </a>
         <a routerLink="/historique" routerLinkActive="active">
           <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
         </a>
@@ -72,15 +69,18 @@
             <input type="text" placeholder="Rechercher..." class="search-box">
           </header>
       
-      <section class="avatar-section">
-        <h2> &nbsp; &nbsp;Votre Avatar</h2>
-        <div class="avatar-container">
-          <img [src]="user.avatar" alt="Profil" class="current-avatar">
-          <div class="avatar-info">
-            <button class="upload-btn">Télécharger un nouveau</button>
-          </div>
-        </div>
-      </section>
+          <section class="avatar-section">
+            <h2>&nbsp;&nbsp;Votre Avatar</h2>
+            <div class="avatar-container">
+              <img [src]="user.avatar" alt="Profil" class="current-avatar" *ngIf="user.avatar">
+              <div class="avatar-info">
+                <label for="file" class="custom-file-upload">
+                  Télécharger à nouveau
+                <input type="file" id="file" name="file" (change)="onFileSelected($event)" accept="image/*">
+                </label>
+              </div>
+            </div>
+          </section>
   
       <section class="personal-info">
         <h2>Informations Personnelles</h2>

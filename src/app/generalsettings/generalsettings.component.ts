@@ -15,7 +15,7 @@ export class GeneralsettingsComponent {
     logout():void {
       this.authService.logout();
   
-      this.router.navigate(['/login']);  }
+   this.router.navigate(['/login']);  }
   user = {
     firstName: 'Jane',
     lastName: 'Wilson',
@@ -292,6 +292,17 @@ saveChanges() {
     console.log('Resetting form...');
   }
 
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.user.avatar = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   uploadNewAvatar() {
     // Implement avatar upload logic
     console.log('Uploading new avatar...');

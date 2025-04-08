@@ -37,6 +37,30 @@
     background-color: #8ab2d0;
     padding: 20px;
   }
+   .signup-section select {
+    width: 100%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    background-color: #f9f9f9; 
+    color: #333; 
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+   }
+  
+  .signup-section select::-ms-expand {
+    display: none; 
+  }
+  
+  .signup-section select {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+  }
   
   .signup-section h2 {
     margin-bottom: 20px;

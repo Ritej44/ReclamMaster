@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
     <body >
-<div class="signup-container">
-    <div class="welcome-section">
-      <h1>Bienvenue chez TAS</h1>
-      <p>Inscrivez-vous maintenant pour un accès exclusif !</p>
-      <img src="assets/login2-removebg-preview.png" alt="Image de Bienvenue">
-    </div>
-    <div class="signup-section">
-      <h2>Inscription</h2>
-      <form>
-        <div class="name-container">
-            <div class="name-fields">
-              <label for="firstName">Prénom</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Youssef">
-            </div>
-            <div class="name-fields-lastname">
-              <label for="lastName">Nom</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Arafat">
-            </div>
-          </div>          
-  
-        <label for="email">Adresse Email</label>
-        <input type="email" id="email" name="email" placeholder="youssefarafat@gmail.com">
-  
-        <label for="password">Mot de Passe</label>
-        <input type="password" id="password" name="password" placeholder="********">
-  
-        <label for="confirmPassword">Confirmer le Mot de Passe</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="********">
-  
+      <div class="signup-container">
+        <div class="welcome-section">
+          <h1>Bienvenue chez TAS</h1>
+          <p>Inscrivez-vous maintenant pour un accès exclusif !</p>
+          <img src="assets/login2-removebg-preview.png" alt="Image de Bienvenue">
+        </div>
         
-
-        <div class="btn">
-            <button type="submit" class="signup">S'inscrire</button>
-            <p class="ou">ou </p>
-            <button type="button" class="social-login-google">Continuer avec Google</button>
-          </div>
-          
-        <p>Déjà un compte ?             
-           <a routerLink="/login" routerLinkActive="active">Connectez-vous</a>
-        </p>
-      </form>
-    </div>
-  </div>
+        <div class="signup-section">
+          <h2>Inscription</h2>
+          <form >
+            <div class="name-container">
+              <div class="name-fields">
+                <label for="name">Nom & Prénom</label>
+                <input type="text" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Votre Nom & votre prénom">
+              </div>
+            </div>
+                <label for="email">Email</label>
+                 <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required />
+                
+              <div>  
+                 <label for="role">Role</label>
+                 <select id="role"  [(ngModel)]="role" [ngModelOptions]="{standalone: true}"required>
+                  <option value="">Sélectionnez un rôle</option>
+                  <option value="client">Client</option>
+                  <option value="admin">Admin</option>
+                  <option value="Intervenant">Intervenant</option>
+                </select>
+              </div> 
+                 <label for="pwd">Mot de passe</label>
+                 <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required />
+                 
+      
+                 <label for="confirmPassword">Confirmer le Mot de Passe</label>
+                 <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" 
+                        (input)="checkPasswordMatch()" [ngModelOptions]="{standalone: true}" placeholder="confirmer votre mot de passe"
+                        [class.invalid]="!passwordsMatch && confirmPassword">
+                 <small *ngIf="!passwordsMatch && confirmPassword" class="error">
+                   Les mots de passe ne correspondent pas
+                 </small>
+      
+            <div class="btn">
+              <button type="submit" class="signup" (click)="save()">S'inscrire</button>
+             
+            </div>
+            
+            <p>Déjà un compte ? <a routerLink="/login" routerLinkActive="active">Connectez-vous</a></p>
+          </form>
+        </div>
+      </div>
    
 </body>
 </html>

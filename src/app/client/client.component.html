@@ -1,1 +1,71 @@
-<p>client works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="dashboard">
+    <aside class="sidebar">
+      <div class="logo-container">
+        <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+    </div>
+
+      <nav>
+        <p class="section-title">General</p>
+        <a routerLink="/dashbord-admin" routerLinkActive="active">
+          <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
+          
+        </a>
+        <a routerLink="/Tout les taches" routerLinkActive="active">
+          <i class="fa fa-tasks" aria-hidden="true"></i> Les Reclamations
+        </a>
+        <a routerLink="/client" routerLinkActive="active">
+        <i class="fa fa-users" aria-hidden="true"></i>Clients
+      </a>
+      <a routerLink="/affectation-intervenant" routerLinkActive="active">
+        <i class="fa fa-users-cog" aria-hidden="true"></i>Intervenants
+      </a>
+      <p class="section-title">Outils</p>
+        <a routerLink="/chat" routerLinkActive="active">
+          <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+        </a>
+        <a routerLink="/parametre" routerLinkActive="active">
+          <i class="fas fa-cog"></i> Paramètres
+        </a>
+      </nav>
+      <span></span>
+      <span></span>
+      <button class="logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </button>
+    </aside>
+
+    
+<div class="container" >
+    <h1>Client Table</h1>
+<table class="table">
+    <thead>     
+    <tr>
+
+        <th scope="col">Name</th>
+        <th scope="col">email</th>
+        <th scope="col">role</th>
+        <th scope="col">option</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ClientItem of ClientsArray">
+       
+        <td>{{ClientItem.name}}</td>
+        <td>{{ClientItem.email}}</td>
+        <td>{{ClientItem.role }}</td>
+
+        <td>
+            <button type="button" class="option-button" (click)="setUpdate(ClientItem)">Edit</button>
+            <button type="button" class="option-button" (click)="setDelete(ClientItem)">Delete</button>
+        </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
+  

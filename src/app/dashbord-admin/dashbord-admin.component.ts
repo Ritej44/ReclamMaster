@@ -25,23 +25,17 @@ constructor(private authService :AuthService ,private router:Router){}
   };
 
   notifications = [2,1];
-  isDarkMode = false;
   
+
   logout():void {
     this.authService.logout();
 
     this.router.navigate(['/login']);  }
 
-  toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    console.log('Dark mode state:', this.isDarkMode); 
-    if (this.isDarkMode) {
-        document.body.classList.add('dark-mode');
-    } else {
-        document.body.classList.remove('dark-mode');
 
-    }
+    
+    
 
   }
 
-}
+

@@ -19,7 +19,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.component';
 import { ClientComponent } from './client/client.component';
 import { IntervenantComponent } from './intervenant/intervenant.component';
-
+import { AffectationIntervenantComponent } from './affectation-intervenant/affectation-intervenant.component';
+import { AffectationService } from './affectation.service';
+import { AlltachesComponent } from './alltaches/alltaches.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,9 @@ import { IntervenantComponent } from './intervenant/intervenant.component';
     ChatComponent,
     DashbordAdminComponent,
     ClientComponent,
-    IntervenantComponent
+    IntervenantComponent,
+    AffectationIntervenantComponent,
+    AlltachesComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,8 +52,16 @@ import { IntervenantComponent } from './intervenant/intervenant.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

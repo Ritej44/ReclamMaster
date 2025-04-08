@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ReclamationService } from '../Reclamation.service';
 import { Tache } from '../models/tache.model';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intervenant',
   templateUrl: './intervenant.component.html',
   styleUrls: ['./intervenant.component.css']
 })
-export class IntervenantComponent implements OnInit {
+export class IntervenantComponent {
   reclamations: Tache[] = [];
   selectedReclamation: Tache | null = null;
 
-  constructor(private reclamationService: ReclamationService, private authService:AuthService) {}
+  constructor(private reclamationService: ReclamationService, private authService:AuthService ,private router:Router) {}
 
   ngOnInit(): void {
     this.loadReclamations();
   }
 
   loadReclamations(): void {
-    const intervenantId = this.authService.getIntervenantId(); // Récupérez l'ID de l'intervenant connecté
+    const intervenantId = this.authService.getIntervenantId(); 
     if (intervenantId) {
       this.reclamationService.getReclamationsByIntervenant(intervenantId).subscribe(
         (data: Tache[]) => {
@@ -52,5 +52,11 @@ export class IntervenantComponent implements OnInit {
         }
       );
     }
+  }
+
+  
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
