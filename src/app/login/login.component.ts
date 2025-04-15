@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs/internal/Observable';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +15,33 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent {
 
-  ClientsArray : any[] = [];
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+  private authTokenKey = 'authToken';
 
+  ClientsArray : any[] = [];
   name :string="";
   role:string="";
   currentClientID = "";
   email: string ="";
   password: string ="";
-  constructor(private router: Router,private http: HttpClient,private toastr:ToastrService) {}
+  constructor(private router: Router,private http: HttpClient,private toastr:ToastrService ,private authService:AuthService) {
+    
+    const storedUser = localStorage.getItem('currentUser');
+    let parsedUser = null;
+
+    if (storedUser) {
+      try {
+        parsedUser = JSON.parse(storedUser);
+      } catch (e) {
+        console.error('Error parsing storedUser:', e);
+      }
+}
+  this.currentUserSubject = new BehaviorSubject<any>(parsedUser);
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  
  
   Login() {
     let bodyData = {
@@ -50,12 +72,12 @@ export class LoginComponent {
         return;
     }
   
-    this.http.post(url, bodyData, { responseType: 'text' }).subscribe({
-      next: (resultData: any) => {
-        console.log(resultData);
-        alert(successMessage);
-  
-        // Navigate after successful login
+    this.http.post<any>(url, bodyData).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.authService.storeUserData(response.token,response.user);
+        this.toastr.success('Connexion réussie');
+
         switch (this.role) {
           case "client":
             this.router.navigateByUrl('/dashboard');
@@ -75,110 +97,10 @@ export class LoginComponent {
     });
   }
   
-      /*  this.http.post(url,bodyData ,{responseType:'Text'}).subscribe( {
-           (resultData: any) => {
-        console.log(resultData);
-        alert(successMessage);}
- 
-        if (resultData.message == "Email not exists")
-        {
       
-          alert("Email not exits");
-    
- 
-        }
-        else if(resultData.message == "Login Succes")
-    
-         {
-          this.router.navigateByUrl('/dashboard');
-        }
-        else
-        {
-          alert("Incorrect Email and Password not match");
-        }
-      });
-    }*/
   }
 
 
 
   
 
-   /*
-
-  infoForm() {
-    this.dataForm = this.fb.group({
-      name: [''],
-      email: ['', [Validators.required, Validators.email]],
-      role: ['', [Validators.required, Validators.minLength(3)]],
-      pwd: ['', [Validators.required, Validators.minLength(8)]],
-    });
-  }
-
-  onLogin(): void {
-    if (this.dataForm.invalid) {
-        this.showFormErrors();
-        return;
-    }
-
-    const { email, pwd: password, role } = this.dataForm.value;
-
-    this.authService.login(email, password, role).subscribe(
-        (success: boolean) => {
-            if (success) {
-                this.toastr.success('Connexion réussie', 'Succès');
-                this.redirectBasedOnRole(role);
-            } else {
-                this.toastr.error('Adresse email ou mot de passe incorrect', 'Échec');
-            }
-        },
-        (error) => {
-            this.toastr.error('Erreur serveur: ' + error.message, 'Erreur');
-        }
-    );
-}
-
-   * Affiche les erreurs de validation du formulaire.
-  
-  showFormErrors(): void {
-    const controls = this.dataForm.controls;
-    for (const controlName in controls) {
-      if (controls[controlName].errors) {
-        const errors = controls[controlName].errors;
-        if (errors?.['required']) {
-          this.toastr.warning(`${controlName} est requis.`, 'Champ obligatoire');
-        }
-        if (errors?.['email']) {
-          this.toastr.warning('L\'email est invalide.', 'Erreur de saisie');
-        }
-        if (errors?.['minlength']) {
-          this.toastr.warning(`${controlName} doit contenir au moins ${errors['minlength'].requiredLength} caractères.`, 'Erreur de saisie');
-        }
-      }
-    }
-  }
-
-   * Redirige l'utilisateur en fonction de son rôle.
-   * @param role Rôle de l'utilisateur (client, admin, intervenant)
-   
-  redirectBasedOnRole(role: string): void {
-    switch (role.toLowerCase()) {
-      case 'client':
-        this.router.navigate(['/dashboard']);
-        break;
-      case 'admin':
-        this.router.navigate(['/dashbord-admin']);
-        break;
-      case 'intervenant':
-        this.router.navigate(['/intervenant']);
-        break;
-      default:
-        this.toastr.warning('Rôle non reconnu', 'Erreur de rôle');
-        break;
-    }
-  }
-
-  loginWithGoogle(): void {
-    console.log('Connexion avec Google');
-  }
-  */

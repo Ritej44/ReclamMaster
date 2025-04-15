@@ -1,47 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private  apiUrl = 'http://localhost:8084/api/v1/clients'; 
- 
+  private apiUrl = 'http://localhost:8084/api/v1/clients';
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+  private authTokenKey = 'authToken';
+  private userRoleKey = 'userRole';
+
   getIntervenantId(): string | null {
     // Implémentez la logique pour récupérer l'ID de l'intervenant
     return localStorage.getItem('intervenantId'); // Exemple
   }
-  private authTokenKey = 'authToken';
-  private userRoleKey = 'userRole';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  
+  constructor(private http: HttpClient, private router: Router) {
+    const storedUser = localStorage.getItem('currentUser');
+    this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.stringify(storedUser) : null);
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-  login(email: string, password: string, role: string): Observable<boolean> {
-    return this.http.post<any>(
-        'http://localhost:8084/api/v1/auth/login',
-        { email, password, role } 
-    ).pipe(
-        tap(response => {
-            if (response.token) {
-                localStorage.setItem('authToken', response.token);
-                localStorage.setItem('userEmail', response.email);
-                if (response.role) {
-                    localStorage.setItem('userRole', response.role);
-                } else {
-                    localStorage.setItem('userRole', role);
-                }
-            }
-        }),
-        map(response => !!response.token),
-        catchError(error => {
-            console.error('Login error:', error);
-            return of(false);
-        })
-    );
-}
+  public get currentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
+
+  public isLoggedIn(): boolean {
+    return this.currentUserValue !== null;
+  }
+
+  login(user: any) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('authToken');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
+    console.log('Déconnexion réussie');
+  }
+
 
   signup(firstName: string, lastName: string, email: string, password: string): Observable<boolean> {
     return this.http.post<any>(`${this.apiUrl}/signup`, {
@@ -63,30 +68,20 @@ export class AuthService {
     );
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.authTokenKey);
-  }
 
   getUserRole(): string {
-   const role = localStorage.getItem(this.userRoleKey);
-    return role!;
-    }
-
-  logout(): void {
-    localStorage.removeItem(this.authTokenKey);
-    localStorage.removeItem(this.userRoleKey);
-    this.router.navigate(['/login']);
-    console.log('Déconnexion réussie');
+    const role = localStorage.getItem(this.userRoleKey);
+    return role || '';
   }
 
   getToken(): string | null {
     return localStorage.getItem(this.authTokenKey);
   }
 
-  // Méthode optionnelle pour vérifier le rôle
-  hasRole(requiredRole: string): boolean {
-    const userRole = this.getUserRole();
-    return userRole === requiredRole;
+  storeUserData(token: string, user: any) {
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 
  

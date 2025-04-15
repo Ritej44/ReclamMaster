@@ -14,11 +14,11 @@
             <div class="name-container">
               <div class="name-fields">
                 <label for="name">Nom & Prénom</label>
-                <input type="text" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Votre Nom & votre prénom">
+                <input type="text" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Votre nom & votre prénom">
               </div>
             </div>
                 <label for="email">Email</label>
-                 <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required />
+                 <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
                 
               <div>  
                  <label for="role">Role</label>
@@ -30,7 +30,7 @@
                 </select>
               </div> 
                  <label for="pwd">Mot de passe</label>
-                 <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required />
+                 <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
                  
       
                  <label for="confirmPassword">Confirmer le Mot de Passe</label>

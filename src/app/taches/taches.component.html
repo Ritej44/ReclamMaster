@@ -18,7 +18,7 @@
                     <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
                 </a>
                 <a routerLink="/taches" routerLinkActive="active">
-                    <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Nouveau Reclamation
                 </a>
                 <a routerLink="/historique" routerLinkActive="active">
                     <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
@@ -38,33 +38,63 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <img src="assets/login2-removebg-preview.png" alt="Logo" class="logo">
-            <h1>Formulaire de Réclamation</h1>
-            <form [formGroup]="reclamationForm" (ngSubmit)="isEditing ? updateReclamation( currentReclamationId, reclamationForm.value) : createReclamation()">
-                <label for="description">Description :</label>
-                <textarea id="description" formControlName="description" rows="3" required></textarea>
-
-                <label for="categorie">Catégorie :</label>
-                <select id="categorie" formControlName="category">
-                    <option value="technique">Technique</option>
-                    <option value="administratif">Administratif</option>
-                    <option value="autre">Autre</option>
-                </select>
-
-                <label for="urgence">Urgence :</label>
-                <select id="urgence" formControlName="urgency">
-                    <option value="faible">Faible</option>
-                    <option value="moyenne">Moyenne</option>
-                    <option value="élevée">Élevée</option>
-                </select>
-
-                <label for="Remarque">Remarque</label>
-                <Textarea formControlName="Remarque" id="Remarque" placeholder="Ecrivez votre remarque ici"> </Textarea>
-
-                <button class="btn" type="submit">{{ isEditing ? 'Mettre à Jour' : 'Envoyer la Réclamation' }}</button>
+            <div class="form">
+                <img src="assets/login2-removebg-preview.png" alt="Logo" class="logo">
+                <h1>Formulaire de Réclamation</h1>
+            </div>
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nom">Nom du Réclamation</label>
+                        <input type="text" name="nom" id="nom" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" required #nomInput="ngModel">
+                 <div *ngIf="nomInput.invalid && (nomInput.dirty || nomInput.touched)"
+                      class="error-message">
+                     Le nom est obligatoire
+                 </div>>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description :</label>
+                        <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="1"#descInput="ngModel"></textarea>
+               <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
+                    class="error-message">
+                   La description est obligatoire
+               </div>
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="etat">Etat :</label>
+                        <select id="etat" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}">
+                            <option value="Nouveau">Nouveau</option>
+                            <option value="En cours">En cours</option>
+                            <option value="Résolu">Résolu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="urgence">Urgence :</label>
+                        <select id="urgence" [(ngModel)]="urgence" [ngModelOptions]="{standalone: true}">
+                            <option value="faible">Faible</option>
+                            <option value="moyenne">Moyenne</option>
+                            <option value="élevée">Élevée</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateCreation">Date de Création</label>
+                        <input type="date" [(ngModel)]="creation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="form-group">
+                        <label for="remarque">Remarque</label>
+                        <textarea id="remarque" [(ngModel)]="remarque" [ngModelOptions]="{standalone: true}" placeholder="Ecrivez votre remarque ici"></textarea>
+                    </div>
+                </div>
+        
+                <button class="btn" type="submit" (click)="createReclamation()">Envoyer la Réclamation</button>
             </form>
-
         </div>
-    </div>
+        </div>
 </body>
 </html>

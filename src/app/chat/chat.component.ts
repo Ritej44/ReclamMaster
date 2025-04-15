@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ChatService, Message } from '../chat.service';
-import { AuthService } from '../auth.service';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Client, IMessage, Stomp, StompConfig } from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-chat',
@@ -9,41 +9,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  messages: Message[] = [];
-  newMessage: string = '';
-  newMessagesCount: number = 0;
-  
-  constructor(private chatService: ChatService, private authService:AuthService ,private router :Router) {}
+messages: any;
 
-
-
+  constructor(private renderer: Renderer2,private router:Router) {}
 
   ngOnInit(): void {
-    this.messages = this.chatService.getMessages();
-    this.updateNewMessagesCount();
+    this.loadScript('/assets/js/main.js');
   }
 
-  sendMessage(): void {
-    if (this.newMessage.trim() !== '') {
-      const message: Message = {
-        sender: 'User', // Peut être dynamique en fonction de l'utilisateur connecté
-        content: this.newMessage,
-        timestamp: new Date()
-      };
-      this.chatService.addMessage(message);
-      this.newMessage = ''; // Réinitialiser l'input après l'envoi
-      this.updateNewMessagesCount();
+  loadScript(src: string): void {
+    const script = this.renderer.createElement('script');
+    script.type = 'text/javascript';
+    script.src = src;
+    script.async = true;
+    script.defer = true;
+    this.renderer.appendChild(document.head, script);
+  }
+  private stompClient: any;
+
+  sendMessage() {
+    if (this.stompClient) {
+      this.stompClient.send('/app/send', {}, JSON.stringify({content: 'Hello'}));
     }
   }
-
-  updateNewMessagesCount(): void {
-    // Logique pour mettre à jour le compteur de nouveaux messages
-    // Par exemple, vous pouvez vérifier les messages non lus et mettre à jour newMessagesCount
-    this.newMessagesCount = this.messages.filter(msg => !msg.isRead).length;
+  Retour(){
+    
+    this.router.navigate(['/dashbord-admin'])
   }
-
-  logout():void {
-    this.authService.logout();
-
-    this.router.navigate(['/login']);  }
+  
 }

@@ -12,9 +12,12 @@ import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.componen
 import { ClientComponent } from './client/client.component';
 import { IntervenantComponent } from './intervenant/intervenant.component';
 import { AffectationIntervenantComponent } from './affectation-intervenant/affectation-intervenant.component';
-import { AuthGuard } from './AuthGuard.service';
 import { LoginComponent } from './login/login.component';
 import { AlltachesComponent } from './alltaches/alltaches.component';
+
+import { ListeintervenantComponent } from './listeintervenant/listeintervenant.component';
+import { HistoriqueIntervenantComponent } from './historique-intervenant/historique-intervenant.component';
+import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,16 +34,10 @@ const routes: Routes = [
   {path:'intervenant',component:IntervenantComponent},
   {path:'affectation-intervenant',component:AffectationIntervenantComponent},
   {path: 'alltaches',component:AlltachesComponent},
-  {  path: 'dashbord-admin',
-    component: DashbordAdminComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['admin'] }  },
-    { 
-      path: 'intervenant', 
-      component: IntervenantComponent,
-      canActivate: [AuthGuard],
-      data: { roles: ['intervenant', 'admin'] } 
-    },
+  {path:'listeintervenant',component:ListeintervenantComponent},
+  {path:'historique-intervenant',component:HistoriqueIntervenantComponent},
+  {path:'dashboard-intervenant',component:DashboardIntervenantComponent},
+  {  path: 'dashbord-admin',component: DashbordAdminComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

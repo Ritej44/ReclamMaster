@@ -11,9 +11,7 @@
       <input type="text" id="name" name="name" placeholder="Votre Nom & votre prénom">
 
       <label for="email">Email</label>
-  <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required />
-  
-
+  <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
   
       <div>
         <label for="role">Rôle</label>
@@ -27,14 +25,21 @@
       </div>
 
         <label for="pwd">Mot de passe</label>
-        <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required />
+        <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder=" Votre mot de passe" required />
         
 
       <div class="btn">
-        <button type="submit" class="cnx" (click)="Login()">Connexion</button>
+        <button type="submit" class="cnx" (click)="Login()">Connexion
+          <i class="fa fa-lock" aria-hidden="true"></i>
+        </button>
       </div>
 
-      <p>Nouveau sur le compte ?
+      <span>
+        <div>
+
+        </div>
+      </span>
+      <p class="compte">Nouveau sur le compte ?
         <a routerLink="/signup" routerLinkActive="active">Inscrivez-vous</a>
       </p>
     </form>

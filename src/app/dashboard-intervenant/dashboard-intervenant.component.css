@@ -13,8 +13,8 @@
     margin: -1%;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #ffffff;
-    color: #3055a0;
+    background-color: #bdc3c7;
+    color: var(--text-color);
   }
   
   .dashboard {
@@ -167,55 +167,81 @@
     background: rgba(0, 0, 0, 0.1);
   }
   
-  /* Style pour le tableau */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 18px;
-  text-align: left;
-}
-
-/* Style pour les en-têtes de colonne */
-th {
-  background-color: #cc4e8d;
-  color: white;
-  padding: 12px;
-}
-
-/* Style pour les cellules du tableau */
-td {
-  padding: 12px;
-  border: 1px solid #ddd;
-}
-
-/* Style pour les lignes paires */
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-/* Style pour les lignes impaires */
-tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.option-button {
-  background-color: #cc4e8d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-}
-
-.option-button:hover {
-  background-color: #25447e;
-}
-
+  /* Styles pour le mode sombre */
+  .dark-mode {
+    background-color: #121212 !important;
+    color: #ecf0f1 !important;
+  }
+  
+  .dark-mode .sidebar {
+    background-color: #1e1e1e !important;
+  }
+  
+  .dark-mode .content {
+    background-color: #1f1f1f !important;
+  }
+  
+  .dark-mode .stat-card {
+    background-color: #2c2c2c !important;
+  }
+  
+  .dark-mode .chart {
+    background-color: #2c2c2c !important;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: background 0.4s;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px;
+    padding: left 7px;;
+    padding-right:  7px;
+    font-size: 20px;
+    color: white;
+    margin-top:-45%;
+  }
+  
+  .slider i {
+    transition: opacity 0.3s ease;
+  }
+  
+  input:checked + .slider {
+    background-color: #222;
+  }
+  
+  input:checked + .slider .fa-moon {
+    opacity: 0;
+  }
+  
+  input:not(:checked) + .slider .fa-sun {
+    opacity: 0;
+  }
+  
+  .theme-toggle:hover .fas.fa-sun {
+    color: #ffdd57;
+  }
+  
+  .theme-toggle:hover .fas.fa-moon {
+    color: #464644;
+  }
   
   

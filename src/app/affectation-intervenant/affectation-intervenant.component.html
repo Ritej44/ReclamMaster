@@ -19,8 +19,11 @@
           <a routerLink="/client" routerLinkActive="active">
           <i class="fa fa-users" aria-hidden="true"></i>Clients
         </a>
-        <a routerLink="/affectation-intervenant" routerLinkActive="active">
+        <a routerLink="/listeintervenant" routerLinkActive="active">
           <i class="fa fa-users-cog" aria-hidden="true"></i>Intervenants
+        </a>
+        <a routerLink="/affectation-intervenant" routerLinkActive="active">
+          <i class="fas fa-user-check"></i>Affectation
         </a>
         <p class="section-title">Outils</p>
           <a routerLink="/chat" routerLinkActive="active">
@@ -64,32 +67,9 @@
             </select>
           </div>
           
-          <button class="btn btn-primary" (click)="affecterIntervenant()">Affecter</button>
+          <button class="btn btn-primary" (click)="affecterIntervenant()"><i class="fas fa-user-check"></i>Affecter</button>
         </div>
       
-        <!-- Liste des intervenants -->
-        <div class="intervenant-list">
-          <h3>Liste des Intervenants</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let intervenant of intervenantArray">
-                <td>{{ intervenant.name }}</td>
-                <td>{{ intervenant.email }}</td>
-                <td>
-                  <button class="btn btn-warning" (click)="setUpdate(intervenant)">Modifier</button>
-                  <button class="btn btn-danger" (click)="setDelete(intervenant)">Supprimer</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
         </div>
 </body>

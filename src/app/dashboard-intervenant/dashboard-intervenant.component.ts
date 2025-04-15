@@ -1,17 +1,17 @@
-
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Client } from '../models/Client.model';
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { Intervenant } from '../models/intervenant.model';
+
 @Component({
-  selector: 'app-dashbord',
-  templateUrl: './dashbord.component.html',
-  styleUrls: ['./dashbord.component.css'],
+  selector: 'app-dashboard-intervenant',
+  templateUrl: './dashboard-intervenant.component.html',
+  styleUrls: ['./dashboard-intervenant.component.css']
 })
-export class DashbordComponent {
-  ClientsArray : any[] = [];
-  selectedClient?: Client;
+export class DashboardIntervenantComponent {
+IntervenantArray : any[] = [];
+  selectedIntervenant?: Intervenant;
   name :string="";
   currentUser: any;
 

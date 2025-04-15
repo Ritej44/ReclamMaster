@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ReclamationService } from '../Reclamation.service';
 import { Tache } from '../models/tache.model';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -13,12 +12,11 @@ export class IntervenantComponent {
   reclamations: Tache[] = [];
   selectedReclamation: Tache | null = null;
 
-  constructor(private reclamationService: ReclamationService, private authService:AuthService ,private router:Router) {}
+  constructor( private authService:AuthService ,private router:Router) {}
 
   ngOnInit(): void {
-    this.loadReclamations();
   }
-
+/*
   loadReclamations(): void {
     const intervenantId = this.authService.getIntervenantId(); 
     if (intervenantId) {
@@ -53,7 +51,7 @@ export class IntervenantComponent {
       );
     }
   }
-
+*/
   
   logout(): void {
     this.authService.logout();

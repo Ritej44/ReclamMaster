@@ -13,14 +13,17 @@
           <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
           
         </a>
-        <a routerLink="/Tout les taches" routerLinkActive="active">
+        <a routerLink="/alltaches" routerLinkActive="active">
           <i class="fa fa-tasks" aria-hidden="true"></i> Les Reclamations
         </a>
         <a routerLink="/client" routerLinkActive="active">
         <i class="fa fa-users" aria-hidden="true"></i>Clients
       </a>
-      <a routerLink="/affectation-intervenant" routerLinkActive="active">
+      <a routerLink="/listeintervenant" routerLinkActive="active">
         <i class="fa fa-users-cog" aria-hidden="true"></i>Intervenants
+      </a>
+      <a routerLink="/affectation-intervenant" routerLinkActive="active">
+        <i class="fas fa-user-check"></i>Affectation
       </a>
       <p class="section-title">Outils</p>
         <a routerLink="/chat" routerLinkActive="active">
@@ -39,15 +42,32 @@
 
     
 <div class="container" >
-    <h1>Client Table</h1>
+  <h1>Client Table</h1>
+
+  <div class="row">
+    <input class="search-input" type="text" id="searchInput"name="searchInput"placeholder="Rechercher par nom..."(input)="searchClients($event)">
+    <button class="butonsearch" for="ajout" (click)="openAjoutPopup()"> <i class="fas fa-user-plus"></i>Ajouter Client</button>
+  </div>
+  
+<div *ngIf="searchResults.length > 0">
+  <h4>Résultats de la recherche:</h4>
+  <ul>
+    <li *ngFor="let client of searchResults">
+      <strong>Name:</strong> {{ client.name }}<br>
+      <strong>Email:</strong> {{ client.email }}<br>
+      <strong>Role:</strong> {{ client.role }}<br>
+      <strong>Password:</strong> {{ client.password }}
+    </li>
+  </ul>
+</div>
 <table class="table">
     <thead>     
     <tr>
 
         <th scope="col">Name</th>
-        <th scope="col">email</th>
-        <th scope="col">role</th>
-        <th scope="col">option</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -58,14 +78,88 @@
         <td>{{ClientItem.role }}</td>
 
         <td>
-            <button type="button" class="option-button" (click)="setUpdate(ClientItem)">Edit</button>
-            <button type="button" class="option-button" (click)="setDelete(ClientItem)">Delete</button>
+            <button type="button" class="buttonup" (click)="openEditPopup(ClientItem)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            <button type="button " class="option-button" (click)="setDelete(ClientItem)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
         </td>
         </tr>
     </tbody>
 </table>
 </div>
+
+<div *ngIf="showEditPopup" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h4>Modifier Client</h4>
+      <button (click)="closePopups()" class="close-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="name">Name:</label><br>
+          <input type="text" id="name" [(ngModel)]="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" [(ngModel)]="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label><br>
+          <input type="password" id="password" [(ngModel)]="password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label><br>
+          <input type="text" id="role" [(ngModel)]="role" name="role">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="ajout" (click)="UpdateRecords()">Mettre à jour</button>
+          <button type="button" class="ferme" (click)="closePopups()">Fermer</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+
+<!-- Popup pour ajouter un client -->
+<div *ngIf="showAddPopup" class="custom-modal-overlay">
+  <div class="custom-modal-container">
+    <div class="custom-modal-header">
+      <h4>Ajouter un Client</h4>
+      <button (click)="closePopups()" class="custom-close-btn">&times;</button>
+    </div>
+    <div class="custom-modal-body">
+      <form>
+        <div class="custom-form-group">
+          <label for="name">Name:</label><br>
+          <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="custom-form-group">
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="custom-form-group">
+          <label for="password">Password:</label><br>
+          <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="custom-form-group">
+          <label for="role">Role:</label><br>
+          <input type="text" id="role" [(ngModel)]="role" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="custom-modal-footer">
+          <button type="button" class="ajout" (click)="register()">Ajouter</button>
+          <button type="button" class="ferme" (click)="closePopups()">Fermer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+
 </body>
 </html>
   

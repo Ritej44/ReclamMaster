@@ -11,7 +11,7 @@
               <a routerLink="/dashboard-intervenant" routerLinkActive="active">
                 <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
               </a>
-              <a routerLink="/historique" routerLinkActive="active">
+              <a routerLink="/historique-intervenant" routerLinkActive="active">
                 <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
               </a>
               <p class="section-title">Outils</p>
@@ -38,7 +38,7 @@
         <li *ngFor="let reclamation of reclamations">
           <p><strong>Description:</strong> {{ reclamation.description }}</p>
           <p><strong>État:</strong> {{ reclamation.etat }}</p>
-          <button (click)="updateReclamation(reclamation)">Mettre à jour</button>
+          <button >Mettre à jour</button>
         </li>
       </ul>
     </div>
@@ -46,7 +46,7 @@
     <!-- Formulaire de mise à jour de réclamation -->
     <div *ngIf="selectedReclamation">
       <h3>Mettre à jour la réclamation</h3>
-      <form (ngSubmit)="onSubmit()">
+      <form >
         <label for="etat">État:</label>
         <select id="etat" [(ngModel)]="selectedReclamation.etat" name="etat">
           <option value="en cours">En cours</option>

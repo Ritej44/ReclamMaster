@@ -1,81 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { CrudApiService } from '../crud-api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReclamationService } from '../Reclamation.service';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-taches',
   templateUrl: './taches.component.html',
   styleUrls: ['./taches.component.css']
 })
-export class TachesComponent implements OnInit {
+export class TachesComponent  {
 
-  constructor(private reclamationService: ReclamationService, private crudApi :CrudApiService,
-    private fb: FormBuilder, private authService: AuthService, private router: Router ,)
-     {this.reclamationForm = this.fb.group({
-      description: [''],
-      category: [''],
-      urgency: [''],
-      file: ['']
-    }); }
-  reclamationForm: FormGroup;
-  reclamations: any[] = [];
-  isEditing = false;
-  currentReclamationId: string = "null";
+  description:string="";
+  remarque:string="";
+  nom:string="";
+  etat:string="";
+  urgence:string="";
+  creation: string = new Date().toISOString().split('T')[0];
 
+  reclamationsArray: any[] = [];
+  currentReclamationId: string = "";
 
-  ngOnInit() {
-    
-    this.initForm();
-    this.loadReclamations();
-  }
+     constructor(private http :HttpClient,private toastr :ToastrService,private authService: AuthService,private router: Router)
+   { }
 
-  initForm() {
-    this.reclamationForm = this.fb.group({
-      description: ['', Validators.required],
-      category: ['', Validators.required],
-      urgency: ['', Validators.required],
-      file: ['',Validators.required],
-      Remarque:['',Validators.required]
-    });
-  }
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
 
-  // Exemple d'utilisation pour créer une réclamation
   createReclamation() {
-    if (this.reclamationForm.valid) {
-      this.crudApi.createReclamation(this.reclamationForm.value).subscribe(response => {
-        console.log('Réclamation créée avec succès', response);
-        // Vous pouvez également mettre à jour la liste des réclamations ou rediriger l'utilisateur
+    const creation = new Date(this.creation).toISOString();
+
+    let bodyData={
+      "nom":this.nom,
+      "description":this.description,
+      "etat":this.etat,
+      "remarque":this.remarque,
+      "urgence":this.urgence,
+      "dateCreation": this.creation
+        };
+      this.http.post("http://localhost:8084/api/v1/reclamation/create", bodyData).subscribe({
+        next: (resultData: any) => {
+          console.log(resultData);
+          this.toastr.success("Réclamation créée avec succès");
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          this.toastr.error("Erreur lors de la création de la réclamation");
+        }
       });
-    }
   }
 
-  // Exemple d'utilisation pour charger les réclamations
-  loadReclamations() {
-    this.crudApi.getReclamations().subscribe(response => {
-      this.reclamations = response;
-    });
+  resetForm() {
+    this.description = "";
+    this.remarque = "";
+    this.nom = "";
+    this.etat = "";
+    this.urgence = "";
+    this.creation = new Date().toISOString().split('T')[0];
   }
-
-  // Exemple d'utilisation pour mettre à jour une réclamation
-  updateReclamation(id: string, data: any) {
-    this.crudApi.updateReclamation(id, data).subscribe(response => {
-      console.log('Réclamation mise à jour avec succès', response);
-    });
-  }
-
-  // Exemple d'utilisation pour supprimer une réclamation
-  deleteReclamation(id: string) {
-    this.crudApi.deleteReclamation(id).subscribe(response => {
-      console.log('Réclamation supprimée avec succès', response);
-    });
-  }
- 
 }

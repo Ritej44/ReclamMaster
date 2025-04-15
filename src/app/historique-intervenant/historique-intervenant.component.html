@@ -3,10 +3,6 @@
 <body>
     <header class="header">
         <h1>Reclamations</h1>
-        <div class="actions">
-          <button (click)="exportAsCSV()">Exporter en CSV</button>
-          <button (click)="addTache()">Ajouter une Reclamation</button>
-        </div>
     </header>
     <div class="settings-container">
         <aside class="sidebar">
@@ -18,10 +14,7 @@
                 <a routerLink="/dashboard-intervenant" routerLinkActive="active">
                   <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
                 </a>
-                <a routerLink="/taches" routerLinkActive="active">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>Nouveau Reclamation
-                </a>
-                <a routerLink="/historique" routerLinkActive="active">
+                <a routerLink="/historique-intervenant" routerLinkActive="active">
                   <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
                 </a>
                 <p class="section-title">Outils</p>
@@ -55,6 +48,7 @@
                         <th>Etat</th>
                         <th>Urgence</th>
                         <th>Remarque</th>
+                        <th>Actions</th>
                     </tr>
  
                 </thead>
@@ -66,6 +60,14 @@
                         <td>{{ reclamation.etat }}</td>
                         <td>{{ reclamation.urgence }}</td>
                         <td>{{ reclamation.remarque }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" title="Modifier" (click)="openEditPopup(reclamation)">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                          <button class="btn btn-danger btn-sm" title="Supprimer" (click)="setDelete(reclamation)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          </button>
+                            </td>
                     </tr>
                 </tbody>
             </table>

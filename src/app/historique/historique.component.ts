@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { Tache } from '../models/tache.model'; 
 import { HttpClient } from '@angular/common/http';
-import { CrudApiService } from '../crud-api.service';
-import { ReclamationService } from '../Reclamation.service';
-import { TachesComponent } from '../taches/taches.component';
 
 @Component({
   selector: 'app-historique',
@@ -13,28 +9,67 @@ import { TachesComponent } from '../taches/taches.component';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueComponent implements OnInit {
+  filteredTaches: any =[];
 
   constructor(
-    private ReclamationService : ReclamationService,
     private http: HttpClient,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.getAllReclamations();
 
-  filteredTaches: Tache[] = [];
-  Taches: Tache[] = [];
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
 
-  ngOnInit(): void {
-    this.loadReclamations(); 
   }
 
+  reclamationArray:any[]=[];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  currentReclamationID = "";
+  nom:string="";
+  description: string = "";
+  etat: string = "";
+  remarque: string = "";
+  urgence: string = "";
+  dateCreation: string = "";
+  clientId: string = "";
+  intervenantId: string = "";
+  
+  ngOnInit(): void {
+  }
+
+
+  
+  getAllReclamations() {
+    this.http.get("http://localhost:8084/api/v1/reclamation/getAll")
+      .subscribe((resultData: any) => {
+        console.log(resultData);
+        this.reclamationArray = resultData;
+      });
+  }
+  /*
+  getAllReclamations() {
+    const currentUser = this.authService.getCurrentUser();
+  if (!currentUser || !currentUser.id) {
+    console.error('Utilisateur non connecté ou ID manquant');
+    return;
+  }
+
+    this.http.get(`http://localhost:8084/api/v1/reclamation/client/${this.currentUser.id}`)
+      .subscribe((resultData: any) => {
+        console.log(resultData);
+        this.reclamationArray = resultData;
+        this.Taches = resultData; // Initialise aussi Taches pour les filtres
+        this.filteredTaches = [...this.Taches]; // Copie pour les filtres
+      }, error => {
+        console.error('Erreur lors de la récupération des réclamations', error);
+      });
+  }*/
+  
   filterByDate(date: string): void {
     if (date) {
-      this.filteredTaches = this.Taches.filter(tache => tache.dateCreation === date);
+      this.filteredTaches = this.reclamationArray.filter(tache => tache.dateCreation === date);
     } else {
-      this.filteredTaches = this.Taches; 
+      this.filteredTaches = this.reclamationArray; 
     }
     this.currentPage = 1;
   }
@@ -43,58 +78,62 @@ export class HistoriqueComponent implements OnInit {
     this.router.navigate(['/taches']);
   }
   exportAsCSV(): void {
+    if (this.filteredTaches.length === 0) {
+      alert('Aucune donnée à exporter');
+      return;
+    }
+
     const csvRows = [];
-  
+    
     // Ajouter les en-têtes du CSV
-    csvRows.push("ID,title,Description,État,Remarque,Intervenant ID,Client ID,Catégorie,Urgence,Date de Création");
-  
+    const headers = ['Nom', 'Description', 'État', 'Remarque', 'Intervenant ID', 'Client ID', 'Urgence', 'Date de Création'];
+    csvRows.push(headers.join(','));
+
     // Ajouter les données des tâches
-    this.filteredTaches.forEach(tache => {
-      const row = `${tache.id},${tache.title}${tache.description},${tache.etat},${tache.remarque},${tache.intervenantId},${tache.clientId},${tache.categorie},${tache.urgence},${tache.dateCreation}`;
-      csvRows.push(row);
+    this.filteredTaches.forEach((tache: { nom: any; description: any; etat: any; remarque: any; intervenantId: any; clientId: any; urgence: any; dateCreation: any; }) => {
+      const row = [
+        `"${tache.nom || ''}"`,
+        `"${tache.description || ''}"`,
+        `"${tache.etat || ''}"`,
+        `"${tache.remarque || ''}"`,
+        `"${tache.intervenantId || ''}"`,
+        `"${tache.clientId || ''}"`,
+        `"${tache.urgence || ''}"`,
+        `"${tache.dateCreation || ''}"`
+      ];
+      csvRows.push(row.join(','));
     });
-  
+
     // Convertir les lignes en une seule chaîne CSV
     const csvString = csvRows.join("\r\n");
-  
-    // Créer un blob à partir de la chaîne CSV
-    const blob = new Blob([csvString], { type: 'text/csv' });
-  
-    // Créer un lien pour télécharger le fichier CSV
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', 'taches.csv');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+
+    // Créer et télécharger le fichier
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'taches.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
-  loadReclamations(): void {
-    this.ReclamationService.getReclamations().subscribe(
-      (data: Tache[]) => {
-        this.Taches = data; // Met à jour la liste des tâches
-      },
-      (error) => {
-        console.error('Erreur lors du chargement des réclamations', error);
-      }
-    );
-  }
+
 
   searchTaches(event: Event): void {
     const target = event.target as HTMLInputElement;
     const query = target.value;
     if (query) {
-      this.filteredTaches = this.Taches.filter(tache =>
-        tache.title.toLowerCase().includes(query.toLowerCase()) ||
+      this.filteredTaches = this.reclamationArray.filter(tache =>
+        tache.nom.toLowerCase().includes(query.toLowerCase()) ||
         tache.description.toLowerCase().includes(query.toLowerCase())
       );
     } else {
-      this.filteredTaches = this.Taches; // Réinitialiser le filtre si aucun texte n'est saisi
+      this.filteredTaches = this.reclamationArray; // Réinitialiser le filtre si aucun texte n'est saisi
     }
   }
 
-  get paginatedTaches(): Tache[] {
+  get paginatedTaches(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredTaches.slice(startIndex, startIndex + this.itemsPerPage);
   }

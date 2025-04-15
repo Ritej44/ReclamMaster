@@ -20,13 +20,15 @@ import { DashbordAdminComponent } from './dashbord-admin/dashbord-admin.componen
 import { ClientComponent } from './client/client.component';
 import { IntervenantComponent } from './intervenant/intervenant.component';
 import { AffectationIntervenantComponent } from './affectation-intervenant/affectation-intervenant.component';
-import { AffectationService } from './affectation.service';
 import { AlltachesComponent } from './alltaches/alltaches.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { ListeintervenantComponent } from './listeintervenant/listeintervenant.component';
+import { HistoriqueIntervenantComponent } from './historique-intervenant/historique-intervenant.component';
+import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,9 @@ import { MatButtonModule } from '@angular/material/button';
     IntervenantComponent,
     AffectationIntervenantComponent,
     AlltachesComponent,
+    ListeintervenantComponent,
+    HistoriqueIntervenantComponent,
+    DashboardIntervenantComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,3 +72,9 @@ import { MatButtonModule } from '@angular/material/button';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
+
+//C:\Program Files\MongoDB\Server\7.0\bin
+//mongod --dbpath "C:\Program Files\MongoDB\Server\7.0\Data" --bind_ip 127.0.0.1

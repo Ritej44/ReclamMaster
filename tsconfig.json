@@ -2,6 +2,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+      "node",
+      "body-parser",
+      "express",
+      "jasmine"
+    ],
+    "allowJs": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
