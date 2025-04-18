@@ -19,9 +19,10 @@ export class TachesComponent  {
   etat:string="";
   urgence:string="";
   creation: string = new Date().toISOString().split('T')[0];
-
+  clientId:string="";
   reclamationsArray: any[] = [];
   currentReclamationId: string = "";
+
 
      constructor(private http :HttpClient,private toastr :ToastrService,private authService: AuthService,private router: Router)
    { }
@@ -41,7 +42,7 @@ export class TachesComponent  {
       "etat":this.etat,
       "remarque":this.remarque,
       "urgence":this.urgence,
-      "dateCreation": this.creation
+      "dateCreation": this.creation,
         };
       this.http.post("http://localhost:8084/api/v1/reclamation/create", bodyData).subscribe({
         next: (resultData: any) => {

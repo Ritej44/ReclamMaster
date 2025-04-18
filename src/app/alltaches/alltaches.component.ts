@@ -16,8 +16,7 @@ export class AlltachesComponent {
   selectedIntervenant: string = '';
   selectedReclamation: string = '';
   reclamationArray: any[] = [];
-
-
+  clientNom:  {[id: string]: string} = {};
   searchResults:any[]=[];
   showEditPopup: boolean =false;
   showAddPopup: boolean = false;
@@ -30,6 +29,7 @@ export class AlltachesComponent {
   dateCreation: string = "";
   clientId: string = "";
   intervenantId: string = "";
+  intervenantNoms: {[id: string]: string} = {};
 
   constructor(
     private http: HttpClient,
@@ -65,12 +65,55 @@ export class AlltachesComponent {
         });
     }
   }
- 
+
+  
+  getClientNom(clientId: string) {
+    if (!clientId) return; 
+    
+    this.http.get(`http://localhost:8084/api/v1/Clients/${clientId}/name`, { 
+      responseType: 'text' 
+    }).subscribe({
+      next: (name) => {
+        this.clientNom[clientId] = name;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération du nom:', err);
+        this.clientNom[clientId] = 'Inconnu'; 
+      }
+    });
+  }
+  getIntervenantNom(intervenantId: string) {
+    if (!intervenantId) return; 
+    
+    this.http.get(`http://localhost:8084/api/v1/intervenant/${intervenantId}/name`, { 
+      responseType: 'text' 
+    }).subscribe({
+      next: (name) => {
+        this.intervenantNoms[intervenantId] = name;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération du nom:', err);
+        this.intervenantNoms[intervenantId] = 'Inconnu'; 
+      }
+    });
+  }
   getAllReclamations() {
     this.http.get("http://localhost:8084/api/v1/reclamation/getAll")
       .subscribe((resultData: any) => {
         console.log(resultData);
         this.reclamationArray = resultData;
+        
+        this.reclamationArray.forEach(reclamation => {
+          if (reclamation.intervenantId) {
+            this.getIntervenantNom(reclamation.intervenantId);
+          }
+        });
+        this.reclamationArray.forEach(reclamation => {
+          if (reclamation.clientId) {
+            this.getClientNom(reclamation.clientId);
+          }
+        });
+
       });
   }
   register(){

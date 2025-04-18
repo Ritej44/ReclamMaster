@@ -76,5 +76,8 @@ export class AppModule { }
 
 
 
-//C:\Program Files\MongoDB\Server\7.0\bin
-//mongod --dbpath "C:\Program Files\MongoDB\Server\7.0\Data" --bind_ip 127.0.0.1
+/*
+C:\Program Files\MongoDB\Server\7.0\bin
+mongod --dbpath "C:\Program Files\MongoDB\Server\7.0\Data" --bind_ip 127.0.0.1
+
+*/

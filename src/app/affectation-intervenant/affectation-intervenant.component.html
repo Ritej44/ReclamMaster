@@ -61,7 +61,7 @@
             <label for="intervenant">Sélectionner un intervenant:</label>
             <select id="intervenant" class="form-control" [(ngModel)]="selectedIntervenant">
               <option value="">-- Choisir un intervenant --</option>
-              <option *ngFor="let intervenant of intervenantArray" [value]="intervenant._id">
+              <option *ngFor="let intervenant of intervenantArray" [value]="intervenant.id">
                 {{ intervenant.name }} ({{ intervenant.email }})
               </option>
             </select>

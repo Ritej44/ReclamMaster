@@ -53,6 +53,8 @@ export class AffectationIntervenantComponent  {
           this.toastr.warning("Veuillez sélectionner un intervenant et une réclamation");
           return;
         }
+        console.log("ID Intervenant:", this.selectedIntervenant); // <-- Vérifiez ceci
+        console.log("ID Réclamation:", this.selectedReclamation);
     
         const bodyData = {
           intervenantId: this.selectedIntervenant,
@@ -70,6 +72,8 @@ export class AffectationIntervenantComponent  {
             },
             error: (error) => {
               this.toastr.error("Erreur lors de l'affectation");
+                console.error("Erreur détaillée:", error); // Afficher l'erreur complète
+              
             }
           });
       }

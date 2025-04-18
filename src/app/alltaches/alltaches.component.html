@@ -97,8 +97,40 @@
                   {{ reclamation.dateCreation | date:'medium' }}
                 </td>
               </tr>
+
+              <tr>
+                <th class="text-right bg-light">Intervenant</th>
+                <td *ngFor="let reclamation of reclamationArray">
+                  <!-- Affiche le nom si disponible, sinon "Chargement..." ou "Non affecté" -->
+                  <span *ngIf="reclamation.intervenantId">
+                    {{ intervenantNoms[reclamation.intervenantId] || 'Chargement...' }}
+                  </span>
+                  <span *ngIf="!reclamation.intervenantId">
+                    Non affecté
+                  </span>
+                </td>
+              </tr>
+
+              <tr>
+                <th class="text-right bg-light">client</th>
+                <td *ngFor="let reclamation of reclamationArray">
+                  <!-- Affiche le nom si disponible, sinon "Chargement..." ou "Non affecté" -->
+                  <span *ngIf="reclamation.clientId">
+                    {{ clientNom[reclamation.clientId] || 'Chargement...' }}
+                  </span>
+                  <span *ngIf="!reclamation.clientId">
+                    Non récupérée
+                  </span>
+                </td>
+              </tr>
               
-              
+              <!-- Ligne Urgence -->
+              <tr>
+                <th class="text-right bg-light">ClientId</th>
+                <td *ngFor="let reclamation of reclamationArray">
+                  {{ reclamation.clientId }}
+                </td>
+              </tr>
               
                <tr>
                 <th class="text-right bg-light">Actions</th>
