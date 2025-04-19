@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./taches.component.css']
 })
 export class TachesComponent  {
-
+  nameClient:string="";
   description:string="";
   remarque:string="";
   nom:string="";
@@ -37,6 +37,7 @@ export class TachesComponent  {
     const creation = new Date(this.creation).toISOString();
 
     let bodyData={
+      "nameClient":this.nameClient,
       "nom":this.nom,
       "description":this.description,
       "etat":this.etat,
@@ -58,6 +59,7 @@ export class TachesComponent  {
   }
 
   resetForm() {
+    this.nameClient="";
     this.description = "";
     this.remarque = "";
     this.nom = "";

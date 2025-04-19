@@ -16,7 +16,7 @@ export class AlltachesComponent {
   selectedIntervenant: string = '';
   selectedReclamation: string = '';
   reclamationArray: any[] = [];
-  clientNom:  {[id: string]: string} = {};
+    clientNom:  {[id: string]: string} = {};
   searchResults:any[]=[];
   showEditPopup: boolean =false;
   showAddPopup: boolean = false;
@@ -30,6 +30,8 @@ export class AlltachesComponent {
   clientId: string = "";
   intervenantId: string = "";
   intervenantNoms: {[id: string]: string} = {};
+  nameClient:string="";
+
 
   constructor(
     private http: HttpClient,
@@ -108,12 +110,6 @@ export class AlltachesComponent {
             this.getIntervenantNom(reclamation.intervenantId);
           }
         });
-        this.reclamationArray.forEach(reclamation => {
-          if (reclamation.clientId) {
-            this.getClientNom(reclamation.clientId);
-          }
-        });
-
       });
   }
   register(){
@@ -135,6 +131,7 @@ export class AlltachesComponent {
   }
 
   setUpdate(data: any) {
+    this.nameClient=this.nameClient;
     this.currentReclamationID = data.id;
     this.nom=data.nom
     this.description = data.description;
@@ -148,6 +145,7 @@ export class AlltachesComponent {
 
   UpdateRecords() {
     let bodyData = {
+      nameClient:this.nameClient,
       nom:this.nom,
       description: this.description,
       etat: this.etat,
@@ -183,6 +181,7 @@ export class AlltachesComponent {
 
    resetForm() {
     this.currentReclamationID = "";
+    this.nameClient="";
     this.nom="";
     this.description = "";
     this.etat = "";

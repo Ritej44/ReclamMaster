@@ -112,23 +112,12 @@
               </tr>
 
               <tr>
-                <th class="text-right bg-light">client</th>
+                <th class="text-right bg-light">Nom du Client</th>
                 <td *ngFor="let reclamation of reclamationArray">
-                  <!-- Affiche le nom si disponible, sinon "Chargement..." ou "Non affecté" -->
-                  <span *ngIf="reclamation.clientId">
-                    {{ clientNom[reclamation.clientId] || 'Chargement...' }}
-                  </span>
-                  <span *ngIf="!reclamation.clientId">
+                    {{ reclamation.nameClient}}
+                  <span *ngIf="!reclamation.nameClient">
                     Non récupérée
                   </span>
-                </td>
-              </tr>
-              
-              <!-- Ligne Urgence -->
-              <tr>
-                <th class="text-right bg-light">ClientId</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.clientId }}
                 </td>
               </tr>
               
@@ -157,16 +146,23 @@
     <div class="modal-body">
       <form>
         <div class="nomdes">
+          <div class="form-row">
+          <div class="form-group">
+            <label for="nameClient">Nom du Client</label>
+            <input type="text" class="form-control" [(ngModel)]="nameClient" name="nameClient">
+          </div>
         <div class="form-group">
           <label for="nom">Nom</label>
           <input type="text" class="form-control" [(ngModel)]="nom" name="nom">
         </div>
+          </div>
         <div class="form-group">
           <label for="description">Description</label>
           <textarea type="text" class="form-control" [(ngModel)]="description" name="description" rows="2"></textarea>
         </div>
       </div>
       <div class="nomdes">
+        <div class="form-row">
         <div class="form-group">
           <label for="etat">État</label>
           <select class="form-control" [(ngModel)]="etat" name="etat">
@@ -183,6 +179,7 @@
             <option value="Haute">Elevé</option>
           </select>
         </div>
+      </div>
       </div>
       <div class="nomdes">
         <div class="form-group">

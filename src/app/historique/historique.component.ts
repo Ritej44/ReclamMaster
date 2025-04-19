@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-historique',
@@ -14,7 +15,7 @@ export class HistoriqueComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,private toastr :ToastrService
   ) {
     this.getAllReclamations();
 
@@ -33,19 +34,25 @@ export class HistoriqueComponent implements OnInit {
   dateCreation: string = "";
   clientId: string = "";
   intervenantId: string = "";
+  nameClient:string="";
   
   ngOnInit(): void {
   }
 
 
-  
   getAllReclamations() {
-    this.http.get("http://localhost:8084/api/v1/reclamation/getAll")
-      .subscribe((resultData: any) => {
-        console.log(resultData);
-        this.reclamationArray = resultData;
-      });
-  }
+    this.http.get(`http://localhost:8084/api/v1/reclamation/client/${this.nameClient}`)
+        .subscribe({
+            next: (resultData: any) => {
+                console.log(resultData);
+                this.reclamationArray = resultData;
+            },
+            error: (error) => {
+                console.error('Error fetching reclamations:', error);
+                this.toastr.error("Erreur lors de la récupération des réclamations");
+            }
+        });
+}
   /*
   getAllReclamations() {
     const currentUser = this.authService.getCurrentUser();

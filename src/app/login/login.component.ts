@@ -25,6 +25,12 @@ export class LoginComponent {
   currentClientID = "";
   email: string ="";
   password: string ="";
+
+  loginObj: any = {
+    name:'',
+    email: '',
+    password: ''
+  };
   constructor(private router: Router,private http: HttpClient,private toastr:ToastrService ,private authService:AuthService) {
     
     const storedUser = localStorage.getItem('currentUser');
@@ -41,8 +47,14 @@ export class LoginComponent {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  
- 
+ /* Login(){
+    debugger
+  this.authService.login(this.loginObj).subscribe((res: any) => {
+    console.log('res',res)
+    localStorage.setItem('token',res.token);
+     this.router.navigateByUrl('/dashboard');
+  })
+}*/
   Login() {
     let bodyData = {
       "name": this.name,
@@ -97,7 +109,6 @@ export class LoginComponent {
     });
   }
   
-      
   }
 
 

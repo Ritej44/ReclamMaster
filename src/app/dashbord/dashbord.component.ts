@@ -16,35 +16,19 @@ export class DashbordComponent {
   name :string="";
   currentUser: any;
 
+
   constructor( private http:HttpClient, private authService: AuthService, private router: Router) {}
   
   ngOnInit() {
- /*   if (this.authService.isLoggedIn()) {
-      this.currentUser = this.authService.currentUserValue;
-      // Ajoutez cette vérification de sécurité
-      if (!this.currentUser) {
-        console.error('User data is missing');
-      }
-    } else {
-      console.error('User is not logged in');
-    }*/
-   this.getUserData().subscribe((data)=>{
-    this.currentUser=data;
-    if(this.currentUser.name){
-      this.name=this.currentUser.name
-    }
-   });
+   
 }
 
-
-getUserData(): Observable<any> {
-  return this.http.get<any>('http://localhost:4200/api/user');
-}
-
-  userProfile = {
-    avatar: 'assets/no img.png',
-  };
-
+userProfile = {
+  name: 'Nom',
+  firstName: 'Prénom',
+  email: 'mail@gmail.com',
+  avatar: '/assets/no img.png',
+};
   notifications = [2,1];
   
   logout():void {

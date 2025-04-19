@@ -8,7 +8,7 @@ import { tap, map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8084/api/v1/clients';
+  private apiUrl = 'http://localhost:8084/api/v1/Clients';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   private authTokenKey = 'authToken';
@@ -16,7 +16,7 @@ export class AuthService {
 
   getIntervenantId(): string | null {
     // Implémentez la logique pour récupérer l'ID de l'intervenant
-    return localStorage.getItem('intervenantId'); // Exemple
+    return localStorage.getItem('intervenantId'); 
   }
 
   
@@ -34,9 +34,9 @@ export class AuthService {
     return this.currentUserValue !== null;
   }
 
-  login(user: any) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.currentUserSubject.next(user);
+  login(obj: any) : Observable<any> {
+    return this.http.post(' http://localhost:8084/api/v1/Clients/login',obj);
+
   }
 
   logout() {

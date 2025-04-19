@@ -45,21 +45,22 @@
             <form>
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="nameClient">Nom& Prénom du Client</label>
+                        <input type="text" name="nameClient" id="nameClient" [(ngModel)]="nameClient" [ngModelOptions]="{standalone: true}" required #nomInput="ngModel" placeholder="Votre nom et votre Prénom">
+                 <div *ngIf="nomInput.invalid && (nomInput.dirty || nomInput.touched)"
+                      class="error-message">
+                     Votre nom est obligatoire
+                 </div>>
+                    </div>
+                    <div class="form-group">
                         <label for="nom">Nom du Réclamation</label>
-                        <input type="text" name="nom" id="nom" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" required #nomInput="ngModel">
+                        <input type="text" name="nom" id="nom" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" required #nomInput="ngModel" placeholder="Nom du Réclamation">
                  <div *ngIf="nomInput.invalid && (nomInput.dirty || nomInput.touched)"
                       class="error-message">
                      Le nom est obligatoire
                  </div>>
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description :</label>
-                        <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="1"#descInput="ngModel"></textarea>
-               <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
-                    class="error-message">
-                   La description est obligatoire
-               </div>
-                    </div>
+                    
                 </div>
         
                 <div class="form-row">
@@ -79,12 +80,21 @@
                             <option value="élevée">Élevée</option>
                         </select>
                     </div>
-                </div>
-        
-                <div class="form-row">
                     <div class="form-group">
                         <label for="dateCreation">Date de Création</label>
                         <input type="date" [(ngModel)]="creation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    
+                    <div class="form-group">
+                        <label for="description">Description :</label>
+                        <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="2"#descInput="ngModel" placeholder="Descrivez votre Réclamation"></textarea>
+               <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
+                    class="error-message">
+                   La description est obligatoire
+               </div>
                     </div>
                     <div class="form-group">
                         <label for="remarque">Remarque</label>

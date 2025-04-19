@@ -14,7 +14,7 @@ constructor(private authService :AuthService ,private router:Router){}
     name: 'Nom',
     firstName: 'Prénom',
     email: 'mail@gmail.com',
-    avatar: 'assets/isra.jpg',
+    avatar: '/assets/no img.png',
   };
 
   stats = {

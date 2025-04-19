@@ -33,7 +33,7 @@ IntervenantArray : any[] = [];
   userProfile = {
     name: 'Nom',
     email: 'mail@gmail.com',
-    avatar: 'assets/isra.jpg',
+    avatar: '/assets/no img.png',
   };
 
   notifications = [2,1];
