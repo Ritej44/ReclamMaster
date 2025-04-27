@@ -50,6 +50,7 @@ import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard
     ListeintervenantComponent,
     HistoriqueIntervenantComponent,
     DashboardIntervenantComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -62,12 +63,10 @@ import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatButtonModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot({timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    }),
-  ],
+    
+],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -97,6 +97,12 @@
                   {{ reclamation.dateCreation | date:'medium' }}
                 </td>
               </tr>
+              <tr>
+                <th class="text-right bg-light">Date de Fin</th>
+                <td *ngFor="let reclamation of reclamationArray">
+                  {{ reclamation.dateFin | date:'medium' }}
+                </td>
+              </tr>
 
               <tr>
                 <th class="text-right bg-light">Intervenant</th>

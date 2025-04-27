@@ -36,7 +36,6 @@
 
     <main class="content">
       <header>
-        <h1 *ngIf="currentUser">Bienvenue , {{ currentUser.name }}</h1>
         <div class="search-container">
           <input type="text" class="search-input" placeholder="Search...">
           <button class="search-button">
@@ -49,6 +48,19 @@
               <span class="badge" *ngIf="notifications.length">{{ notifications.length }}</span>
             </button>
 
+            <div *ngIf="clientName">
+              Bienvenue, {{ clientName }} !
+            </div>
+            <div *ngIf="currentClient">
+              <h2>Profil Utilisateur</h2>
+              <p>Nom: {{currentClient.name}}</p>
+              <p>Email: {{currentClient.email}}</p>
+              <!-- autres champs -->
+            </div>
+            
+            <div *ngIf="!currentClient">
+              Chargement...
+            </div>
             <div class="profile">
               <h3>{{ userProfile.name }}</h3>
               <img [src]="userProfile.avatar" alt="Profile" class="avatar">

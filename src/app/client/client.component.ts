@@ -17,10 +17,8 @@ export class ClientComponent  {
     const searchTerm = (event.target as HTMLInputElement).value;
 
     if (searchTerm.trim() === '') {
-      // Si la case de recherche est vide, récupérez tous les clients
       this.getAllClients();
     } else {
-      // Sinon, effectuez la recherche par nom
       this.http.get(`http://localhost:8084/api/v1/Clients/search/name/${searchTerm}`, { responseType: 'json' })
         .subscribe({
           next: (resultData: any) => {

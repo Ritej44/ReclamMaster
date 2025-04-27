@@ -2,7 +2,6 @@
 <html lang="fr">
 <body>
     <header class="header">
-        <h1>Reclamations</h1>
     </header>
     <div class="settings-container">
         <aside class="sidebar">
@@ -34,10 +33,14 @@
 
         <div class="orders">
             <div class="filters">
-                <input class="search-input" type="text" id="searchInput"name="searchInput"placeholder="Rechercher..."(input)="searchTaches($event)">
-                <input type="date"#dateFilter id="dateFilter"name="dateFilter"class="date-input"(change)="filterByDate(dateFilter.value)" autocomplete="on">
-         <button class="filter-button" (click)="filterByDate(dateFilter.value)">Filtrer</button>
-            </div>
+              <h1>Reclamations</h1>
+
+              <input class="search-input" type="text" id="searchInput"name="searchInput"placeholder="Rechercher par nom..."(input)="searchReclamations($event)">
+              <input type="date" #endDateFilter id="endDateFilter" name="endDateFilter" class="date-input" autocomplete="on">
+              <button class="filter-button" (click)="filterByDate(endDateFilter.value)">
+                <i class="fa fa-filter"></i> Filtrer
+              </button>
+                </div>           
 
             <table>
                 <thead>
@@ -48,6 +51,7 @@
                         <th>Etat</th>
                         <th>Urgence</th>
                         <th>Remarque</th>
+                        <th>Date de Fin</th>
                         <th>Actions</th>
                     </tr>
  
@@ -60,6 +64,7 @@
                         <td>{{ reclamation.etat }}</td>
                         <td>{{ reclamation.urgence }}</td>
                         <td>{{ reclamation.remarque }}</td>
+                        <td>{{reclamation.dateFin}}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" title="Modifier" (click)="openEditPopup(reclamation)">
                               <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -124,6 +129,10 @@
                       <div class="form-group">
                         <label for="dateCreation">Date Création</label>
                         <input type="datetime-local" class="form-control" [(ngModel)]="dateCreation" name="dateCreation">
+                      </div>
+                      <div class="form-group">
+                        <label for="dateFin">Date Fin</label>
+                        <input type="datetime-local" class="form-control" [(ngModel)]="dateFin" name="dateFin">
                       </div>
                     </div>
                       <div class="modal-footer">

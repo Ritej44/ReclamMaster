@@ -16,8 +16,7 @@ export class AlltachesComponent {
   selectedIntervenant: string = '';
   selectedReclamation: string = '';
   reclamationArray: any[] = [];
-    clientNom:  {[id: string]: string} = {};
-  searchResults:any[]=[];
+  clientNom:  {[id: string]: string} = {};
   showEditPopup: boolean =false;
   showAddPopup: boolean = false;
   currentReclamationID = "";
@@ -31,7 +30,7 @@ export class AlltachesComponent {
   intervenantId: string = "";
   intervenantNoms: {[id: string]: string} = {};
   nameClient:string="";
-
+  dateFin:string="";
 
   constructor(
     private http: HttpClient,
@@ -47,6 +46,7 @@ export class AlltachesComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+ 
 
   searchReclamations(event: Event) {
     const searchTerm = (event.target as HTMLInputElement).value;
@@ -54,7 +54,7 @@ export class AlltachesComponent {
     if (searchTerm.trim() === '') {
       this.getAllReclamations();
     } else {
-      this.http.get(`http://localhost:8084/api/v1/reclamations/search/name/${searchTerm}`, { responseType: 'json' })
+      this.http.get(`http://localhost:8084/api/v1/reclamation/search/name/${searchTerm}`, { responseType: 'json' })
         .subscribe({
           next: (resultData: any) => {
             console.log(resultData);

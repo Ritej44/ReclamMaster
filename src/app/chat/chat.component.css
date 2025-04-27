@@ -1,13 +1,14 @@
-
-  * {
+* {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-html,body {
+html {
     height: 100%;
     overflow: hidden;
+    background-color: #3055a0;
+
 }
 
 body {
@@ -32,6 +33,7 @@ body {
     display: none;
 }
 
+/* Style for form control elements */
 .form-control {
     width: 100%;
     min-height: 38px;
@@ -43,17 +45,12 @@ body {
     margin-bottom: 15px;
 }
 
-.row{
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-
-}
 input {
     padding-left: 10px;
     outline: none;
 }
 
+/* Headings */
 h1, h2, h3, h4, h5, h6 {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -67,6 +64,7 @@ a {
     color: #3055a0;
 }
 
+/* Button styles */
 button {
     box-shadow: none;
     border: 1px solid transparent;
@@ -82,28 +80,33 @@ button {
     min-height: 38px;
 }
 
+/* Default button style */
 button.default {
     background-color: #e8e8e8;
     color: #333;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
 }
 
+/* Primary button style */
 button.primary {
     background-color: #3055a0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
 }
 
+/* Accent button style */
 button.accent {
     background-color: #3055a0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
 }
 
+/* Username page styling */
 #username-page {
     text-align: center;
 }
 
+/* Username page container styling */
 .username-page-container {
     background: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
@@ -124,16 +127,18 @@ button.accent {
     margin-top: -160px;
 }
 
+/* Username submit button */
 .username-page-container .username-submit {
     margin-top: 10px;
 }
 
-
-#chat-page {
+/* Chatroom styling */
+#chatroom {
     position: relative;
     height: 100%;
 }
 
+/* Chat container styling */
 .chat-container {
     max-width: 700px;
     margin-left: auto;
@@ -146,7 +151,8 @@ button.accent {
     position: relative;
 }
 
-#chat-page ul {
+/* Chatroom messages */
+#chatroom ul {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
@@ -156,76 +162,91 @@ button.accent {
     height: calc(100% - 150px);
 }
 
-#chat-page #messageForm {
+/* Typing area styling */
+#chatroom #typingArea {
     padding: 20px;
 }
 
-#chat-page ul li {
+/* Chat messages styling */
+#chatroom ul li {
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
     border-bottom: 1px solid #f4f4f4;
 }
 
-#chat-page ul li p {
+/* Message content */
+#chatroom ul li p {
     margin: 0;
 }
 
-#chat-page .event-message {
+/* Event message styling (join/leave notifications) */
+#chatroom .event-message {
     width: 100%;
     text-align: center;
     clear: both;
 }
 
-#chat-page .event-message p {
+/* Event message paragraph styling */
+#chatroom .event-message p {
     color: #777;
     font-size: 14px;
     word-wrap: break-word;
 }
 
-#chat-page .chat-message {
-    padding-left: 68px;
-    position: relative;
+/* Chat message styling */
+#chatroom .chat-message {
+    display: flex;  /* Use flexbox for layout */
+    align-items: center;  /* Vertically align avatar and text */
+    padding: 10px 0;  /* Add padding for spacing */
+    border-bottom: 1px solid #f4f4f4;  /* Separate each message with a border */
 }
 
-#chat-page .chat-message i {
-    position: absolute;
+/* Avatar styling */
+#chatroom .chat-message i {
     width: 42px;
     height: 42px;
-    overflow: hidden;
-    left: 10px;
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-flex;  /* Use flexbox for avatar text alignment */
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
-    line-height: 42px;
     color: #fff;
     text-align: center;
     border-radius: 50%;
     font-style: normal;
-    text-transform: uppercase;
+    margin-right: 10px;  /* Add space between avatar and username */
 }
 
-#chat-page .chat-message span {
-    color: #333;
+/* Username styling */
+#chatroom .chat-message span {
     font-weight: 600;
+    color: #333;
+    margin-right: 10px;  /* Add some space between username and the message text */
 }
 
-#chat-page .chat-message p {
+/* Message content */
+#chatroom .chat-message p {
+    margin: 0;
     color: #43464b;
+    word-wrap: break-word;  /* Ensure long messages wrap correctly */
+    flex: 1;  /* Make the message text take the remaining space */
 }
 
-#messageForm .input-group input {
+/* Input field styling for typing area */
+#typingArea .input-group input {
     float: left;
     width: calc(100% - 85px);
 }
 
-#messageForm .input-group button {
+/* Button styling for typing area */
+#typingArea .input-group button {
     float: left;
     width: 80px;
     height: 38px;
     margin-left: 5px;
 }
 
+/* Chat header styling */
 .chat-header {
     text-align: center;
     padding: 15px;
@@ -237,6 +258,7 @@ button.accent {
     font-weight: 500;
 }
 
+/* Connection status */
 .connecting {
     padding-top: 5px;
     text-align: center;
@@ -246,9 +268,8 @@ button.accent {
     width: 100%;
 }
 
-
+/* Media query for smaller screens */
 @media screen and (max-width: 730px) {
-
     .chat-container {
         margin-left: 10px;
         margin-right: 10px;
@@ -256,6 +277,7 @@ button.accent {
     }
 }
 
+/* Media query for mobile screens */
 @media screen and (max-width: 480px) {
     .chat-container {
         height: calc(100% - 30px);
@@ -268,16 +290,82 @@ button.accent {
         padding: 25px;
     }
 
-    #chat-page ul {
+    #chatroom ul {
         height: calc(100% - 120px);
     }
 
-    #messageForm .input-group button {
-        width: 65px;
+    /* Sticky typing area for mobile */
+    #typingArea {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #ececec;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
     }
 
-    #messageForm .input-group input {
-        width: calc(100% - 70px);
+    #typingArea .form-group {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    #typingArea .input-group {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    #typingArea .form-control {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 20px;
+        background-color: #f4f4f4;
+        margin-right: 10px;
+        transition: background-color 0.3s;
+    }
+
+    /* Styling for the blue "Send" button */
+    #typingArea .primary {
+        background-color: #007bff !important;  /* Blue background color */
+        color: white !important;  /* White text color */
+        font-family: 'Arial', sans-serif !important;  /* Font family */
+        font-weight: bold !important;  /* Bold text */
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease-in-out, color 0.3s;
+    }
+
+    #typingArea .primary:hover {
+        background-color: #0056b3 !important;  /* Darker blue on hover */
+        color: #f1f1f1 !important;
+    }
+
+    #typingArea .primary:active {
+        background-color: #003f7f !important;  /* Even darker blue when clicked */
+        color: #e0e0e0 !important;
+    }
+
+    #typingArea .primary:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important;  /* Blue glow effect when focused */
     }
 
     .chat-header {
@@ -292,26 +380,3 @@ button.accent {
         font-size: 1.1em;
     }
 }
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .chat-input input {
-      width: 70%;
-    }
-  
-    .chat-input button {
-      width: 30%;
-    }
-  }
-  
-  /* Notification Badge */
-  .notification-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #e2322a;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 10px;
-    font-size: 0.8em;
-  }
-  

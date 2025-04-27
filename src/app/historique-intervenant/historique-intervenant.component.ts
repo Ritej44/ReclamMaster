@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-historique-intervenant',
@@ -10,13 +12,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./historique-intervenant.component.css']
 })
 export class HistoriqueIntervenantComponent {
+
     filteredTaches: any =[];
   
     constructor(
       private http: HttpClient,
       private authService: AuthService,
       private router: Router,
-      private toastr:ToastrService
+      private toastr:ToastrService,
     ) {
       this.getAllReclamations();
   
@@ -36,10 +39,43 @@ export class HistoriqueIntervenantComponent {
     dateCreation: string = "";
     clientId: string = "";
     intervenantId: string = "";
+    dateFin : string="";
+           
     
     ngOnInit(): void {
     }
   
+    filterByDate( endDate: string) {
+      const params = new HttpParams()
+        .set('endDate', endDate);
+    
+      this.http.get<any[]>(`http://localhost:8084/api/v1/reclamation/filter`, { params })
+        .subscribe(reclamations => {
+          this.reclamationArray = reclamations;
+        });
+    }
+  
+  searchReclamations(event: Event) {
+    const searchTerm = (event.target as HTMLInputElement).value;
+
+    if (searchTerm.trim() === '') {
+      this.getAllReclamations();
+    } else {
+      this.http.get(`http://localhost:8084/api/v1/reclamation/search/name/${searchTerm}`, { responseType: 'json' })
+        .subscribe({
+          next: (resultData: any) => {
+            console.log(resultData);
+            this.reclamationArray = resultData; 
+          },
+          error: (error) => {
+            console.error('Error searching intervenants:', error);
+            this.toastr.error('Erreur lors de la recherche du reclamation');
+          }
+        });
+    }
+  }
+
+
   
     openEditPopup(reclamation: any): void {
       this.setUpdate(reclamation);
@@ -61,6 +97,7 @@ export class HistoriqueIntervenantComponent {
       this.dateCreation = data.dateCreation;
       this.clientId = data.clientId;
       this.intervenantId = data.intervenantId;
+      this.dateFin=data.dateFin;
     }
   
     UpdateRecords() {
@@ -72,7 +109,8 @@ export class HistoriqueIntervenantComponent {
         urgence: this.urgence,
         dateCreation: this.dateCreation,
         clientId: this.clientId,
-        intervenantId: this.intervenantId
+        intervenantId: this.intervenantId,
+        dateFin:this.dateFin
       };
       
       this.http.put(`http://localhost:8084/api/v1/reclamation/edit/${this.currentReclamationID}`, 
@@ -108,6 +146,7 @@ export class HistoriqueIntervenantComponent {
       this.dateCreation = "";
       this.clientId = "";
       this.intervenantId = "";
+      this.dateFin="";
     }
     getAllReclamations() {
       this.http.get("http://localhost:8084/api/v1/reclamation/getAll")
@@ -118,14 +157,6 @@ export class HistoriqueIntervenantComponent {
     }
     
     
-    filterByDate(date: string): void {
-      if (date) {
-        this.filteredTaches = this.reclamationArray.filter(tache => tache.dateCreation === date);
-      } else {
-        this.filteredTaches = this.reclamationArray; 
-      }
-      this.currentPage = 1;
-    }
   
     
     exportAsCSV(): void {

@@ -14,12 +14,22 @@ export class DashbordComponent {
   ClientsArray : any[] = [];
   selectedClient?: Client;
   name :string="";
-  currentUser: any;
+  currentClient: any;
+  private apiUrl = 'http://localhost:8084/api/v1/Clients';
+  clientName!: string;
 
 
   constructor( private http:HttpClient, private authService: AuthService, private router: Router) {}
   
   ngOnInit() {
+    
+   
+    this.http.get('http://localhost:8084/api/v1/Clients/current', {
+      withCredentials: true  // This sends cookies/auth headers
+    }).subscribe(
+      response => console.log(response),
+      error => console.error(error)
+    );
    
 }
 
@@ -36,6 +46,7 @@ userProfile = {
 
     this.router.navigate(['/login']);  }
 
+  
   
 
 }

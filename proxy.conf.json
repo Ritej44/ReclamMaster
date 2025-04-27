@@ -1,9 +1,16 @@
-{
+  {
+    "/ws": {
+      "target": "http://localhost:8084",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+
+    },
     "/api": {
       "target": "http://localhost:8084",
       "secure": false,
       "changeOrigin": true,
       "pathRewrite": {"^/api": ""},
-    "timeout": 120000 
+      "timeout": 120000
     }
   }
