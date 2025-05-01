@@ -2,11 +2,6 @@
 <html>
     <body >
       <div class="signup-container">
-        <div class="welcome-section">
-          <h1>Bienvenue chez TAS</h1>
-          <p>Inscrivez-vous maintenant pour un accès exclusif !</p>
-          <img src="assets/login2-removebg-preview.png" alt="Image de Bienvenue">
-        </div>
         
         <div class="signup-section">
           <h2>Inscription</h2>
@@ -29,9 +24,14 @@
                   <option value="Intervenant">Intervenant</option>
                 </select>
               </div> 
-                 <label for="pwd">Mot de passe</label>
-                 <input id="pwd" type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
-                 
+
+              <label for="pwd">Mot de passe</label>
+              <div class="password-container">
+                <input id="pwd"  [type]="showPassword ? 'text' : 'password'"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
+                <span class="toggle-password" (click)="togglePasswordVisibility()">
+                  <i class="fa fa-eye" aria-hidden="true" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                </span>
+              </div>
       
                  <label for="confirmPassword">Confirmer le Mot de Passe</label>
                  <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" 
@@ -42,13 +42,29 @@
                  </small>
       
             <div class="btn">
-              <button type="submit" class="signup" (click)="save()">S'inscrire</button>
+              
+              <button type="submit" class="signup" (click)="save()">S'inscrire
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+              </button>
              
             </div>
-            
+            <span>
+              <div>
+                <br>
+              </div>
+            </span>
             <p>Déjà un compte ? <a routerLink="/login" routerLinkActive="active">Connectez-vous</a></p>
+
           </form>
         </div>
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h1>Bienvenue chez TAS</h1>
+          <p>Inscrivez-vous maintenant pour un accès exclusif !</p>
+          <img src="assets/login2-removebg-preview.png" alt="Image de Bienvenue">
+        </div>
+        
       </div>
    
 </body>

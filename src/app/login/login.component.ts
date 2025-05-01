@@ -15,9 +15,8 @@ import { response } from 'express';
 })
 export class LoginComponent {
 
-  private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
-  private authTokenKey = 'authToken';
+  showPassword = false;
+
 
   ClientsArray : any[] = [];
   name :string="";
@@ -32,8 +31,14 @@ export class LoginComponent {
     password: ''
   };
   constructor(private router: Router,private http: HttpClient,private toastr:ToastrService ,private authService:AuthService) {
-    
-    const storedUser = localStorage.getItem('currentUser');
+  }
+    /*
+    private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+  private authTokenKey = 'authToken';
+  
+  
+  const storedUser = localStorage.getItem('currentUser');
     let parsedUser = null;
 
     if (storedUser) {
@@ -47,7 +52,7 @@ export class LoginComponent {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
- /* Login(){
+ Login(){
     debugger
   this.authService.login(this.loginObj).subscribe((res: any) => {
     console.log('res',res)
@@ -88,7 +93,7 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         this.authService.storeUserData(response.token,response.user);
-        this.toastr.success('Connexion réussie');
+        this.toastr.success('Connexion réussie','Succès');
 
         switch (this.role) {
           case "client":
@@ -104,9 +109,12 @@ export class LoginComponent {
       },
       error: (error) => {
         console.error('Error ', error);
-        this.toastr.error('Erreur lors de la connexion de l\'utilisateur');
+        this.toastr.error('Erreur lors de la connexion de l\'utilisateur','Erreur');
       }
     });
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
   
   }

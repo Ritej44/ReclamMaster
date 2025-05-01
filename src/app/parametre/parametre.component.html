@@ -31,9 +31,7 @@
   </aside>
   
     <main class="content">
-      <header class="topbar">
-        <input type="text" placeholder="Rechercher..." class="search-box">
-      </header>
+    
   
       <section class="settings-page">
         <div class="settings-menu">
@@ -65,17 +63,21 @@
   
         <div class="settings-content">
           <h2>Mot de Passe</h2>
-          <form >
+          <form (ngSubmit)="onSubmit()">
             <p>Veuillez entrer votre mot de passe</p>
-            <label>Mot de Passe Actuel</label>
-            <input type="password" class="input-box">
-            <label>Nouveau Mot de Passe</label>
-            <input type="password" class="input-box">
+              <label for="name">Nom d'utilisateur</label>
+              <input id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" name="name"  class="input-box" required />
+           <br> <label for="actuel">Mot de Passe Actuel</label>
+            <input type="password" [(ngModel)]="actuel" name="actuel" id="actuel" [ngModelOptions]="{standalone: true}"class="input-box">
+            <label for="nouveau">Nouveau Mot de Passe</label>
+            <input type="password" name="nouveau" id="nouveau" [(ngModel)]="nouveau" [ngModelOptions]="{standalone: true}" class="input-box">
             <label>Confirmer le Nouveau Mot de Passe</label>
             <input type="password" class="input-box">
             <div class="buttons">
               <button type="button" class="cancel">Annuler</button>
               <button type="submit" class="update">Mettre à Jour</button>
+              <p>{{ message }}</p>
+
             </div>
           </form>
         </div>

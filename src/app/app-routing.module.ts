@@ -20,8 +20,10 @@ import { HistoriqueIntervenantComponent } from './historique-intervenant/histori
 import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent ,
+  data: { animation: 'login' }},
+  { path: 'signup', component: SignupComponent, 
+  data: { animation: 'signup' }},
   { path: 'dashboard', component: DashbordComponent },
   { path: 'taches', component: TachesComponent },
   {path:'historique', component:HistoriqueComponent},

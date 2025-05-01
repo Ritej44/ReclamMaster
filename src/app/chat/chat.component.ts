@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { WebsocketService } from '../websocket.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat',
@@ -8,13 +9,13 @@ import { WebsocketService } from '../websocket.service';
 })
 export class ChatComponent implements OnInit {
 
-  username: string = '';  // Stores the username entered by the user
-  message: string = '';  // Stores the message being typed by the user
-  messages: any[] = [];  // Stores all the chat messages
+  username: string = '';  
+  message: string = '';  
+  messages: any[] = []; 
   isConnected = false;  // Tracks whether the user is connected to the WebSocket
-  connectingMessage = 'Connecting...';  // Message to show while connecting
+  connectingMessage = 'Connexion...';  // Message to show while connecting
 
-  constructor( private websocketService: WebsocketService){
+  constructor(private toastr :ToastrService,private websocketService: WebsocketService){
     console.log('AppComponent constructor called');  
   }
 
@@ -44,7 +45,10 @@ export class ChatComponent implements OnInit {
   connect(){
 
     console.log('Attempting to connect to WebSocket at http://localhost:8084/ws with username:', this.username);
-    this.websocketService.connect(this.username);  // Call the WebSocket service to connect
+    this.websocketService.connect(this.username);
+    if(this.username==""){
+      this.toastr.error('Veuillez entrer un nom d\'utilisateur');  // Show error if username is empty
+    }  // Call the WebSocket service to connect
   }
 
   sendMessage(){

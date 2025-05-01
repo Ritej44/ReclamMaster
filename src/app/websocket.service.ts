@@ -7,6 +7,7 @@ import * as SockJS from 'sockjs-client';
   providedIn: 'root'
 })
 export class WebsocketService {
+  
   stompClient: Client | null = null;  // STOMP client instance to handle WebSocket connection
 
   // Subject to manage the stream of incoming messages

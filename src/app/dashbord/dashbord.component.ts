@@ -17,6 +17,8 @@ export class DashbordComponent {
   currentClient: any;
   private apiUrl = 'http://localhost:8084/api/v1/Clients';
   clientName!: string;
+  userName: string | undefined;
+
 
 
   constructor( private http:HttpClient, private authService: AuthService, private router: Router) {}
@@ -30,6 +32,15 @@ export class DashbordComponent {
       response => console.log(response),
       error => console.error(error)
     );
+
+    
+    this.authService.getUserName().then((name) => {
+      this.userName = name;
+      console.log('User Name:', this.userName);
+    }).catch((error) => {
+      console.error('Error loading user name:', error);
+    });
+  
    
 }
 

@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SignupComponent {
 
+  showPassword = false
   name :string="";
   email :string="";
   password :string="";
@@ -82,5 +83,9 @@ export class SignupComponent {
   }
 
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  
   
 }

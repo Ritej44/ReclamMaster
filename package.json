@@ -32,10 +32,9 @@
     "util": "^0.12.5",
     "zone.js": "~0.13.0"
   },
-
-  "browser":{
-    "global":"global",
-    "process" :"process/browser"
+  "browser": {
+    "global": "global",
+    "process": "process/browser"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.12",

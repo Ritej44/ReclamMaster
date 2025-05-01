@@ -23,10 +23,14 @@
         </select>
         
       </div>
+      <label for="pwd">Mot de passe</label>
+      <div class="password-container">
+        <input id="pwd"  [type]="showPassword ? 'text' : 'password'"  [(ngModel)]="loginObj.password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
+        <span class="toggle-password" (click)="togglePasswordVisibility()">
+          <i class="fa fa-eye" aria-hidden="true" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+        </span>
 
-        <label for="pwd">Mot de passe</label>
-        <input id="pwd" type="password"  [(ngModel)]="loginObj.password" [ngModelOptions]="{standalone: true}" placeholder=" Votre mot de passe" required />
-        
+      </div>
 
       <div class="btn">
         <button type="submit" class="cnx" (click)="Login()">Connexion

@@ -29,6 +29,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ListeintervenantComponent } from './listeintervenant/listeintervenant.component';
 import { HistoriqueIntervenantComponent } from './historique-intervenant/historique-intervenant.component';
 import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';
+import { ParametreClientComponent } from './parametre/parametre-client/parametre-client.component';
+import { ParametreAdminComponent } from './parametre/parametre-admin/parametre-admin.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard
     ListeintervenantComponent,
     HistoriqueIntervenantComponent,
     DashboardIntervenantComponent,
+    ParametreClientComponent,
+    ParametreAdminComponent,
     
   ],
   imports: [
@@ -65,6 +69,15 @@ import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard
     MatButtonModule,
     MatButtonModule,
     BrowserAnimationsModule, 
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      newestOnTop: true,
+      tapToDismiss: true,
+      positionClass: 'toast-top-right',
+      timeOut: 8000
+    })
     
 ],
   providers: [],

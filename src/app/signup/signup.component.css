@@ -14,11 +14,11 @@
 .signup-container {
     display: flex;
     background-color: #fcfbfb;
-    height: 100vh;
+    height: 99vh;
   }
   
   .welcome-section {
-    flex: 1;
+    flex: 2;
     background-color: #fcfbfb;
     color:#3055a0;
     padding: 20px;
@@ -29,13 +29,18 @@
     max-width: 100%;
     height: auto;
   }
+  .welcome-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
   
   .signup-section {
     flex: 1;
-    margin-right: 4%;
-    border-radius: 3%;
+    margin-left: 4%;
+    border-radius: 4%;
     background-color: #8ab2d0;
     padding: 20px;
+    margin-top: 5px;
   }
    .signup-section select {
     width: 100%; 
@@ -79,23 +84,18 @@
   .name-fields {
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 100%;
   }
   
-  .name-fields-lastname {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-  }
-  
-  .name-fields label, .name-fields-lastname label {
+  .name-fields label{
     margin-bottom: 5px;
   }
   
-  .name-fields input, .name-fields-lastname input {
+  .name-fields input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 94%;
   }
   
   .signup-section label {
@@ -136,5 +136,23 @@
   .social-login-google {
     background-color: #cc4e8d; 
     width: 100%;
+  }
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  #pwd {
+    width: 89%;
+    padding-right: 30px; 
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 36%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #3055a0;
   }
   

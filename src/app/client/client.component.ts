@@ -141,6 +141,8 @@ showAddPopup: boolean = false;
           { responseType: 'text' }).subscribe({
             next: (resultData: any) => {
               console.log(resultData);
+              this.currentClientID = data.id;
+              console.log(this.currentClientID);
               this.toastr.success('Client supprimé avec succès');
               
               this.getAllClients(); 

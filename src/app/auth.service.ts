@@ -26,6 +26,11 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  
+  getUserName(): Promise<string> {
+    return this.http.get(`${this.apiUrl}/profile`, { responseType: 'text' }).toPromise().then(response => response || '');
+  }
+
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
