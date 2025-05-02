@@ -10,14 +10,17 @@
           <a routerLink="/dashboard" routerLinkActive="active">
             <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
           </a>
-          <a routerLink="/historique-intervenant" routerLinkActive="active">
+          <a routerLink="/taches" routerLinkActive="active">
+            <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+          </a>
+          <a routerLink="/historique" routerLinkActive="active">
             <i class="fa fa-history" aria-hidden="true"></i> Mes Reclamations
           </a>
           <p class="section-title">Outils</p>
           <a routerLink="/chat" routerLinkActive="active">
             <i class="fa fa-commenting" aria-hidden="true"></i> Chat
           </a>
-          <a routerLink="/notification-settings" routerLinkActive="active">
+          <a routerLink="/notification-client" routerLinkActive="active">
             <i class="fas fa-cog"></i> Paramètres
           </a>
         </nav>
@@ -38,17 +41,17 @@
               </a>
             </li>
             <li>
-              <a routerLink="/generalsettings" routerLinkActive="active">
+              <a routerLink="/setting-client" routerLinkActive="active">
                 <i class="fa fa-cog" aria-hidden="true"></i> Général
               </a>
             </li>
             <li class="active">
-              <a routerLink="/notification-settings" routerLinkActive="active">
+              <a routerLink="/notification-client" routerLinkActive="active">
                 <i class="fa fa-bell" aria-hidden="true"></i> Notifications
               </a>
             </li>
             <li>
-              <a routerLink="/parametre" routerLinkActive="active">
+              <a routerLink="/parametre-client" routerLinkActive="active">
                 <i class="fa fa-lock" aria-hidden="true"></i> Sécurité
               </a>
             </li>
@@ -64,6 +67,28 @@
           <div class="notification-group">
             <h3>Nouvelles Réclamations</h3>
             <p>Recevez des notifications lorsque vous soumettez une nouvelle réclamation.</p>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.newClaims.push" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Notification Push</span>
+             </div>
+    
+            <div class="notification-option">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="notificationSettings.newClaims.email" />
+                <span class="slider round"></span>
+              </label>
+              <span class="label">Email</span>
+            </div>
+          </div>
+
+          
+          <div class="notification-group">
+            <h3>Réclamations Résolus </h3>
+            <p>Recevez des notifications lorsque une nouvelle réclamation est résolu.</p>
     
             <div class="notification-option">
               <label class="switch">
@@ -103,28 +128,6 @@
             </div>
           </div>
           
-      
-      
-          <div class="notification-group">
-            <h3>Rappels de Réclamation</h3>
-            <p>Recevez des rappels pour les réclamations qui nécessitent votre attention.</p>
-    
-            <div class="notification-option">
-              <label class="switch">
-                <input type="checkbox" [(ngModel)]="notificationSettings.claimReminders.push" />
-                <span class="slider round"></span>
-              </label>
-              <span class="label">Notification Push</span>
-            </div>
-    
-            <div class="notification-option">
-              <label class="switch">
-                <input type="checkbox" [(ngModel)]="notificationSettings.claimReminders.email" />
-                <span class="slider round"></span>
-              </label>
-              <span class="label">Email</span>
-            </div>
-          </div>
         </section>
       </main>
       

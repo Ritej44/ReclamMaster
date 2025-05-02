@@ -1,1 +1,91 @@
-<p>parametre-client works!</p>
+<!DOCTYPE html>
+<html>
+    <body class="body">
+      <div class="container">
+    <aside class="sidebar" style="width: 257px;">
+      <div class="logo-container">
+        <img src="assets/1cd2a341-8f62-46aa-a07a-335d4045be1c-removebg-preview.png" alt="Logo" class="logo">
+    </div>
+
+    <nav>
+      <p class="section-title">General</p>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
+        
+      </a>
+      <a routerLink="/taches" routerLinkActive="active">
+        <i class="fa fa-tasks" aria-hidden="true"></i> Nouveau Reclamation
+      </a>
+      <a routerLink="/historique" routerLinkActive="active">
+      <i class="fa fa-history" aria-hidden="true"></i>Mes Reclamations
+    </a>
+    <p class="section-title">Outils</p>
+      <a routerLink="/chat" routerLinkActive="active">
+        <i class="fa fa-commenting" aria-hidden="true"></i> Chat
+      </a>
+      <a routerLink="/parametre-client" routerLinkActive="active">
+        <i class="fas fa-cog"></i> Paramètres
+      </a>
+    </nav>
+    <span></span>
+    <span></span>
+    <button class="logout" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> Déconnexion
+    </button>
+  </aside>
+  
+    <main class="content">
+    
+  
+      <section class="settings-page">
+        <div class="settings-menu">
+            <h1>Mes Paramètres</h1>
+            <ul>
+              <li>
+                <a routerLink="/profil" routerLinkActive="active">
+                  <i class="fa fa-user" aria-hidden="true"></i> Votre Profil
+                </a>
+              </li>
+              <li>
+                <a routerLink="/setting-client" routerLinkActive="active">
+                  <i class="fa fa-cog" aria-hidden="true"></i> Général
+                </a>
+              </li>
+              <li>
+                <a routerLink="/notification-client" routerLinkActive="active">
+                  <i class="fa fa-bell" aria-hidden="true"></i>Notifications
+                </a>
+              </li>
+              <li class="active">
+                <a routerLink="/parametre-client" routerLinkActive="active">
+                  <i class="fa fa-lock" aria-hidden="true"></i> Sécurité
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+  
+        <div class="settings-content">
+          <h2>Mot de Passe</h2>
+          <form (ngSubmit)="onSubmit()">
+            <p>Veuillez entrer votre mot de passe</p>
+              <label for="name">Nom d'utilisateur</label>
+              <input id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" name="name"  class="input-box" required />
+           <br> <label for="actuel">Mot de Passe Actuel</label>
+            <input type="password" [(ngModel)]="actuel" name="actuel" id="actuel" [ngModelOptions]="{standalone: true}"class="input-box">
+            <label for="nouveau">Nouveau Mot de Passe</label>
+            <input type="password" name="nouveau" id="nouveau" [(ngModel)]="nouveau" [ngModelOptions]="{standalone: true}" class="input-box">
+            <label>Confirmer le Nouveau Mot de Passe</label>
+            <input type="password" class="input-box">
+            <div class="buttons">
+              <button type="button" class="cancel">Annuler</button>
+              <button type="submit" class="update">Mettre à Jour</button>
+
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+    </body>
+</html>  

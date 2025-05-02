@@ -48,17 +48,17 @@ export class SignupComponent {
     let successMessage: string;
   
     switch (this.role) {
-      case "Client":
+      case "client":
         url = "http://localhost:8084/api/v1/Clients/save";
-        successMessage = "Client est enregistré avec succès";
+        this.toastr.success(  "Client est enregistré avec succès", "Succès");
         break;
       case "admin":
         url = "http://localhost:8084/api/v1/admins/save";
-        successMessage = "Admin est enregistré avec succès";
+        this.toastr.success(  "Admin est enregistré avec succès", "Succès");
         break;
       case "Intervenant":
         url = "http://localhost:8084/api/v1/intervenant/save";
-        successMessage = "Intervenant est enregistré avec succès";
+        this.toastr.success(  " Intervenant est enregistré avec succès", "Succès");
         break;
       default:
         this.toastr.error('Rôle non reconnu');
@@ -68,7 +68,6 @@ export class SignupComponent {
     this.http.post(url, bodyData, { responseType: 'text' }).subscribe({
       next: (resultData: any) => {
         console.log(resultData);
-        alert(successMessage);
         this.router.navigate(['/login']);
       },
       error: (error) => {

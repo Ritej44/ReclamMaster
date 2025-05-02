@@ -19,7 +19,7 @@ export class ParametreComponent {
 constructor(private toastr :ToastrService,private updatePasswordService :UpdatePasswordService,private authService:AuthService,private router:Router){}
 
 onSubmit() {
-  this.updatePasswordService.updatePassword(this.name, this.actuel, this.nouveau).subscribe(
+  this.updatePasswordService.updatePasswordintervenant(this.name, this.actuel, this.nouveau).subscribe(
     () => {
       this.toastr.success( 'Mot de passe mis à jour avec succès', 'Succès');
     },

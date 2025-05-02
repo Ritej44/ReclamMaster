@@ -31,6 +31,10 @@ import { HistoriqueIntervenantComponent } from './historique-intervenant/histori
 import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';
 import { ParametreClientComponent } from './parametre/parametre-client/parametre-client.component';
 import { ParametreAdminComponent } from './parametre/parametre-admin/parametre-admin.component';
+import { NotificationAdminComponent } from './notification-settings/notification-admin/notification-admin.component';
+import { NotificationClientComponent } from './notification-settings/notification-client/notification-client.component';
+import { SettingClientComponent } from './generalsettings/setting-client/setting-client.component';
+import { SettingAdminComponent } from './generalsettings/setting-admin/setting-admin.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,10 @@ import { ParametreAdminComponent } from './parametre/parametre-admin/parametre-a
     DashboardIntervenantComponent,
     ParametreClientComponent,
     ParametreAdminComponent,
+    NotificationAdminComponent,
+    NotificationClientComponent,
+    SettingClientComponent,
+    SettingAdminComponent,
     
   ],
   imports: [

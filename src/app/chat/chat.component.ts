@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Location } from '@angular/common';
 import { WebsocketService } from '../websocket.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +17,7 @@ export class ChatComponent implements OnInit {
   isConnected = false;  // Tracks whether the user is connected to the WebSocket
   connectingMessage = 'Connexion...';  // Message to show while connecting
 
-  constructor(private toastr :ToastrService,private websocketService: WebsocketService){
+  constructor(private toastr :ToastrService,private websocketService: WebsocketService,private location:Location,private router: Router) {
     console.log('AppComponent constructor called');  
   }
 
@@ -47,14 +49,14 @@ export class ChatComponent implements OnInit {
     console.log('Attempting to connect to WebSocket at http://localhost:8084/ws with username:', this.username);
     this.websocketService.connect(this.username);
     if(this.username==""){
-      this.toastr.error('Veuillez entrer un nom d\'utilisateur');  // Show error if username is empty
-    }  // Call the WebSocket service to connect
+      this.toastr.error('Veuillez entrer un nom d\'utilisateur');  
+    }  
   }
 
   sendMessage(){
     if (this.message) {
-      this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
-      this.message = '';  // Clear the message input after sending
+      this.websocketService.sendMessage(this.username, this.message);  
+      this.message = '';  
     }
   }
   onMessageReceived(message: any) {
@@ -85,5 +87,7 @@ export class ChatComponent implements OnInit {
      return colors[Math.abs(hash % colors.length)];
    }
 
-  
+  Retour(){
+    this.location.back();
+  }
 }

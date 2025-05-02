@@ -59,6 +59,14 @@ export class LoginComponent {
     localStorage.setItem('token',res.token);
      this.router.navigateByUrl('/dashboard');
   })
+      localStorage.setItem('token', response.token);
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        this.currentClientID = response.user.id;
+        console.log('currentClientID',this.currentClientID);
+        this.ClientsArray.push(this.currentClientID);
+        console.log('ClientsArray',this.ClientsArray);
+        this.toastr.success('Connexion réussie', 'Succès');
+        this.toastr.success('Bienvenue ' + this.name, 'Succès');
 }*/
   Login() {
     let bodyData = {
@@ -74,15 +82,15 @@ export class LoginComponent {
     switch (this.role) {
       case "client":
         url = "http://localhost:8084/api/v1/Clients/login";
-        successMessage = "Client est connecté avec succès";
+        this.toastr.success( "Client est connecté avec succès", "Succès");
         break;
       case "admin":
         url = "http://localhost:8084/api/v1/admins/login";
-        successMessage = "Admin est connecté avec succès";
+        this.toastr.success( "Admin est connecté avec succès", "Succès");
         break;
       case "intervenant":
         url = "http://localhost:8084/api/v1/intervenant/login";
-        successMessage = "Intervenant est connecté avec succès";
+        this.toastr.success( "Intervenant est connecté avec succès", "Succès");
         break;
       default:
         this.toastr.error('Rôle non reconnu');
@@ -93,7 +101,7 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         this.authService.storeUserData(response.token,response.user);
-        this.toastr.success('Connexion réussie','Succès');
+       
 
         switch (this.role) {
           case "client":
@@ -103,7 +111,7 @@ export class LoginComponent {
             this.router.navigateByUrl('/dashbord-admin');
             break;
           case "intervenant":
-            this.router.navigateByUrl('/intervenant');
+            this.router.navigateByUrl('/dashboard-intervenant');
             break;
         }
       },
