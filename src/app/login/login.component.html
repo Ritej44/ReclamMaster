@@ -8,24 +8,24 @@
     <h2>Connexion</h2>
    <form>
       <label for="name">Nom & Prénom</label>
-      <input type="text" id="name" name="name" [(ngModel)]="loginObj.name" placeholder="Votre Nom & votre prénom">
+      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Votre Nom & votre prénom">
 
       <label for="email">Email</label>
-  <input id="email" type="email"  [(ngModel)]="loginObj.email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
+  <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
   
       <div>
         <label for="role">Rôle</label>
         <select id="role"  [(ngModel)]="role" [ngModelOptions]="{standalone: true}"required>
           <option value="">Sélectionnez un rôle</option>
-          <option value="client">Client</option>
-          <option value="admin">Admin</option>
-          <option value="intervenant">Intervenant</option>
+          <option value="CLIENT">Client</option>
+          <option value="ADMIN">Admin</option>
+          <option value="INTERVENANT">Intervenant</option>
         </select>
         
       </div>
       <label for="pwd">Mot de passe</label>
       <div class="password-container">
-        <input id="pwd"  [type]="showPassword ? 'text' : 'password'"  [(ngModel)]="loginObj.password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
+        <input id="pwd"  [type]="showPassword ? 'text' : 'password'"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Votre mot de passe" required />
         <span class="toggle-password" (click)="togglePasswordVisibility()">
           <i class="fa fa-eye" aria-hidden="true" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
         </span>

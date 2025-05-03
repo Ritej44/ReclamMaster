@@ -48,11 +48,9 @@
               <span class="badge" *ngIf="notifications.length">{{ notifications.length }}</span>
             </button>
 
-            <div *ngIf="clientName">
-              Bienvenue, {{ clientName }} !
-            </div>
+            
             <div *ngIf="currentClient">
-              <h2>Profil Utilisateur</h2>
+              <h2>Bienvenue </h2>
               <p>Nom: {{currentClient.name}}</p>
               <p>Email: {{currentClient.email}}</p>
               <!-- autres champs -->

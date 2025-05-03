@@ -14,7 +14,6 @@ import { IntervenantComponent } from './intervenant/intervenant.component';
 import { AffectationIntervenantComponent } from './affectation-intervenant/affectation-intervenant.component';
 import { LoginComponent } from './login/login.component';
 import { AlltachesComponent } from './alltaches/alltaches.component';
-
 import { ListeintervenantComponent } from './listeintervenant/listeintervenant.component';
 import { HistoriqueIntervenantComponent } from './historique-intervenant/historique-intervenant.component';
 import { DashboardIntervenantComponent } from './dashboard-intervenant/dashboard-intervenant.component';

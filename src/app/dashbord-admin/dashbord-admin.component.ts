@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './dashbord-admin.component.html',
   styleUrls: ['./dashbord-admin.component.css']
 })
-export class DashbordAdminComponent {
+export class DashbordAdminComponent implements OnInit {
+
+currentUser: any;
 
 constructor(private authService :AuthService ,private router:Router){}  
   userProfile = {
@@ -23,6 +25,13 @@ constructor(private authService :AuthService ,private router:Router){}
     totalStock: 5483,
     outOfStock: 38,
   };
+  
+  getCurrentUser() {
+    const currentUser = localStorage.getItem('currentUser');
+    return currentUser ? JSON.parse(currentUser) : null;
+  }
+  ngOnInit() {
+  this.currentUser = this.getCurrentUser();}
 
   notifications = [2,1];
   

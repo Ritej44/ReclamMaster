@@ -16,7 +16,7 @@ import { response } from 'express';
 export class LoginComponent {
 
   showPassword = false;
-
+  currentClient: any =[];
 
   ClientsArray : any[] = [];
   name :string="";
@@ -25,50 +25,10 @@ export class LoginComponent {
   email: string ="";
   password: string ="";
 
-  loginObj: any = {
-    name:'',
-    email: '',
-    password: ''
-  };
   constructor(private router: Router,private http: HttpClient,private toastr:ToastrService ,private authService:AuthService) {
   }
     /*
-    private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
-  private authTokenKey = 'authToken';
-  
-  
-  const storedUser = localStorage.getItem('currentUser');
-    let parsedUser = null;
-
-    if (storedUser) {
-      try {
-        parsedUser = JSON.parse(storedUser);
-      } catch (e) {
-        console.error('Error parsing storedUser:', e);
-      }
-}
-  this.currentUserSubject = new BehaviorSubject<any>(parsedUser);
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
-
- Login(){
-    debugger
-  this.authService.login(this.loginObj).subscribe((res: any) => {
-    console.log('res',res)
-    localStorage.setItem('token',res.token);
-     this.router.navigateByUrl('/dashboard');
-  })
-      localStorage.setItem('token', response.token);
-        localStorage.setItem('currentUser', JSON.stringify(response.user));
-        this.currentClientID = response.user.id;
-        console.log('currentClientID',this.currentClientID);
-        this.ClientsArray.push(this.currentClientID);
-        console.log('ClientsArray',this.ClientsArray);
-        this.toastr.success('Connexion réussie', 'Succès');
-        this.toastr.success('Bienvenue ' + this.name, 'Succès');
-}*/
-  Login() {
+         Logine() {
     let bodyData = {
       "name": this.name,
       "email": this.email,
@@ -99,9 +59,17 @@ export class LoginComponent {
   
     this.http.post<any>(url, bodyData).subscribe({
       next: (response) => {
-        console.log(response);
-        this.authService.storeUserData(response.token,response.user);
-       
+        console.log("Full response:", response);
+        console.log("Données envoyées:", bodyData); // Debug
+
+        if (response.status === true && response.token) {
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("currentUser", JSON.stringify({
+            name: response.name || this.name,
+            email: this.email,
+            role: this.role,
+          }));
+        }    
 
         switch (this.role) {
           case "client":
@@ -121,10 +89,58 @@ export class LoginComponent {
       }
     });
   }
+}*/
+
+ private url: string = "http://localhost:8084/api/v1/auth/authenticate";
+
+ Login() {
+  const bodyData = {
+    name: this.name,
+    email: this.email,
+    password: this.password,
+    role: this.role
+
+  };
+
+  this.http.post<any>(this.url, bodyData).subscribe({
+    next: (response) => {
+      console.log("Full response:", response);
+      console.log("Données envoyées:", bodyData); // Debug
+
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("currentUser", JSON.stringify({
+          name: response.name || this.name,
+          email: this.email,
+          role: response.role || this.role,
+        }));
+      } else {
+        console.error("Authentication failed: No token in response");
+      }
+    },
+    error: (error) => {
+      console.error("Authentication error:", error);
+    }
+  });
+  
+  switch (this.role) {
+    case "CLIENT":
+      this.router.navigateByUrl('/dashboard');
+      break;
+    case "ADMIN":
+      this.router.navigateByUrl('/dashbord-admin');
+      break;
+    case "INTERVENANT":
+      this.router.navigateByUrl('/dashboard-intervenant');
+      break;
+  }
+}
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  
+  storedUser: any = localStorage.getItem('currentUser');
+
   }
 
 
