@@ -26,12 +26,13 @@
   max-width: 150px;
 }
 .sidebar {
-  max-width: 250px;
+  width: 260px;
   background: #fcfbfb;
   padding: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  border-right: #ddd solid 1px;
+  gap: 1rem;
 }
   
   nav {
@@ -54,7 +55,9 @@
   
   nav a:hover, nav a.active {
     background: #8ab2d0;
+    width: 70%;
   }
+  
   
   .section-title{ 
     color: #e2322a;

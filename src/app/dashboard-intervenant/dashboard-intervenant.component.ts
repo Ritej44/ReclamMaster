@@ -14,27 +14,20 @@ IntervenantArray : any[] = [];
   selectedIntervenant?: Intervenant;
   name :string="";
   currentUser: any;
+  avatar: string = '/assets/no img.png';
+
 
   constructor( private http:HttpClient, private authService: AuthService, private router: Router) {}
   
-  ngOnInit() {
-    if (this.authService.isLoggedIn()) {
-      this.currentUser = this.authService.currentUserValue;
-
-      // Ajoutez cette vérification de sécurité
-      if (!this.currentUser) {
-        console.error('User data is missing');
-      }
-    } else {
-      console.error('User is not logged in');
-    }
+  getCurrentUser() {
+    const currentUser = localStorage.getItem('currentUser');
+    return currentUser ? JSON.parse(currentUser) : null;
+  }
   
-}
-  userProfile = {
-    name: 'Nom',
-    email: 'mail@gmail.com',
-    avatar: '/assets/no img.png',
-  };
+  ngOnInit() {
+  this.currentUser = this.getCurrentUser();}
+
+  
 
   notifications = [2,1];
   

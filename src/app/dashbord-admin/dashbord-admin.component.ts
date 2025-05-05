@@ -9,15 +9,12 @@ import { Router } from '@angular/router';
 })
 export class DashbordAdminComponent implements OnInit {
 
-currentUser: any;
+currentUser: any ;
 
-constructor(private authService :AuthService ,private router:Router){}  
-  userProfile = {
-    name: 'Nom',
-    firstName: 'Prénom',
-    email: 'mail@gmail.com',
-    avatar: '/assets/no img.png',
-  };
+constructor(private authService :AuthService ,private router:Router){}
+
+    avatar: string = '/assets/no img.png';
+  
 
   stats = {
     totalProducts: 5483,
@@ -38,7 +35,7 @@ constructor(private authService :AuthService ,private router:Router){}
 
   logout():void {
     this.authService.logout();
-
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);  }
 
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-historique-intervenant',
@@ -14,6 +15,7 @@ import { formatDate } from '@angular/common';
 export class HistoriqueIntervenantComponent {
 
     filteredTaches: any =[];
+  currentUser: any;
   
     constructor(
       private http: HttpClient,
@@ -21,11 +23,11 @@ export class HistoriqueIntervenantComponent {
       private router: Router,
       private toastr:ToastrService,
     ) {
-      this.getAllReclamations();
   
   
     }
   
+    intervenantNoms: string = "";
     showEditPopup:boolean=false;
     reclamationArray:any[]=[];
     currentPage: number = 1;
@@ -38,12 +40,65 @@ export class HistoriqueIntervenantComponent {
     urgence: string = "";
     dateCreation: string = "";
     clientId: string = "";
-    intervenantId: string = "";
+    intervenantId:  string ="";
     dateFin : string="";
            
     
     ngOnInit(): void {
+      const currentUser = this.authService.getCurrentUser();
+
+      if (!currentUser || !currentUser.name) {
+        this.toastr.error("Utilisateur non authentifié");
+        return;
+      }this.intervenantNoms = currentUser.name.toString().trim();
+      console.log('Nom de l\'intervenant:', this.intervenantNoms);
+      
+      const encodedName = encodeURIComponent(this.intervenantNoms);
+      this.http.get(`http://localhost:8084/api/user/${encodedName}/id`, { responseType: 'text' })
+        .subscribe({
+          next: (response) => {
+            this.intervenantId = response.trim(); 
+            console.log('ID de l\'intervenant:', this.intervenantId);
+            
+            if (!this.intervenantId) {
+              this.toastr.error("ID de l'intervenant non trouvé");
+              return;
+            }
+            
+            this.getAllReclamations();
+          },
+          error: (error) => {
+            console.error('Erreur complète:', {
+              status: error.status,
+              message: error.message,
+              url: error.url,
+              error: error.error
+            });
+            
+          }
+        });
+
+        console.log('ID de l\'intervenant:', this.intervenantId);
     }
+
+
+
+
+    getAllReclamations() {
+      this.http.get(`http://localhost:8084/api/v1/reclamation/intervenant/${this.intervenantId}`)
+        .subscribe({
+          next: (resultData: any) => {
+            console.log('API Response:', resultData);
+            this.reclamationArray = resultData;
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            this.toastr.error("Erreur lors de la récupération des réclamations");
+          }
+        });
+    
+  }
+    
   
     filterByDate( endDate: string) {
       const params = new HttpParams()
@@ -145,17 +200,11 @@ export class HistoriqueIntervenantComponent {
       this.urgence = "";
       this.dateCreation = "";
       this.clientId = "";
-      this.intervenantId = "";
       this.dateFin="";
     }
-    getAllReclamations() {
-      this.http.get("http://localhost:8084/api/v1/reclamation/getAll")
-        .subscribe((resultData: any) => {
-          console.log(resultData);
-          this.reclamationArray = resultData;
-        });
-    }
-    
+
+
+
     
   
     
@@ -199,20 +248,6 @@ export class HistoriqueIntervenantComponent {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    }
-  
-  
-    searchTaches(event: Event): void {
-      const target = event.target as HTMLInputElement;
-      const query = target.value;
-      if (query) {
-        this.filteredTaches = this.reclamationArray.filter(tache =>
-          tache.nom.toLowerCase().includes(query.toLowerCase()) ||
-          tache.description.toLowerCase().includes(query.toLowerCase())
-        );
-      } else {
-        this.filteredTaches = this.reclamationArray; // Réinitialiser le filtre si aucun texte n'est saisi
-      }
     }
   
     get paginatedTaches(): any[] {

@@ -15,7 +15,7 @@
             </div>
             <nav>
                 <p class="section-title">Général</p>
-                <a routerLink="/dashboard-intervenant" routerLinkActive="active">
+                <a routerLink="/dashboard" routerLinkActive="active">
                   <i class="fas fa-home" aria-hidden="true"></i> Tableau de Bord
                 </a>
                 <a routerLink="/taches" routerLinkActive="active">
@@ -42,6 +42,7 @@
         <div class="orders">
             <div class="filters">
                 <input class="search-input" type="text" id="searchInput"name="searchInput"placeholder="Rechercher..."(input)="searchTaches($event)">
+                
                 <input type="date"#dateFilter id="dateFilter"name="dateFilter"class="date-input"(change)="filterByDate(dateFilter.value)" autocomplete="on">
          <button class="filter-button" (click)="filterByDate(dateFilter.value)">Filtrer</button>
             </div>

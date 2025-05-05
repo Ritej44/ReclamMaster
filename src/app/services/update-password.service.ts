@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UpdatePasswordService {
-  private apiUrlclient = 'http://localhost:8084/api/v1/Clients/name'; 
+export class UpdatePasswordService  {
+  private apiUrlclient = 'http://localhost:8084/api/user/name'; 
 
   private apiUrlinter = 'http://localhost:8084/api/v1/intervenant/name'; 
 
-  private apiUrladmin = 'http://localhost:8084/api/v1/admins/name';
+  private apiUrl = 'http://localhost:8084/api/user/password'; 
 
   constructor(private http: HttpClient) {}
 
@@ -19,15 +19,14 @@ export class UpdatePasswordService {
     const params = { actuel, nouveau };
     return this.http.put(url, {}, { params });
   }
-  
-  updatePasswordintervenant(name: string, actuel: string, nouveau: string): Observable<any> {
-    const url = `${this.apiUrlinter}/${name}/password`;
+  updatePassword(actuel: string, nouveau: string): Observable<any> {
+    const url = `${this.apiUrlinter}/password`;
     const params = { actuel, nouveau };
     return this.http.put(url, {}, { params });
   }
    
   updatePasswordadmin(name: string, actuel: string, nouveau: string): Observable<any> {
-    const url = `${this.apiUrladmin}/${name}/password`;
+    const url = `${this.apiUrl}/${name}/password`;
     const params = { actuel, nouveau };
     return this.http.put(url, {}, { params });
   }

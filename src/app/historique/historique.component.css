@@ -42,6 +42,9 @@ body {
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  margin-right: 10px;
+
+  border-right: #ddd solid 1px;
   gap: 2rem;
 }
   
@@ -91,12 +94,12 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #f8f9fa;
-    margin-top: 2%;
   }
   
   .header h1 {
     color: #3055a0;
     margin-left: 23%;
+    margin-top: 2%;
   }
   .actions{
 
@@ -114,16 +117,19 @@ body {
     text-decoration:solid;
     border: none;
     cursor: pointer;
+    margin-right: 10px;
   }
   .header button:hover{
-background-color: #8ab2d0;  }
+  background-color: #8ab2d0;  }
   
   .orders {
     background: #8ab2d0;
     padding: 20px;
     flex-grow: 1;
-
     border-radius: 5px;
+    margin-right: 10PX;
+    width: 70%;
+    margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   .filters {

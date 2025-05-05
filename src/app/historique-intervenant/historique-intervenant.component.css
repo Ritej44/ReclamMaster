@@ -29,7 +29,7 @@ body {
 .logo-container {
   display: flex;
   align-items: center;
-  margin-top: -70%;
+  margin-top: -50%;
   justify-content: center;
 }
 .logo {
@@ -37,11 +37,12 @@ body {
   margin-top: 19%;
 }
 .sidebar {
-  max-width: 250px;
+  max-width: 340px;
   background: #fcfbfb;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  border-right: #ddd solid 1px;
   gap: 2rem;
 }
   
@@ -91,7 +92,6 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #f8f9fa;
-    margin-top: 2%;
   }
   
   .header h1 {
@@ -116,23 +116,28 @@ body {
     cursor: pointer;
   }
   .header button:hover{
-background-color: #8ab2d0;  }
+   background-color: #8ab2d0;  }
   
   .orders {
     background: #8ab2d0;
     padding: 20px;
     flex-grow: 1;
-
+    margin:  10px 15px 15px 15px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 70%;
   }
   .filters {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+
   }
   
+  .filters h1{
+    margin-top: 15px;
+  }
   .search-input,
   .date-input {
     padding: 10px;
@@ -257,13 +262,14 @@ background-color: #8ab2d0;  }
   .modal-container, .custom-modal-container {
     background: #8ab2d0;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     width: 80%;
     max-width: 500px;
+    height: 90vh;
   }
   
   .modal-header,.custom-modal-header {
-    padding: 15px 20px;
+    padding: 1px 2px;
     border-bottom: 1px solid #3055a0;
     display: flex;
     justify-content: space-between;
@@ -283,11 +289,12 @@ background-color: #8ab2d0;  }
   }
   
   .close-btn ,.custom-close-btn {
-    background-color: #ccc;
+    background-color: #e2322a;
+    border-radius: 60px;
     font-size: 24px;
     cursor: pointer;
-    border: #222;
-    color: #222;
+    border: #ddd;
+    color: #ddd;
   }
   .ferme, .ajout {
     color: white;
@@ -384,7 +391,8 @@ background-color: #8ab2d0;  }
     width: 100%;
     padding: 8px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    border: 1px solid #8ab2d0;
+    border: 1px solid #ddd;
     border-radius: 10px;
+    margin-bottom: 7px;
   }
   

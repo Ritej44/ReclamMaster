@@ -1,60 +1,41 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Client } from '../models/Client.model';
-import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-dashbord',
   templateUrl: './dashbord.component.html',
   styleUrls: ['./dashbord.component.css'],
 })
-export class DashbordComponent {
+
+export class DashbordComponent implements OnInit {
   ClientsArray : any[] = [];
-  selectedClient?: Client;
   name :string="";
-  currentClient: any;
-  private apiUrl = 'http://localhost:8084/api/v1/Clients';
+  currentUser: any ;
   clientName!: string;
-  userName: string | undefined;
 
 
 
   constructor( private http:HttpClient, private authService: AuthService, private router: Router) {}
-  
-  ngOnInit() {
-    
-   
-    this.http.get('http://localhost:8084/api/v1/Clients/current', {
-      withCredentials: true  // This sends cookies/auth headers
-    }).subscribe(
-      response => console.log(response),
-      error => console.error(error)
-    );
 
-    
-    this.authService.getUserName().then((name) => {
-      this.userName = name;
-      console.log('User Name:', this.userName);
-    }).catch((error) => {
-      console.error('Error loading user name:', error);
-    });
   
-   
+  getCurrentUser() {
+    const currentUser = localStorage.getItem('currentUser');
+    return currentUser ? JSON.parse(currentUser) : null;
+  }
+  ngOnInit() {
+  this.currentUser =this.getCurrentUser();
 }
 
-userProfile = {
-  name: 'Nom',
-  firstName: 'Prénom',
-  email: 'mail@gmail.com',
-  avatar: '/assets/no img.png',
-};
+
+  avatar: string = '/assets/no img.png';
   notifications = [2,1];
   
   logout():void {
     this.authService.logout();
-
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);  }
 
   

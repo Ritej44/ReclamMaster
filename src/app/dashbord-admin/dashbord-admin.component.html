@@ -42,28 +42,32 @@
 
     <main class="content">
       <header>
-        <h1>Bienvenue {{ currentUser.name }}!</h1>
+        <div class="welcome-message">
+          <h1 *ngIf="currentUser">Bienvenue,&nbsp; &nbsp; {{ currentUser.name }}</h1>
+        </div>
         <div class="search-container">
-          <input type="text" class="search-input" placeholder="Search...">
+          <input type="text" class="search-input" placeholder="Recherchez ici...">
           <button class="search-button">
-              <i class="fa fa-search" aria-hidden="true"></i>
+            <i class="fa fa-search" aria-hidden="true"></i>
           </button>
         </div>
-
-            <button class="notifications">
-              <i class="fas fa-bell"></i>
-              <span class="badge" *ngIf="notifications.length">{{ notifications.length }}</span>
-            </button>
-
-            <div class="profile">
-              <h3>{{ currentUser.name }}</h3>
-              <img [src]="userProfile.avatar" alt="Profile" class="avatar">
+        <div class="right-section">
+          <button class="notifications">
+            <i class="fas fa-bell"></i>
+            <span class="badge" *ngIf="notifications.length">{{ notifications.length }}</span>
+          </button>
+          <div class="profile">
+            <img [src]="avatar" alt="Profile" class="avatar">
+            <div class="profile-info">
+              <h6>{{ currentUser.name }}</h6>
+              <h6>{{ currentUser.role }}</h6>
             </div>
-
+          </div>
+        </div>
       </header>
-
-      
     </main>
+
+    
   </div>
 </body>
 </html>

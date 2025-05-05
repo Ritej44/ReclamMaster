@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -19,55 +19,44 @@ export class SignupComponent {
   role:string="";
   confirmPassword: string = "";
   passwordsMatch: boolean = true;
+ 
 
+  private url: string = "http://localhost:8084/api/v1/auth/register";
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
+    private http: HttpClient,
     private router: Router,
-    private toastr: ToastrService,
-    private http :HttpClient
-  ) {  }
+    private toastr: ToastrService
+  ) {}
 
-  save() {
-    this.checkPasswordMatch();
   
+  save() {
+    if (!this.validateFields()) {
+      return;
+    }
+
+    this.checkPasswordMatch();
+
     if (!this.passwordsMatch) {
       this.toastr.error('Les mots de passe ne correspondent pas');
       return;
     }
-  
-    let bodyData = {
-      "name": this.name,
-      "email": this.email,
-      "password": this.password,
-      "role": this.role
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    const bodyData = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      role: this.role
     };
-  
-    let url: string;
-    let successMessage: string;
-  
-    switch (this.role) {
-      case "client":
-        url = "http://localhost:8084/api/v1/Clients/save";
-        this.toastr.success(  "Client est enregistré avec succès", "Succès");
-        break;
-      case "admin":
-        url = "http://localhost:8084/api/v1/admins/save";
-        this.toastr.success(  "Admin est enregistré avec succès", "Succès");
-        break;
-      case "Intervenant":
-        url = "http://localhost:8084/api/v1/intervenant/save";
-        this.toastr.success(  " Intervenant est enregistré avec succès", "Succès");
-        break;
-      default:
-        this.toastr.error('Rôle non reconnu');
-        return;
-    }
-  
-    this.http.post(url, bodyData, { responseType: 'text' }).subscribe({
-      next: (resultData: any) => {
+
+    this.http.post<any>(this.url, bodyData).subscribe({
+      next: (resultData) => {
         console.log(resultData);
+        this.toastr.success('Utilisateur enregistré avec succès');
         this.router.navigate(['/login']);
       },
       error: (error) => {
@@ -76,10 +65,35 @@ export class SignupComponent {
       }
     });
   }
-  
+
   checkPasswordMatch() {
     this.passwordsMatch = this.password === this.confirmPassword;
   }
+
+
+  validateFields(): boolean {
+    if (!this.name) {
+      this.toastr.error('Le nom est requis');
+      return false;
+    }
+    if (!this.email) {
+      this.toastr.error('L\'email est requis');
+      return false;
+    }
+    if (!this.password) {
+      this.toastr.error('Le mot de passe est requis');
+      return false;
+    }
+    if (!this.confirmPassword) {
+      this.toastr.error('La confirmation du mot de passe est requise');
+      return false;
+    }
+    if (!this.role) {
+      this.toastr.error('Le rôle est requis');
+      return false;
+    }
+    return true;
+  }  
 
 
   togglePasswordVisibility() {

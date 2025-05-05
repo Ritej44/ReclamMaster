@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-client',
@@ -13,25 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 export class ClientComponent  {
   searchResults: any[] = [];
 
-  searchClients(event: Event) {
-    const searchTerm = (event.target as HTMLInputElement).value;
-
-    if (searchTerm.trim() === '') {
-      this.getAllClients();
-    } else {
-      this.http.get(`http://localhost:8084/api/v1/Clients/search/name/${searchTerm}`, { responseType: 'json' })
-        .subscribe({
-          next: (resultData: any) => {
-            console.log(resultData);
-            this.ClientsArray = resultData; // Mettez à jour la variable de résultats
-          },
-          error: (error) => {
-            console.error('Error searching clients:', error);
-            this.toastr.error('Erreur lors de la recherche des clients');
-          }
-        });
-    }
-  }
 
 showEditPopup: boolean = false;
 showAddPopup: boolean = false;
@@ -52,8 +34,37 @@ showAddPopup: boolean = false;
          this.getAllClients();
     }
     
+  searchClients(event: Event) { 
+    const searchTerm = (event.target as HTMLInputElement).value;
+   
+   if (searchTerm.trim() === '') {
+     this.getAllClients();
+   } else {
+     this.http.get(`http://localhost:8084/api/user/search/name/${searchTerm}`, { responseType: 'json' })
+       .subscribe({
+         next: (resultData: any) => {
+           console.log(resultData);
+ 
+           // Vérifiez si la réponse est un tableau
+           if (Array.isArray(resultData)) {
+             this.ClientsArray = resultData;
+           } else {
+             this.ClientsArray = [resultData];
+           }
+         },
+         error: (error) => {
+           console.error('Error searching intervenants:', error);
+           this.toastr.error('Erreur lors de la recherche des Clients');
+
+           this.ClientsArray = [];
+         }
+       });
+   }
+ }
+ 
+    
     getAllClients() {
-      this.http.get("http://localhost:8084/api/v1/Clients/getAll")
+      this.http.get("http://localhost:8084/api/user/client/getAll")
       .subscribe((resultData: any)=>{
         console.log(resultData);
         this.ClientsArray = resultData;
@@ -97,7 +108,7 @@ showAddPopup: boolean = false;
         "role" : this.role
       };
       
-      this.http.put(`http://localhost:8084/api/v1/Clients/edit/${this.currentClientID} `,
+      this.http.put(`http://localhost:8084/api/user/editClient/${this.currentClientID} `,
          bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
       {
           console.log(resultData);
@@ -137,7 +148,7 @@ showAddPopup: boolean = false;
     
     setDelete(data: any) {
       if (confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) {
-        this.http.delete(`http://localhost:8084/api/v1/Clients/delete/${data.id}`, 
+        this.http.delete(`http://localhost:8084/api/user/delete/${data.id}`, 
           { responseType: 'text' }).subscribe({
             next: (resultData: any) => {
               console.log(resultData);

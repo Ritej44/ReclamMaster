@@ -34,7 +34,7 @@ export class AffectationIntervenantComponent  {
     
       
       getAllIntervenants() {
-        this.http.get("http://localhost:8084/api/v1/intervenant/getAll")
+        this.http.get("http://localhost:8084/api/user/intervenant/getAll")
         .subscribe((resultData: any)=>{
           console.log(resultData);
           this.intervenantArray = resultData;

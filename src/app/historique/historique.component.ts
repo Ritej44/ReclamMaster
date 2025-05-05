@@ -37,21 +37,38 @@ export class HistoriqueComponent implements OnInit {
   nameClient:string="";
   
   ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
+    
+    if (!currentUser || !currentUser.name) {
+      this.toastr.error("Utilisateur non authentifié");
+      return;
+    }
+    
+    this.nameClient = currentUser.name;
+    console.log('NameClient set to:', this.nameClient);
+    this.getAllReclamations();
   }
-
+   
 
   getAllReclamations() {
-    this.http.get(`http://localhost:8084/api/v1/reclamation/client/${this.nameClient}`)
-        .subscribe({
-            next: (resultData: any) => {
-                console.log(resultData);
-                this.reclamationArray = resultData;
-            },
-            error: (error) => {
-                console.error('Error fetching reclamations:', error);
-                this.toastr.error("Erreur lors de la récupération des réclamations");
-            }
-        });
+    if (!this.nameClient) {
+      console.error('nameClient is empty!');
+      return;
+    }
+
+    const encodedName = encodeURIComponent(this.nameClient);
+    this.http.get(`http://localhost:8084/api/v1/reclamation/client/${encodedName}`)
+      .subscribe({
+        next: (resultData: any) => {
+          console.log('API Response:', resultData);
+          this.reclamationArray = resultData;
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          this.toastr.error("Erreur lors de la récupération des réclamations");
+        }
+      });
+  
 }
   /*
   getAllReclamations() {

@@ -27,23 +27,34 @@ showAddPopup: boolean = false;
 
     searchIntervenants(event: Event) {
       const searchTerm = (event.target as HTMLInputElement).value;
-  
+    
       if (searchTerm.trim() === '') {
         this.getAllIntervenants();
       } else {
-        this.http.get(`http://localhost:8084/api/v1/Clients/search/name/${searchTerm}`, { responseType: 'json' })
+        this.http.get(`http://localhost:8084/api/user/search/name/${searchTerm}`, { responseType: 'json' })
           .subscribe({
             next: (resultData: any) => {
               console.log(resultData);
-              this.intervenantArray = resultData; 
+    
+              // Vérifiez si la réponse est un tableau
+              if (Array.isArray(resultData)) {
+                this.intervenantArray = resultData;
+              } else {
+                // Si la réponse est un objet unique, convertissez-le en tableau
+                this.intervenantArray = [resultData];
+              }
             },
             error: (error) => {
               console.error('Error searching intervenants:', error);
-              this.toastr.error('Erreur lors de la recherche des clients');
+              this.toastr.error('Erreur lors de la recherche des intervenants');
+              // En cas d'erreur, assurez-vous que intervenantArray est un tableau vide
+              this.intervenantArray = [];
             }
           });
       }
     }
+    
+    
     
   logout():void {
     this.authService.logout();
@@ -52,7 +63,7 @@ showAddPopup: boolean = false;
 
   
   getAllIntervenants() {
-    this.http.get("http://localhost:8084/api/v1/intervenant/getAll")
+    this.http.get("http://localhost:8084/api/user/intervenant/getAll")
     .subscribe((resultData: any)=>{
       console.log(resultData);
       this.intervenantArray = resultData;
@@ -68,7 +79,7 @@ showAddPopup: boolean = false;
       "password" : this.password,
       "role":this.role
     };
-    this.http.post("http://localhost:8084/api/v1/intervenant/create",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.post("http://localhost:8084/api/user/create",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         this.toastr.success("Intervenant inscrie avec succès");
@@ -94,7 +105,7 @@ showAddPopup: boolean = false;
       "role":this.role
     };
     
-    this.http.put("http://localhost:8084/api/v1/intervenant/edit"+ "/" + this.currentIntervenantID ,
+    this.http.put("http://localhost:8084/api/user/editIntervenant"+ "/" + this.currentIntervenantID ,
        bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
@@ -129,7 +140,7 @@ showAddPopup: boolean = false;
   setDelete(data: any)
   {  
     if (confirm('Êtes-vous sûr de vouloir supprimer cet intervenant ?')) {
-      this.http.delete(`http://localhost:8084/api/v1/intervenant/delete/${data.id}`,
+      this.http.delete(`http://localhost:8084/api/user/delete/${data.id}`,
         { responseType: 'text' }).subscribe({
           next: (resultData: any) => {  
         console.log(resultData);

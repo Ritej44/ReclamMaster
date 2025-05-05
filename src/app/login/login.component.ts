@@ -110,30 +110,32 @@ export class LoginComponent {
       if (response.token) {
         localStorage.setItem("token", response.token);
         localStorage.setItem("currentUser", JSON.stringify({
-          name: response.name || this.name,
+          name:  this.name,
           email: this.email,
           role: response.role || this.role,
         }));
       } else {
         console.error("Authentication failed: No token in response");
       }
+      switch (this.role) {
+        case "CLIENT":
+          this.router.navigateByUrl('/dashboard');
+          break;
+        case "ADMIN":
+          this.router.navigateByUrl('/dashbord-admin');
+          break;
+        case "INTERVENANT":
+          this.router.navigateByUrl('/dashboard-intervenant');
+          break;
+      }
     },
     error: (error) => {
       console.error("Authentication error:", error);
     }
-  });
+    
+  } );
   
-  switch (this.role) {
-    case "CLIENT":
-      this.router.navigateByUrl('/dashboard');
-      break;
-    case "ADMIN":
-      this.router.navigateByUrl('/dashbord-admin');
-      break;
-    case "INTERVENANT":
-      this.router.navigateByUrl('/dashboard-intervenant');
-      break;
-  }
+ 
 }
 
   togglePasswordVisibility() {

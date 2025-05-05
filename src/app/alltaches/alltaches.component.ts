@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./alltaches.component.css']
 })
 export class AlltachesComponent {
+
+  
   selectedIntervenant: string = '';
   selectedReclamation: string = '';
   reclamationArray: any[] = [];
@@ -72,7 +74,7 @@ export class AlltachesComponent {
   getClientNom(clientId: string) {
     if (!clientId) return; 
     
-    this.http.get(`http://localhost:8084/api/v1/Clients/${clientId}/name`, { 
+    this.http.get(`http://localhost:8084/api/user/${clientId}/name`, { 
       responseType: 'text' 
     }).subscribe({
       next: (name) => {
@@ -87,7 +89,7 @@ export class AlltachesComponent {
   getIntervenantNom(intervenantId: string) {
     if (!intervenantId) return; 
     
-    this.http.get(`http://localhost:8084/api/v1/intervenant/${intervenantId}/name`, { 
+    this.http.get(`http://localhost:8084/api/user/${intervenantId}/name`, { 
       responseType: 'text' 
     }).subscribe({
       next: (name) => {
@@ -112,6 +114,7 @@ export class AlltachesComponent {
         });
       });
   }
+  
   register(){
     let bodyData={
       nom:this.nom,

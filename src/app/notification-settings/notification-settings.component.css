@@ -37,7 +37,9 @@
     background: #fcfbfb;
     padding: 2rem;
     display: flex;
+
     flex-direction: column;
+    border-right: #ddd solid 1px;
     gap: 2rem;
   }
   

@@ -15,11 +15,13 @@ export class ParametreAdminComponent {
   actuel: string = '';
   nouveau: string = '';
   message: string = '';
+  currentUser: any;
+
 
 constructor(private toastr :ToastrService,private updatePasswordService :UpdatePasswordService,private authService:AuthService,private router:Router){}
 
 onSubmit() {
-  this.updatePasswordService.updatePasswordadmin(this.name, this.actuel, this.nouveau).subscribe(
+  this.updatePasswordService.updatePassword( this.actuel, this.nouveau).subscribe(
     () => {
       this.toastr.success( 'Mot de passe mis à jour avec succès', 'Succès');
     },
