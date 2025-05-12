@@ -71,8 +71,40 @@ showAddPopup: boolean = false;
 
 
   
+  
+  emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  validateEmail() {
+    if (this.email && !this.emailRegex.test(this.email)) {
+      this.toastr.error('Veuillez entrer un email valide.');
+    }
+  }
+ 
+  validateFields(): boolean {
+    if (!this.name) {
+      this.toastr.error('Le nom est requis');
+      return false;
+    }
+    if (!this.email) {
+      this.toastr.error('L\'email est requis');
+      return false;
+    }
+    if (!this.password) {
+      this.toastr.error('Le mot de passe est requis');
+      return false;
+    }
+    if (!this.role) {
+      this.toastr.error('Le rôle est requis');
+      return false;
+    }
+    return true;
+  }
   register()
   {
+    if (!this.validateFields()) {
+      return;
+    }
+  
     let bodyData = {
       "name" : this.name,
       "email" : this.email,

@@ -22,8 +22,9 @@ body {
   min-height: 100vh;
 }
 
+
 .sidebar {
-  width: 250px;
+  width: 200px;
   background: #fcfbfb;
   padding: 2rem;
   color: #ecf0f1;
@@ -39,7 +40,7 @@ body {
   justify-content: center;
 }
 .logo {
-  max-width: 150px;
+  max-width: 100px;
 }
 .section-title{ 
   color: #e2322a;
@@ -106,6 +107,7 @@ justify-content: space-between;
 background-color: #fcfcfb;
 border-bottom: 1px solid #ddd;
 padding: 10px 20px;
+margin-bottom: 4px;
 }
 
 .welcome-message {
@@ -148,7 +150,6 @@ font-size: 18px;
 color: #666;
 }
 
-/* Right Section */
 .right-section {
 display: flex;
 align-items: center;
@@ -215,3 +216,16 @@ color: #3055a0;
 font-size: 12px;
 color: #666;
 }
+iframe {
+  width: 114%;
+  height: calc(108vh - 60px); 
+  border: none;}
+  #powerbi-navbar, .powerbi-navbar {
+    display: none !important;
+}
+/* Masquer la barre latérale */
+.powerbi-sidebar {
+    display: none !important;
+}
+.logoBar  {
+  display: none !important;}

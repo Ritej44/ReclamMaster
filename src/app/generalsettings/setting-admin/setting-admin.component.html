@@ -76,11 +76,10 @@
       <div class="avatar-container">
         <img [src]="avatar" alt="Profil" class="current-avatar" *ngIf="avatar">
         <div class="avatar-info">
-          <label for="file" class="custom-file-upload">
-            Télécharger à nouveau
+          <label for="file" class="custom-file-upload" (click)="onSubmit()">Mettre à jour l'avatar
+            
             <input id="file" type="file" (change)="onFileSelected($event)" class="file-input">
           </label>
-          <button (click)="onSubmit()">Mettre à jour l'avatar</button>
         </div>
         <p>{{ message }}</p>
       </div>
@@ -96,10 +95,6 @@
     <div class="form-group">
       <label>Email</label>
       <input type="email" [(ngModel)]="email">
-    </div>
-    <div class="form-group">
-      <label>Téléphone</label>
-      <input type="tel" [(ngModel)]="phone">
     </div>
   </div>
 
@@ -120,22 +115,14 @@
 <form>
   <div class="form-group">
     <label for="name">Name:</label><br>
-    <input type="text" id="name" [(ngModel)]="name" name="name">
+    <input type="text" id="name" [(ngModel)]="nouveauName" name="name">
   </div>
   <div class="form-group">
     <label for="email">Email:</label><br>
-    <input type="email" id="email" [(ngModel)]="email" name="email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" [(ngModel)]="password" name="password">
-  </div>
-  <div class="form-group">
-    <label for="role">Role:</label><br>
-    <input type="text" id="role" [(ngModel)]="role" name="role">
+    <input type="email" id="email" [(ngModel)]="nouveauemail" name="email">
   </div>
   <div class="modal-footer">
-    <button type="button" class="ajout" (click)="UpdateRecords()">Mettre à jour</button>
+    <button type="button" class="ajout" (click)="updateEmail()">Mettre à jour</button>
     <button type="button" class="ferme" (click)="closePopups()">Fermer</button>
   </div>
 </form>

@@ -40,7 +40,7 @@
     justify-content: center;
   }
   .logo {
-    max-width: 150px;
+    max-width: 100px;
   }
   .section-title{ 
     color: #e2322a;
@@ -314,10 +314,11 @@ td {
   
   .modal-container, .custom-modal-container {
     background: #8ab2d0;
-    padding: 20px;
-    border-radius: 5px;
+     border-radius: 5px;
     width: 80%;
     max-width: 500px;
+      height: 92%;
+
   }
   
   .modal-header,.custom-modal-header {
@@ -340,13 +341,13 @@ td {
     gap: 10px;
   }
   
-  .close-btn ,.custom-close-btn {
-    background-color: #ccc;
-    font-size: 24px;
-    cursor: pointer;
-    border: #222;
-    color: #222;
-  }
+.close-btn ,.custom-close-btn {
+  background-color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+  border: #222;
+  color: #222;
+}
   .ferme, .ajout {
     color: white;
     border: none;
@@ -420,11 +421,22 @@ td {
   .custom-form-group  label{
     color: #25447e;
   }
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+     justify-content: center;
+    align-items: center;
+  }
+  .custom-form-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 5px;
+  }
   
   .form-group input,
   .custom-form-group  input{
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 10px; 
     width: 45%;
     border: 1px solid #bdc3c7;
     border-radius: 4px;

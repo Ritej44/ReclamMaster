@@ -12,7 +12,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SignupComponent {
 
-  showPassword = false
+  showconfirmPassword : boolean= false
+  showPassword :boolean = false
   name :string="";
   email :string="";
   password :string="";
@@ -30,6 +31,20 @@ export class SignupComponent {
   ) {}
 
   
+  emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  validateEmail() {
+    if (this.email && !this.emailRegex.test(this.email)) {
+      this.toastr.error('Veuillez entrer un email valide.');
+    }
+  }
+
+  
+  validatePasswords() {
+    if (this.password !== this.confirmPassword) {
+      this.toastr.error('Les mots de passe ne correspondent pas.');
+    }
+  }
   save() {
     if (!this.validateFields()) {
       return;
@@ -100,5 +115,8 @@ export class SignupComponent {
     this.showPassword = !this.showPassword;
   }
   
+  toggleconfirmPasswordVisibility() {
+    this.showconfirmPassword = !this.showconfirmPassword;
+  }
   
 }

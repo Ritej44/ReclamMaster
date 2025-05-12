@@ -8,10 +8,10 @@
     <h2>Connexion</h2>
    <form>
       <label for="name">Nom & Prénom</label>
-      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Votre Nom & votre prénom">
+      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Votre Nom & votre prénom" required [ngModelOptions]="{standalone: true}" />
 
       <label for="email">Email</label>
-  <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
+  <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required (blur)="validateEmail()" />
   
       <div>
         <label for="role">Rôle</label>
@@ -44,7 +44,7 @@
         </div>
       </span>
       <p class="compte">Nouveau sur le compte ?
-        <a routerLink="/signup" routerLinkActive="active">Inscrivez-vous</a>
+        <a class="connexion-link" routerLink="/signup" routerLinkActive="active">Inscrivez-vous</a>
       </p>
     </form>
   </div>

@@ -9,15 +9,16 @@
             <div class="name-container">
               <div class="name-fields">
                 <label for="name">Nom & Prénom</label>
-                <input type="text" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Votre nom & votre prénom">
+                <input type="text" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Votre nom & votre prénom" re
+                quired />
               </div>
-            </div>
+              </div>
+            
                 <label for="email">Email</label>
-                 <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required />
-                
+                 <input id="email" type="email"  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Votre email" required (blur)="validateEmail()" />
               <div>  
                  <label for="role">Role</label>
-                 <select id="role"  [(ngModel)]="role" [ngModelOptions]="{standalone: true}"required>
+                 <select id="role"  [(ngModel)]="role" [ngModelOptions]="{standalone: true}" required >
                   <option value="">Sélectionnez un rôle</option>
                   <option value="CLIENT">Client</option>
                   <option value="ADMIN">Admin</option>
@@ -34,12 +35,17 @@
               </div>
       
                  <label for="confirmPassword">Confirmer le Mot de Passe</label>
-                 <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" 
-                        (input)="checkPasswordMatch()" [ngModelOptions]="{standalone: true}" placeholder="confirmer votre mot de passe"
+                 <div class="confirmpassword-container">
+                 <input 
+                  id="pwd"  [type]="showconfirmPassword ? 'text' : 'password'"  [(ngModel)]="confirmPassword" 
+                        (input)="checkPasswordMatch()" [ngModelOptions]="{standalone: true}" placeholder="confirmer votre mot de passe" (blur)="validatePasswords()"
                         [class.invalid]="!passwordsMatch && confirmPassword">
-                 <small *ngIf="!passwordsMatch && confirmPassword" class="error">
-                   Les mots de passe ne correspondent pas
-                 </small>
+                        <span class="toggle-confirmpassword" (click)="toggleconfirmPasswordVisibility()">
+                          <i class="fa fa-eye" aria-hidden="true" [class.fa-eye]="!showconfirmPassword" [class.fa-eye-slash]="showconfirmPassword"></i>
+                        </span>
+                       
+                  </div>
+                 
       
             <div class="btn">
               
@@ -54,7 +60,7 @@
                 <br>
               </div>
             </span>
-            <p>Déjà un compte ? <a routerLink="/login" routerLinkActive="active">Connectez-vous</a></p>
+            <p>Déjà un compte ? <a class="connexion-link" routerLink="/login" routerLinkActive="active">Connectez-vous</a></p>
 
           </form>
         </div>

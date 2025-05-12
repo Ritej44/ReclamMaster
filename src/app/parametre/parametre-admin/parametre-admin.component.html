@@ -9,7 +9,7 @@
 
     <nav>
         <p class="section-title">General</p>
-        <a routerLink="/dashboard-admin" routerLinkActive="active">
+        <a routerLink="/dashbord-admin" routerLinkActive="active">
           <i class="fas fa-home"aria-hidden="true"></i> Tableau de Bord
           
         </a>
@@ -76,9 +76,7 @@
           <h2>Mot de Passe</h2>
           <form (ngSubmit)="onSubmit()">
             <p>Veuillez entrer votre mot de passe</p>
-              <label for="name">Nom d'utilisateur</label>
-              <input id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" name="name"  class="input-box" required />
-           <br> <label for="actuel">Mot de Passe Actuel</label>
+               <br> <label for="actuel">Mot de Passe Actuel</label>
             <input type="password" [(ngModel)]="actuel" name="actuel" id="actuel" [ngModelOptions]="{standalone: true}"class="input-box">
             <label for="nouveau">Nouveau Mot de Passe</label>
             <input type="password" name="nouveau" id="nouveau" [(ngModel)]="nouveau" [ngModelOptions]="{standalone: true}" class="input-box">

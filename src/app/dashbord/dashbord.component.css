@@ -23,7 +23,7 @@ body {
 }
 
 .sidebar {
-  width: 250px;
+  width: 200px;
   background: #fcfbfb;
   padding: 2rem;
   color: #ecf0f1;
@@ -39,7 +39,7 @@ body {
   justify-content: center;
 }
 .logo {
-  max-width: 150px;
+  max-width: 100px;
 }
 .section-title{ 
   color: #e2322a;
@@ -216,3 +216,17 @@ color: #3055a0;
 font-size: 12px;
 color: #666;
 }
+
+iframe {
+  width: 114%;
+  height: calc(108vh - 60px); 
+  border: none;}
+  #powerbi-navbar, .powerbi-navbar {
+    display: none !important;
+}
+/* Masquer la barre latérale */
+.powerbi-sidebar {
+    display: none !important;
+}
+.logoBar  {
+  display: none !important;}

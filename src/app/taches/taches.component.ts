@@ -33,7 +33,44 @@ export class TachesComponent  {
   }
 
 
+  validateFields(): boolean {
+    if (!this.nom) {
+      this.toastr.error('Le nom est requis');
+      return false;
+    }
+    if(!this.nameClient) {
+      this.toastr.error('Le nom du client est requis');
+      return false;
+    }
+    
+    if (!this.description) {
+      this.toastr.error('La description est requis');
+      return false;
+    }
+    if (!this.etat) {
+      this.toastr.error('L\'etat est requis');
+      return false;
+    }
+    if (!this.urgence) {
+      this.toastr.error('L\'urgence est requis');
+      return false;
+    }
+    if (!this.creation) {
+      this.toastr.error('La date de création est requise');
+      return false;
+    }
+    
+    if (!this.remarque) {
+      this.toastr.error('La remarque est requis');
+      return false;
+    }
+    
+    return true;
+  }  
   createReclamation() {
+    if (!this.validateFields()){
+      return;
+    }
     const creation = new Date(this.creation).toISOString();
 
     let bodyData={

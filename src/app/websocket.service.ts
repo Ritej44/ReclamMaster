@@ -35,6 +35,14 @@ export class WebsocketService {
       console.log('Connected to WebSocket server');
       this.connectionSubject.next(true);  // Notify that the connection is successful
 
+      
+      // Subscribe to the '/user/{username}/notification' topic to receive notifications
+      this.stompClient?.subscribe(`/api/user/${username}/notifications`, (message: Message) => {
+        this.messageSubject.next(JSON.parse(message.body));
+      });
+
+
+
       // Subscribe to the '/topic/public' topic to receive public messages
       this.stompClient?.subscribe('/topic/public', (message: Message) => {
         this.messageSubject.next(JSON.parse(message.body));  // Pass the message to subscribers

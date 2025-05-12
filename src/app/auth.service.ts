@@ -18,9 +18,16 @@ export class AuthService implements OnInit {
     const currentUser = localStorage.getItem('currentUser');
     return currentUser ? JSON.parse(currentUser) : null;
   }
+  getToken() {
+    return localStorage.getItem('token');
+  }
   ngOnInit() {
   this.currentUser =this.getCurrentUser();
-}
+
+   }
+setCurrentUser(user: any) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
 
 
   logout() {

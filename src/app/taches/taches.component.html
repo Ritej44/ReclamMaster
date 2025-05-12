@@ -50,7 +50,7 @@
                  <div *ngIf="nomInput.invalid && (nomInput.dirty || nomInput.touched)"
                       class="error-message">
                      Votre nom est obligatoire
-                 </div>>
+                 </div>
                     </div>
                     <div class="form-group">
                         <label for="nom">Nom du Réclamation</label>
@@ -58,7 +58,7 @@
                  <div *ngIf="nomInput.invalid && (nomInput.dirty || nomInput.touched)"
                       class="error-message">
                      Le nom est obligatoire
-                 </div>>
+                 </div>
                     </div>
                     
                 </div>
@@ -66,7 +66,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="etat">Etat :</label>
-                        <select id="etat" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}">
+                        <select id="etat" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}" required>
+                            <option value="Sélectionner">Sélectionner</option>
                             <option value="Nouveau">Nouveau</option>
                             <option value="En cours">En cours</option>
                             <option value="Résolu">Résolu</option>
@@ -74,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label for="urgence">Urgence :</label>
-                        <select id="urgence" [(ngModel)]="urgence" [ngModelOptions]="{standalone: true}">
+                        <select id="urgence" [(ngModel)]="urgence" [ngModelOptions]="{standalone: true}" required>
                             <option value="faible">Faible</option>
                             <option value="moyenne">Moyenne</option>
                             <option value="élevée">Élevée</option>
@@ -82,7 +83,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dateCreation">Date de Création</label>
-                        <input type="date" [(ngModel)]="creation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}">
+                        <input type="date" [(ngModel)]="creation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}" required placeholder="Date de Création">
                     </div>
                 </div>
         
@@ -90,7 +91,7 @@
                     
                     <div class="form-group">
                         <label for="description">Description :</label>
-                        <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="2"#descInput="ngModel" placeholder="Descrivez votre Réclamation"></textarea>
+                        <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="2"#descInput="ngModel" placeholder="Descrivez votre Réclamation" required></textarea>
                <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
                     class="error-message">
                    La description est obligatoire
@@ -98,11 +99,13 @@
                     </div>
                     <div class="form-group">
                         <label for="remarque">Remarque</label>
-                        <textarea id="remarque" [(ngModel)]="remarque" [ngModelOptions]="{standalone: true}" placeholder="Ecrivez votre remarque ici"></textarea>
+                        <textarea id="remarque" [(ngModel)]="remarque" [ngModelOptions]="{standalone: true}" placeholder="Ecrivez votre remarque ici" required></textarea>
                     </div>
                 </div>
         
-                <button class="btn" type="submit" (click)="createReclamation()">Envoyer la Réclamation</button>
+                <div class="container">
+                <button class="btn-primary" type="submit" (click)="createReclamation()">Envoyer la Réclamation</button>
+                </div>
             </form>
         </div>
         </div>

@@ -122,7 +122,7 @@
   </div>
   
   
-  <!--  ajout client -->
+  <!--  ajout intervenant -->
   <div *ngIf="showAddPopup" class="custom-modal-overlay">
     <div class="custom-modal-container">
       <div class="custom-modal-header">
@@ -133,19 +133,19 @@
         <form>
           <div class="custom-form-group">
             <label for="name">Name:</label><br>
-            <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+            <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" required>
           </div>
           <div class="custom-form-group">
             <label for="email">Email:</label><br>
-            <input type="email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+            <input type="email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required (blur)="validateEmail()">
           </div>
           <div class="custom-form-group">
             <label for="password">Password:</label><br>
-            <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+            <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"required>
           </div>
           <div class="custom-form-group">
             <label for="role">Role:</label><br>
-            <input type="text" id="role" [(ngModel)]="role" [ngModelOptions]="{standalone: true}">
+            <input type="text" id="role" [(ngModel)]="role" [ngModelOptions]="{standalone: true}" required>
           </div>
           <div class="custom-modal-footer">
             <button type="button" class="ajout" (click)="register()">Ajouter</button>

@@ -53,10 +53,10 @@
   <h4>Résultats de la recherche:</h4>
   <ul>
     <li *ngFor="let client of searchResults">
-      <strong>Name:</strong> {{ client.name }}<br>
+      <strong>Nom:</strong> {{ client.name }}<br>
       <strong>Email:</strong> {{ client.email }}<br>
       <strong>Role:</strong> {{ client.role }}<br>
-      <strong>Password:</strong> {{ client.password }}
+      <strong>Mot de passe:</strong> {{ client.password }}
     </li>
   </ul>
 </div>
@@ -65,7 +65,7 @@
     <thead>     
     <tr>
 
-        <th scope="col">Name</th>
+        <th scope="col">Nom</th>
         <th scope="col">Email</th>
         <th scope="col">Role</th>
         <th scope="col">Actions</th>
@@ -100,7 +100,7 @@
     <div class="modal-body">
       <form>
         <div class="form-group">
-          <label for="name">Name:</label><br>
+          <label for="name">Nom:</label><br>
           <input type="text" id="name" [(ngModel)]="name" name="name">
         </div>
         <div class="form-group">
@@ -108,7 +108,7 @@
           <input type="email" id="email" [(ngModel)]="email" name="email">
         </div>
         <div class="form-group">
-          <label for="password">Password:</label><br>
+          <label for="password">Mot de passe:</label><br>
           <input type="password" id="password" [(ngModel)]="password" name="password">
         </div>
         <div class="form-group">
@@ -135,20 +135,20 @@
     <div class="custom-modal-body">
       <form>
         <div class="custom-form-group">
-          <label for="name">Name:</label><br>
-          <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+          <label for="name">Nom:</label><br>
+          <input type="text" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" required>
         </div>
         <div class="custom-form-group">
           <label for="email">Email:</label><br>
-          <input type="email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+          <input type="email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required (blur)="validateEmail()">
         </div>
         <div class="custom-form-group">
-          <label for="password">Password:</label><br>
-          <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+          <label for="password">Mot de passe:</label><br>
+          <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
         </div>
         <div class="custom-form-group">
           <label for="role">Role:</label><br>
-          <input type="text" id="role" [(ngModel)]="role" [ngModelOptions]="{standalone: true}">
+          <input type="text" id="role" [(ngModel)]="role" [ngModelOptions]="{standalone: true}" required>
         </div>
         <div class="custom-modal-footer">
           <button type="button" class="ajout" (click)="register()">Ajouter</button>

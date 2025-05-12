@@ -156,7 +156,35 @@
   .compte{
     margin-top: 4%;
   }
-  
+
+  .connexion-link {
+  color: #3055a0;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.connexion-link:hover {
+  color: #cc4e8d;
+  text-decoration: underline;
+}
+
+.connexion-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #cc4e8d;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.connexion-link:hover::after {
+  transform: scaleX(1);
+}
 
   
   

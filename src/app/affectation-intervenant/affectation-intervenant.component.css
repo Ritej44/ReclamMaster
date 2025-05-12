@@ -28,9 +28,10 @@
     margin: -1%;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #bdc3c7;
-    color: var(--text-color);
+    color: #3055a0;;
+    width: 100%;
   }
+
   
   .dashboard {
     display: flex;
@@ -46,6 +47,7 @@
     flex-direction: column;
     border-right: #ddd solid 1px;
     gap: 1rem;
+    margin-right: 10px;
   }
   
   .logo-container {
@@ -54,7 +56,7 @@
     justify-content: center;
   }
   .logo {
-    max-width: 150px;
+    max-width: 100px;
   }
   .section-title{ 
     color: #e2322a;
@@ -184,10 +186,12 @@
   }
 
 .container {
-  width: 80%;
-  margin: 0px auto;
+  width: 60%;
+  height: 30%;
+  margin: 80px 2px 4px 5px;
   padding: 20px;
   background-color: #8ab2d0;
+  border-radius: 7px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -197,6 +201,8 @@ h2, h3 {
 
 .affectation-section {
   margin-bottom: 20px;
+  background-color: #8ab2d0;
+
 }
 
 .form-group {
@@ -211,7 +217,7 @@ label {
 }
 
 select {
-  width: 100%;
+  width: 60%;
   padding: 8px;
   border: 1px solid #8ab2d0;
   border-radius: 4px;

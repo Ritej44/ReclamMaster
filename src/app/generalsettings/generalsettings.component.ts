@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { UpdatePasswordService } from '../services/update-password.service';
@@ -8,7 +8,7 @@ import { UpdatePasswordService } from '../services/update-password.service';
   templateUrl: './generalsettings.component.html',
   styleUrls: ['./generalsettings.component.css']
 })
-export class GeneralsettingsComponent {
+export class GeneralsettingsComponent implements OnInit {
 phone: any;
 ClientItem: any;
 
@@ -27,10 +27,11 @@ showEditPopup: boolean = false;
     password:string="";
     role:string="";
     currentClientID = "";
-
     avatar: string = 'assets/isra.jpg'; 
     message: string = '';
     file: File | null = null;
+    currentClient: any;
+    
 
   notifications = [2,1];
   
@@ -57,7 +58,13 @@ showEditPopup: boolean = false;
     }
   }
   
-   
+   ngOnInit(): void {
+    this.currentClient= this.authService.getCurrentUser();
+    this.name= this.currentClient.name;
+    this.email= this.currentClient.email;
+    
+   }
+
 
   
   setUpdate(data: any)

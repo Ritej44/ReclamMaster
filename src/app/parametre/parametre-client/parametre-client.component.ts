@@ -19,17 +19,14 @@ export class ParametreClientComponent implements OnInit {
 
 constructor(private toastr :ToastrService,private updatePasswordService :UpdatePasswordService,private authService:AuthService,private router:Router){}
 
-getCurrentUser() {
-  const currentUser = localStorage.getItem('currentUser');
-  return currentUser ? JSON.parse(currentUser) : null;
-}
+
 
 ngOnInit(): void {
-  this.currentUser = this.getCurrentUser();
+  this.currentUser = this.authService.getCurrentUser();
 }
 
 onSubmit() {
-  this.updatePasswordService.updatePasswordclient(this.currentUser.name, this.actuel, this.nouveau).subscribe(
+  this.updatePasswordService.updatePassword(this.name, this.actuel, this.nouveau).subscribe(
     () => {
       console.log(this.currentUser.name);
       this.toastr.success( 'Mot de passe mis à jour avec succès', 'Succès');

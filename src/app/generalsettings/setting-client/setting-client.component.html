@@ -89,10 +89,6 @@
       <label>Email</label>
       <input type="email" [(ngModel)]="email">
     </div>
-    <div class="form-group">
-      <label>Téléphone</label>
-      <input type="tel" [(ngModel)]="phone">
-    </div>
   </div>
 
   <div class="form-actions">
@@ -112,22 +108,14 @@
 <form>
   <div class="form-group">
     <label for="name">Name:</label><br>
-    <input type="text" id="name" [(ngModel)]="name" name="name">
+    <input type="text" id="name" [(ngModel)]="nouveauName" name="nouveauName">
   </div>
   <div class="form-group">
     <label for="email">Email:</label><br>
-    <input type="email" id="email" [(ngModel)]="email" name="email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" [(ngModel)]="password" name="password">
-  </div>
-  <div class="form-group">
-    <label for="role">Role:</label><br>
-    <input type="text" id="role" [(ngModel)]="role" name="role">
+    <input type="email" id="email" [(ngModel)]="nouveauemail" name="nouveauemail">
   </div>
   <div class="modal-footer">
-    <button type="button" class="ajout" (click)="UpdateRecords()">Mettre à jour</button>
+    <button type="button" class="ajout" (click)="updateEmail()">Mettre à jour</button>
     <button type="button" class="ferme" (click)="closePopups()">Fermer</button>
   </div>
 </form>

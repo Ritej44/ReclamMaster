@@ -115,9 +115,49 @@ export class AlltachesComponent {
       });
   }
   
+
+  validateFields(): boolean {
+    if (!this.nom) {
+      this.toastr.error('Le nom est requis');
+      return false;
+    }
+    if(!this.nameClient) {
+      this.toastr.error('Le nom du client est requis');
+      return false;
+    }
+    
+    if (!this.description) {
+      this.toastr.error('La description est requis');
+      return false;
+    }
+    if (!this.etat) {
+      this.toastr.error('L\'etat est requis');
+      return false;
+    }
+    if (!this.urgence) {
+      this.toastr.error('L\'urgence est requis');
+      return false;
+    }
+    if (!this.dateCreation) {
+      this.toastr.error('La date de création est requise');
+      return false;
+    }
+    
+    if (!this.remarque) {
+      this.toastr.error('La remarque est requis');
+      return false;
+    }
+    
+    return true;
+  }  
+  
   register(){
+    if (!this.validateFields()){
+      return;
+    }
     let bodyData={
       nom:this.nom,
+      nameClient:this.nameClient,
       description: this.description,
       etat: this.etat,
       remarque: this.remarque,
@@ -147,6 +187,9 @@ export class AlltachesComponent {
   }
 
   UpdateRecords() {
+    if (!this.validateFields()) {
+      return;
+    }
     let bodyData = {
       nameClient:this.nameClient,
       nom:this.nom,

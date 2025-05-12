@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth.service';
 import { UpdatePasswordService } from 'src/app/services/update-password.service';
 
@@ -8,32 +9,38 @@ import { UpdatePasswordService } from 'src/app/services/update-password.service'
   templateUrl: './setting-admin.component.html',
   styleUrls: ['./setting-admin.component.css']
 })
-export class SettingAdminComponent {
-phone: any;
-ClientItem: any;
+export class SettingAdminComponent  implements OnInit {
+  ClientItem: any;
+  showEditPopup: boolean = false;
+  ClientsArray: any[] = [];
+  name: string = "";
+  email: string = "";
+  password: string = "";
+  role: string = "";
+  currentAdmin: any;
+  avatar: string = 'assets/isra.jpg';
+  message: string = '';
+  file: File | null = null;
+  nouveauemail: string = '';
+  nouveauName: string = '';
+  notifications = [2, 1];
 
+  constructor(
+    private updatePasswordService: UpdatePasswordService,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  constructor(private updatePasswordService:UpdatePasswordService,private authService:AuthService,private router:Router){}
-  
-    logout():void {
-      this.authService.logout();
-  
-   this.router.navigate(['/login']);  }
-   
-showEditPopup: boolean = false;
-    ClientsArray : any[] = [];
-    name :string="";
-    email:string="";
-    password:string="";
-    role:string="";
-    currentClientID = "";
+  ngOnInit(): void {
+    this.getCurrentAdmin();
+  }
 
-    avatar: string = 'assets/isra.jpg'; 
-    message: string = '';
-    file: File | null = null;
-
-  notifications = [2,1];
-  
+  getCurrentAdmin() {
+    this.currentAdmin = this.authService.getCurrentUser();
+    this.name = this.currentAdmin.name;
+    this.email = this.currentAdmin.email;
+  }
 
   onFileSelected(event: any) {
     const fileInput = event.target as HTMLInputElement;
@@ -56,46 +63,46 @@ showEditPopup: boolean = false;
       this.message = 'Veuillez sélectionner un fichier';
     }
   }
-  
-   
 
-  
-  setUpdate(data: any)
-  {
-   this.name = data.name;
-   this.email=data.email;
-   this.password = data.password;
-   this.role = data.role;
-   this.currentClientID = data.id;
-   
+  updateEmail() {
+    if (this.nouveauemail && this.nouveauName) {
+      this.updatePasswordService.updateEmailAndName(this.name, this.nouveauemail,this.nouveauName).subscribe(
+        () => {
+          this.toastr.success('L\'opération a été mise à jour avec succès', 'Succès');
+          this.email = this.nouveauemail;
+          this.name=this.nouveauName; 
+          this.currentAdmin.name = this.nouveauName;
+          this.currentAdmin.email = this.nouveauemail;
+          this.authService.setCurrentUser(this.currentAdmin);
+          console.log(this.currentAdmin);
+      
+        },
+        (error) => {
+          this.toastr.error('Erreur lors de la mise à jour de l\'email', 'Erreur');
+        }
+      );
+    } else {
+      this.toastr.warning('Veuillez entrer un nouvel nom ou email', 'Attention');
+    }
   }
 
-    UpdateRecords(){
-    let bodyData = {
-      "name" : this.name,
-      "email":this.email,
-      "role" : this.role
-    };}
-
-    openEditPopup(ClientItem: any): void {
-      this.setUpdate(ClientItem);
-      this.showEditPopup = true;
-    }
-  
-    closePopups() {
-      this.showEditPopup = false;
-    
-    }
-  
-saveChanges() {
-    // Implement save logic
-    console.log('Saving changes...');
+  openEditPopup(ClientItem: any): void {
+    this.showEditPopup = true;
   }
 
-  
+  closePopups() {
+    this.showEditPopup = false;
+  }
+
   resetForm() {
-    // Implement reset logic
+    this.name = "";
+    this.email = "";
     console.log('Resetting form...');
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 

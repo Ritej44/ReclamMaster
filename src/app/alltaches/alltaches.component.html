@@ -49,87 +49,41 @@
               <button class="butonsearch" for="ajout" (click)="openAjoutPopup()"> <i class="fas fa-user-plus"></i>Ajouter reclamation</button>
             </div>
             
-            <!-- Tableau inversé -->
             <table class="table table-bordered">
-                <tr>
-                    <th class="text-right bg-light">Nom Reclamation</th>
-                    <td *ngFor="let reclamation of reclamationArray">
-                      {{ reclamation.nom }}
-                    </td>
-                  </tr>
-              <!-- Ligne Description -->
-              <tr>
-                <th class="text-right bg-light" style="width: 20%">Description</th>
-                <td *ngFor="let reclamation of reclamationArray" class="text-left">
-                  {{ reclamation.description }}
-                </td>
-              </tr>
-              
-              <!-- Ligne État -->
-              <tr>
-                <th class="text-right bg-light">État</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.etat }}
-                </td>
-              </tr>
-              
-              <!-- Ligne Remarque -->
-              <tr>
-                <th class="text-right bg-light">Remarque</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.remarque }}
-                </td>
-              </tr>
-              
-              
-              <!-- Ligne Urgence -->
-              <tr>
-                <th class="text-right bg-light">Urgence</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.urgence }}
-                </td>
-              </tr>
-              
-              <!-- Ligne Date Création -->
-              <tr>
-                <th class="text-right bg-light">Date Création</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.dateCreation | date:'medium' }}
-                </td>
-              </tr>
-              <tr>
-                <th class="text-right bg-light">Date de Fin</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  {{ reclamation.dateFin | date:'medium' }}
-                </td>
-              </tr>
-
-              <tr>
-                <th class="text-right bg-light">Intervenant</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                  <!-- Affiche le nom si disponible, sinon "Chargement..." ou "Non affecté" -->
-                  <span *ngIf="reclamation.intervenantId">
+                            <thead>
+                    <tr>
+                        <th>Nom du Reclamation</th>
+                        <th>Description</th>
+                        <th>Etat</th>
+                        <th>Urgence</th>
+                        <th>Remarque</th>
+                        <th>Date de Création</th>
+                        <th>Date de Fin</th>
+                        <th>Intervenant</th>
+                        <th>Client</th>
+                        <th class="text-right bg-light">Actions</th>
+                    </tr>
+ 
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reclamation of reclamationArray">
+                        <td>{{reclamation.nom}}</td>
+                        <td>{{ reclamation.description }}</td>
+                        <td>{{ reclamation.etat }}</td>
+                        <td>{{ reclamation.urgence }}</td>
+                        <td>{{ reclamation.remarque }}</td>
+                         <td>{{ reclamation.dateCreation }}</td>
+                        <td>{{reclamation.dateFin | date:'medium' }}</td>
+                        <td> <span *ngIf="reclamation.intervenantId">
                     {{ intervenantNoms[reclamation.intervenantId] || 'Chargement...' }}
                   </span>
                   <span *ngIf="!reclamation.intervenantId">
-                    Non affecté
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th class="text-right bg-light">Nom du Client</th>
-                <td *ngFor="let reclamation of reclamationArray">
-                    {{ reclamation.nameClient}}
+                    Non affecté </span></td>
+                        <td>{{ reclamation.nameClient}}
                   <span *ngIf="!reclamation.nameClient">
                     Non récupérée
-                  </span>
-                </td>
-              </tr>
-              
-               <tr>
-                <th class="text-right bg-light">Actions</th>
-                 <td *ngFor="let reclamation of reclamationArray">
+                  </span></td>
+                  <td class="btnright">
                   <button class="btn btn-warning btn-sm" title="Modifier" (click)="openEditPopup(reclamation)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
@@ -137,8 +91,18 @@
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
                   </td>
-               </tr>
-              </table>
+                    </tr>
+                    <tr *ngIf="reclamationArray.length === 0">
+                        <td colspan="9" class="text-center">Aucune réclamation trouvée.</td>
+                    </tr>
+                      </tbody>
+            </table>
+             
+              
+
+          
+              
+              
           </div>
         </div>
 
@@ -155,23 +119,31 @@
           <div class="form-row">
           <div class="form-group">
             <label for="nameClient">Nom du Client</label>
-            <input type="text" class="form-control" [(ngModel)]="nameClient" name="nameClient">
+            <input type="text" class="form-control" [(ngModel)]="nameClient" name="nameClient" required>
           </div>
         <div class="form-group">
           <label for="nom">Nom</label>
-          <input type="text" class="form-control" [(ngModel)]="nom" name="nom">
+          <input type="text" class="form-control" [(ngModel)]="nom" name="nom" required>
         </div>
           </div>
+          </div>
+          <div class="nomdes">
+            <div class="form-row">
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea type="text" class="form-control" [(ngModel)]="description" name="description" rows="2"></textarea>
+          <textarea type="text" class="form-control" [(ngModel)]="description" name="description" rows="2" required></textarea>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="etat">Remarque</label>
+          <textarea class="form-control" [(ngModel)]="remarque" name="remarque" required></textarea>
+        </div>
+          </div>
+          </div>
       <div class="nomdes">
         <div class="form-row">
         <div class="form-group">
           <label for="etat">État</label>
-          <select class="form-control" [(ngModel)]="etat" name="etat">
+          <select class="form-control" [(ngModel)]="etat" name="etat" required>
             <option value="Nouveau">Nouveau</option>
             <option value="En cours">En cours</option>
             <option value="Résolu">Résolu</option>
@@ -179,7 +151,8 @@
         </div>
         <div class="form-group">
           <label>Urgence</label>
-          <select class="form-control" [(ngModel)]="urgence" name="urgence">
+          <select class="form-control" [(ngModel)]="urgence" name="urgence" req
+          uired>  
             <option value="Faible">Faible</option>
             <option value="Moyenne">Moyenne</option>
             <option value="Haute">Elevé</option>
@@ -188,18 +161,19 @@
       </div>
       </div>
       <div class="nomdes">
-        <div class="form-group">
-          <label for="etat">Remarque</label>
-          <textarea class="form-control" [(ngModel)]="remarque" name="remarque"></textarea>
-        </div>
+        
         <div class="form-group">
           <label for="dateCreation">Date Création</label>
-          <input type="datetime-local" class="form-control" [(ngModel)]="dateCreation" name="dateCreation">
+          <input type="datetime-local" class="form-control" [(ngModel)]="dateCreation" name="dateCreation" required>
         </div>
+        <div class="form-group">
+          <label for="dateFin">Date Fin</label>
+          <input type="datetime-local" class="form-control" [(ngModel)]="dateFin" name="dateFin">
+      </div>
       </div>
         <div class="modal-footer">
           <button type="button" class="ajout" (click)="closePopup()">Annuler</button>
-          <button type="button" class="ferme" (click)="UpdateRecords(); closePopup()">Mettre à jour</button>
+          <button type="button" class="ferme" (click)="UpdateRecords()">Mettre à jour</button>
         </div>
       </form>
     </div>
@@ -213,7 +187,7 @@
  <div *ngIf="showAddPopup" class="custom-modal-overlay">
   <div class="custom-modal-container">
     <div class="custom-modal-header">
-      <h4>Ajouter un Réclamation</h4>
+      <h4>Ajouter une Réclamation</h4>
       <button (click)="closePopup()" class="custom-close-btn">&times;</button>
     </div>
     <div class="custom-modal-body">
@@ -221,8 +195,14 @@
   <div class="form-row">
       <div class="form-group">
           <label for="nom">Nom du Réclamation</label>
-          <input type="text" name="nom" id="nom" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" required #nomInput="ngModel">
+          <input type="text" name="nom" id="nom" [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" required >
       </div>
+      <div class="form-group">
+          <label for="nameClient">Nom du Client</label>
+          <input type="text" name="nameClient" id="nameClient" [(ngModel)]="nameClient" [ngModelOptions]="{standalone: true}" required>
+      </div>
+  </div>
+  <div class="form-row">
       <div class="form-group">
           <label for="description">Description :</label>
           <textarea id="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"required rows="1"#descInput="ngModel"></textarea>
@@ -233,7 +213,7 @@
   <div class="form-row">
       <div class="form-group">
           <label for="etat">Etat :</label>
-          <select id="etat" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}">
+          <select id="etat" [(ngModel)]="etat" [ngModelOptions]="{standalone: true}" required>
               <option value="Nouveau">Nouveau</option>
               <option value="En cours">En cours</option>
               <option value="Résolu">Résolu</option>
@@ -241,7 +221,7 @@
       </div>
       <div class="form-group">
           <label for="urgence">Urgence :</label>
-          <select id="urgence" [(ngModel)]="urgence" [ngModelOptions]="{standalone: true}">
+          <select id="urgence" [(ngModel)]="urgence" [ngModelOptions]="{standalone: true}" required>
               <option value="faible">Faible</option>
               <option value="moyenne">Moyenne</option>
               <option value="élevée">Élevée</option>
@@ -252,7 +232,7 @@
   <div class="form-row">
       <div class="form-group">
           <label for="dateCreation">Date de Création</label>
-          <input type="date" [(ngModel)]="dateCreation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}">
+          <input type="date" [(ngModel)]="dateCreation" name="dateCreation" id="dateCreation" [ngModelOptions]="{standalone: true}" required>
       </div>
       <div class="form-group">
           <label for="remarque">Remarque</label>

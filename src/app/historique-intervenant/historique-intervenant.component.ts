@@ -1,31 +1,25 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { catchError, Observable, of, tap } from 'rxjs';
+import { WebsocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-historique-intervenant',
   templateUrl: './historique-intervenant.component.html',
   styleUrls: ['./historique-intervenant.component.css']
 })
-export class HistoriqueIntervenantComponent {
+export class HistoriqueIntervenantComponent implements OnInit {
 
     filteredTaches: any =[];
   currentUser: any;
+  messages: any;
   
-    constructor(
-      private http: HttpClient,
-      private authService: AuthService,
-      private router: Router,
-      private toastr:ToastrService,
-    ) {
-  
-  
-    }
+    constructor(private http: HttpClient,private websocketService:WebsocketService, private authService: AuthService,private router: Router,private toastr:ToastrService,) {}
   
     intervenantNoms: string = "";
     showEditPopup:boolean=false;
@@ -42,9 +36,10 @@ export class HistoriqueIntervenantComponent {
     clientId: string = "";
     intervenantId:  string ="";
     dateFin : string="";
-           
+    socketClient: any = null;
     
     ngOnInit(): void {
+     
       const currentUser = this.authService.getCurrentUser();
 
       if (!currentUser || !currentUser.name) {
@@ -79,9 +74,22 @@ export class HistoriqueIntervenantComponent {
         });
 
         console.log('ID de l\'intervenant:', this.intervenantId);
+          this.navigationHandler();
+      }
+
+
+     private navigationHandler(){
+      const LinkColor = document.querySelectorAll('.nav-link');
+      LinkColor.forEach((link) => {
+        if(window.location.href.endsWith(link.getAttribute('href')!)){
+          link.classList.add('active');
     }
-
-
+    link.addEventListener('click', () => {
+      LinkColor.forEach((l) => { l.classList.remove('active'); });
+      link.classList.add('active');
+    });
+  });
+    }
 
 
     getAllReclamations() {

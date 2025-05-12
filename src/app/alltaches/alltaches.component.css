@@ -39,7 +39,7 @@
   }
   
   .sidebar {
-    width: 250px;
+    width: 200px;
     background: #fcfbfb;
     padding: 2rem;
     color: #ecf0f1;
@@ -55,7 +55,7 @@
     justify-content: center;
   }
   .logo {
-    max-width: 150px;
+    max-width: 100px;
   }
   .section-title{ 
     color: #e2322a;
@@ -157,6 +157,7 @@ select {
 .reclamation-list {
   margin-top: 30px;
   margin-left: 4px;
+  width: 60%;
 }
 
 .row{
@@ -204,53 +205,71 @@ h1{
   border-collapse: collapse;
   font-size: 14px;
   text-align: left;
+  margin-left: 2%;
 }
 
 th {
   background-color: #25447e;
   color: white;
   padding: 10px;
-  font-size: 14px;
+  font-size: 12px;
   border: solid 1px #8ab2d0;
 }
 
 td {
-  padding: 10px;
+  padding: 6px;
   border: 1px solid #25447e;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #8ab2d0;
 
 }
+.btnright {
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligne les boutons à droite */
+    gap: 4px; /* Espace entre les boutons */
+}
 
 .btn-warning, .btn-danger {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  margin: 2px;
-  width: 40%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display:flex;
+    text-align: center;
+    margin-top: 4px;
+    text-decoration: none;
 }
 
 .btn-warning {
- color: #25447e;
+    background-color: #f8f9fa;
+    color: #25447e;
+    border: 1px solid #25447e;
 }
 
 .btn-warning:hover {
-  background-color: #bdc3c7;
+    background-color: #bdc3c7;
 }
 
 .btn-danger {
-  color: #e2322a;
-  
+    background-color: #f8d7da;
+    color: #e2322a;
+    border: 1px solid #e2322a;
 }
 
 .btn-danger:hover {
-  background-color: #25447e;
+    background-color: #25447e;
+    color: #ffffff;
 }
+
 .btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+    padding: 4px 8px;
+    font-size: 12px;
 }
 
 .card {
@@ -277,7 +296,7 @@ td {
   width: 80%;
   max-width: 500px;
   height: 90%;
-}
+  }
 
 .modal-header,.custom-modal-header {
   padding: 15px 20px;
